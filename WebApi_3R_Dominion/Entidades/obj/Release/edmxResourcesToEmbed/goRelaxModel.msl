@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GoRelaxModelStoreContainer" CdmEntityContainer="GoRelaxEntities">
+    <EntitySetMapping Name="Pub_Usuarios">
+      <EntityTypeMapping TypeName="GoRelaxModel.Pub_Usuarios">
+        <MappingFragment StoreEntitySet="Pub_Usuarios">
+          <ScalarProperty Name="pub_noPhoto" ColumnName="pub_noPhoto" />
+          <ScalarProperty Name="pub_dni" ColumnName="pub_dni" />
+          <ScalarProperty Name="Pub_Usua_Obs" ColumnName="Pub_Usua_Obs" />
+          <ScalarProperty Name="Pub_Area_Codigo" ColumnName="Pub_Area_Codigo" />
+          <ScalarProperty Name="Pub_Usua_Identidad" ColumnName="Pub_Usua_Identidad" />
+          <ScalarProperty Name="Pub_Usua_FecModi" ColumnName="Pub_Usua_FecModi" />
+          <ScalarProperty Name="Pub_Usua_UsuModi" ColumnName="Pub_Usua_UsuModi" />
+          <ScalarProperty Name="Pub_Usua_FecCrea" ColumnName="Pub_Usua_FecCrea" />
+          <ScalarProperty Name="Pub_Usua_UsuCrea" ColumnName="Pub_Usua_UsuCrea" />
+          <ScalarProperty Name="Pub_Esta_Codigo" ColumnName="Pub_Esta_Codigo" />
+          <ScalarProperty Name="Pub_Usua_Sis" ColumnName="Pub_Usua_Sis" />
+          <ScalarProperty Name="Pub_Usua_Adm" ColumnName="Pub_Usua_Adm" />
+          <ScalarProperty Name="Pub_Usua_Email" ColumnName="Pub_Usua_Email" />
+          <ScalarProperty Name="Pub_Usua_Cargo" ColumnName="Pub_Usua_Cargo" />
+          <ScalarProperty Name="Pub_Usua_Clave" ColumnName="Pub_Usua_Clave" />
+          <ScalarProperty Name="Pub_Usua_Login" ColumnName="Pub_Usua_Login" />
+          <ScalarProperty Name="Pub_Usua_Codigo" ColumnName="Pub_Usua_Codigo" />
+          <ScalarProperty Name="Pub_Usua_Nombre" ColumnName="Pub_Usua_Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

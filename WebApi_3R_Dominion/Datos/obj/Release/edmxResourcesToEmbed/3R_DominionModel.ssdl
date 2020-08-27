@@ -1,0 +1,598 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Proyecto_3RModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.cesar' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="cesar">
+          <Property Name="id_Icono" Type="int" />
+        </EntityType>-->
+  <EntityType Name="tbl_Aceesos_Evento">
+    <Key>
+      <PropertyRef Name="id_Acceso_evento" />
+    </Key>
+    <Property Name="id_Acceso_evento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_Opcion" Type="int" />
+    <Property Name="id_Usuario" Type="int" />
+    <Property Name="id_Evento" Type="int" />
+    <Property Name="estado" Type="int" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="datetime" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_Cargo_Personal">
+    <Key>
+      <PropertyRef Name="id_Cargo" />
+    </Key>
+    <Property Name="id_Cargo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombreCargo" Type="varchar" MaxLength="70" />
+    <Property Name="estado" Type="int" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="datetime" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_Configuracion_Zonas">
+    <Key>
+      <PropertyRef Name="id_Configuracion" />
+    </Key>
+    <Property Name="id_Configuracion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_Servicios" Type="int" />
+    <Property Name="id_Empresa" Type="int" />
+    <Property Name="id_Distrito" Type="int" />
+    <Property Name="estado" Type="int" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="datetime" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_Definicion_Opciones">
+    <Key>
+      <PropertyRef Name="id_Opcion" />
+    </Key>
+    <Property Name="id_Opcion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre_opcion" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="url_opcion" Type="varchar" MaxLength="200" />
+    <Property Name="parentID" Type="int" />
+    <Property Name="nombreParentID" Type="varchar" MaxLength="150" />
+    <Property Name="urlImagen_Opcion" Type="varchar" MaxLength="200" />
+    <Property Name="orden_Opcion" Type="int" />
+    <Property Name="interface_Opcion" Type="int" />
+    <Property Name="TipoInterface" Type="varchar" MaxLength="2" />
+    <Property Name="estado" Type="int" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="datetime" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_Distritos">
+    <Key>
+      <PropertyRef Name="id_Distrito" />
+    </Key>
+    <Property Name="id_Distrito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombreDistrito" Type="varchar" MaxLength="100" />
+    <Property Name="estado" Type="int" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="datetime" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_Empresas">
+    <Key>
+      <PropertyRef Name="id_Empresa" />
+    </Key>
+    <Property Name="id_Empresa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ruc_Empresa" Type="varchar" MaxLength="20" />
+    <Property Name="razonSocial_Empresa" Type="varchar" MaxLength="200" />
+    <Property Name="direccion_Empresa" Type="varchar" MaxLength="250" />
+    <Property Name="id_Icono" Type="int" />
+    <Property Name="esProveedor" Type="int" />
+    <Property Name="estado" Type="int" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="datetime" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_Empresas_Vehiculos">
+    <Key>
+      <PropertyRef Name="id_Empresa_Vehiculo" />
+    </Key>
+    <Property Name="id_Empresa_Vehiculo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_Empresa" Type="int" />
+    <Property Name="nro_Placa" Type="varchar" MaxLength="30" />
+    <Property Name="cantidadM3" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="tbl_EstadoCelular">
+    <Key>
+      <PropertyRef Name="id_EstadoCelular" />
+    </Key>
+    <Property Name="id_EstadoCelular" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_Operario" Type="int" />
+    <Property Name="GpsActivo" Type="bit" />
+    <Property Name="estadoBateria" Type="int" />
+    <Property Name="FechaHoraAndroid" Type="datetime" />
+    <Property Name="FechaAgregaRegistro" Type="datetime" />
+    <Property Name="ModoAvion" Type="int" />
+    <Property Name="PlanDatos" Type="bit" />
+  </EntityType>
+  <EntityType Name="tbl_Estados">
+    <Key>
+      <PropertyRef Name="id_Estado" />
+    </Key>
+    <Property Name="id_Estado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="abreviatura_estado" Type="varchar" MaxLength="50" />
+    <Property Name="descripcion_estado" Type="varchar" MaxLength="150" />
+    <Property Name="tipoproceso_estado" Type="varchar" MaxLength="20" />
+    <Property Name="descripcion_tipoproceso_estado" Type="varchar" MaxLength="150" />
+    <Property Name="id_Modulo" Type="int" />
+    <Property Name="orden_estado" Type="int" />
+    <Property Name="Backcolor_estado" Type="varchar" MaxLength="50" />
+    <Property Name="forecolor_estado" Type="varchar" MaxLength="50" />
+    <Property Name="estado" Type="int" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="datetime" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="datetime" />
+    <Property Name="Simbolo_estado" Type="varchar" MaxLength="5" />
+  </EntityType>
+  <EntityType Name="tbl_Evento">
+    <Key>
+      <PropertyRef Name="id_Evento" />
+    </Key>
+    <Property Name="id_Evento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre_Evento" Type="varchar" MaxLength="50" />
+    <Property Name="estado" Type="int" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="datetime" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_GrupoTabla_Cab">
+    <Key>
+      <PropertyRef Name="id_GrupoTabla" />
+    </Key>
+    <Property Name="id_GrupoTabla" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descripcion_GrupoTabla" Type="varchar" MaxLength="100" />
+    <Property Name="estado" Type="int" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="datetime" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_GrupoTabla_Det">
+    <Key>
+      <PropertyRef Name="id_detalleTabla" />
+    </Key>
+    <Property Name="id_detalleTabla" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_grupoTabla" Type="int" Nullable="false" />
+    <Property Name="codigo_detalleTabla" Type="varchar" MaxLength="20" />
+    <Property Name="descripcion_grupoTabla" Type="varchar" MaxLength="150" />
+    <Property Name="estado" Type="int" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="datetime" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_Iconos">
+    <Key>
+      <PropertyRef Name="id_Icono" />
+    </Key>
+    <Property Name="id_Icono" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre_Icono" Type="varchar" MaxLength="100" />
+    <Property Name="url_Icono" Type="varchar" MaxLength="150" />
+    <Property Name="estado" Type="int" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="datetime" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TBL_Operarios_RegistroGPS">
+    <Key>
+      <PropertyRef Name="ID_Gps" />
+    </Key>
+    <Property Name="ID_Gps" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_operario" Type="int" />
+    <Property Name="GPS_Latitud" Type="varchar" MaxLength="50" />
+    <Property Name="GPS_Longitud" Type="varchar" MaxLength="50" />
+    <Property Name="fecha_GPD" Type="datetime" />
+    <Property Name="fecha_Android" Type="datetime" />
+    <Property Name="fecha_AgregaRegistro" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_OrdenTrabajo_Cab">
+    <Key>
+      <PropertyRef Name="id_OT" />
+    </Key>
+    <Property Name="id_OT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_TipoOrdenTrabajo" Type="int" />
+    <Property Name="id_Servicios" Type="int" />
+    <Property Name="nroObraTD" Type="varchar" MaxLength="30" />
+    <Property Name="direccion_OT" Type="varchar" MaxLength="250" />
+    <Property Name="id_Distrito" Type="int" />
+    <Property Name="referencia_OT" Type="varchar" MaxLength="250" />
+    <Property Name="descripcion_OT" Type="varchar" MaxLength="250" />
+    <Property Name="fechaAprobacion_OT" Type="datetime" />
+    <Property Name="fechaAsignacion_OT" Type="datetime" />
+    <Property Name="fechaEnvioMovil_OT" Type="datetime" />
+    <Property Name="fechaRegistro_OT" Type="datetime" />
+    <Property Name="fechaReasignacion_OT" Type="datetime" />
+    <Property Name="fechaCancelacion_OT" Type="datetime" />
+    <Property Name="id_Empresa" Type="int" />
+    <Property Name="id_PersonalJefeCuadrilla" Type="int" />
+    <Property Name="id_OT_Origen" Type="int" />
+    <Property Name="obsReasignacion_OT" Type="varchar" MaxLength="250" />
+    <Property Name="id_MotivoPrioridad" Type="int" />
+    <Property Name="obsMotivoPrioridad_OT" Type="varchar" MaxLength="250" />
+    <Property Name="observaciones_OT" Type="varchar" MaxLength="250" />
+    <Property Name="ordenamiento_OT" Type="int" />
+    <Property Name="latitud_OT" Type="varchar" MaxLength="30" />
+    <Property Name="longitud_OT" Type="varchar" MaxLength="30" />
+    <Property Name="totalMedidas_OT" Type="decimal" Precision="28" Scale="3" />
+    <Property Name="totalDesmonteRecojido_OT" Type="decimal" Precision="28" Scale="3" />
+    <Property Name="totalDesmontePorRecojido_OT" Type="decimal" Precision="28" Scale="3" />
+    <Property Name="estado" Type="int" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="datetime" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_OrdenTrabajo_Det">
+    <Key>
+      <PropertyRef Name="id_OTDet" />
+    </Key>
+    <Property Name="id_OTDet" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_OT" Type="int" />
+    <Property Name="id_TipoTrabajo" Type="int" />
+    <Property Name="id_TipoMaterial" Type="int" />
+    <Property Name="id_TipoDesmonte" Type="int" />
+    <Property Name="Largo_OTDet" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Ancho_OTDet" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Espesor_OTDet" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="total_OTDet" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="nroPlacaVehiculo" Type="varchar" MaxLength="30" />
+    <Property Name="m3Vehiculo" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="estado" Type="int" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="datetime" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_OrdenTrabajo_Foto">
+    <Key>
+      <PropertyRef Name="id_OTDet_Foto" />
+    </Key>
+    <Property Name="id_OTDet_Foto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_OTDet" Type="int" />
+    <Property Name="nombre_OTDet_Foto" Type="varchar" MaxLength="50" />
+    <Property Name="url_OTDet_Foto" Type="varchar" MaxLength="100" />
+    <Property Name="estado" Type="int" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="datetime" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_OrdenTrabajo_Reasignacion">
+    <Key>
+      <PropertyRef Name="id_OT_Reasignacion" />
+    </Key>
+    <Property Name="id_OT_Reasignacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_OT" Type="int" />
+    <Property Name="id_Empresa" Type="int" />
+    <Property Name="id_Personal" Type="int" />
+    <Property Name="fechaAsignacion_OT" Type="datetime" />
+    <Property Name="id_EmpresaReasignacion" Type="int" />
+    <Property Name="id_PersonalReasignacion" Type="int" />
+    <Property Name="fechaReasignacion_OT" Type="datetime" />
+    <Property Name="estado" Type="int" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="datetime" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_Parametro_Movil">
+    <Key>
+      <PropertyRef Name="id_Parametro" />
+    </Key>
+    <Property Name="id_Parametro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre_Parametro" Type="varchar" MaxLength="30" />
+    <Property Name="valor_Parametro" Type="int" />
+    <Property Name="estado" Type="int" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="datetime" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_Perfil">
+    <Key>
+      <PropertyRef Name="id_perfil" />
+    </Key>
+    <Property Name="id_perfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descripcion_perfil" Type="varchar" MaxLength="100" />
+    <Property Name="estado" Type="int" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="datetime" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_Perfil_Accesos">
+    <Key>
+      <PropertyRef Name="id_Perfil_Acceso" />
+    </Key>
+    <Property Name="id_Perfil_Acceso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_perfil" Type="int" />
+    <Property Name="id_opcion" Type="int" />
+    <Property Name="id_Evento" Type="int" />
+    <Property Name="estado" Type="int" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="varchar" MaxLength="50" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tbl_Personal">
+    <Key>
+      <PropertyRef Name="id_Personal" />
+    </Key>
+    <Property Name="id_Personal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_Empresa" Type="int" />
+    <Property Name="id_TipoDoc" Type="int" />
+    <Property Name="nroDocumento_Personal" Type="varchar" MaxLength="20" />
+    <Property Name="apellidos_Personal" Type="varchar" MaxLength="100" />
+    <Property Name="nombres_Personal" Type="varchar" MaxLength="100" />
+    <Property Name="id_Cargo" Type="int" />
+    <Property Name="estado" Type="int" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="datetime" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_Precios">
+    <Key>
+      <PropertyRef Name="id_Precio" />
+    </Key>
+    <Property Name="id_Precio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_TipoOrdenTrabajo" Type="int" />
+    <Property Name="cubicaje" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="cubicajeFinal" Type="decimal" Precision="18" Scale="3" />
+    <Property Name="precio" Type="decimal" Precision="18" Scale="3" />
+    <Property Name="estado" Type="int" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="datetime" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_Servicios">
+    <Key>
+      <PropertyRef Name="id_Servicios" />
+    </Key>
+    <Property Name="id_Servicios" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombreServicio" Type="varchar" MaxLength="50" />
+    <Property Name="id_Patron" Type="int" />
+    <Property Name="tiempo_Servicio" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="estado" Type="int" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="datetime" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_Usuarios">
+    <Key>
+      <PropertyRef Name="id_Usuario" />
+    </Key>
+    <Property Name="id_Usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_Personal" Type="int" />
+    <Property Name="nrodoc_usuario" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="apellidos_usuario" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="nombres_usuario" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="email_usuario" Type="varchar" MaxLength="150" />
+    <Property Name="id_TipoUsuario" Type="int" />
+    <Property Name="id_Perfil" Type="int" Nullable="false" />
+    <Property Name="fotourl" Type="varchar" MaxLength="250" />
+    <Property Name="login_usuario" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="contrasenia_usuario" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="estado" Type="int" Nullable="false" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="datetime" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_Usuarios_Servicios">
+    <Key>
+      <PropertyRef Name="id_usuario_servicio" />
+    </Key>
+    <Property Name="id_usuario_servicio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_usuario" Type="int" />
+    <Property Name="id_servicio" Type="int" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="datetime" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="datetime" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoESTADO' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="TempoESTADO">
+    <Key>
+      <PropertyRef Name="id_estadocelular" />
+      <PropertyRef Name="id_operario" />
+      <PropertyRef Name="GpsActivo" />
+      <PropertyRef Name="estadoBateria" />
+      <PropertyRef Name="FechaHoraAndroid" />
+      <PropertyRef Name="FechaAgregaRegistro" />
+    </Key>
+    <Property Name="id_estadocelular" Type="bigint" Nullable="false" />
+    <Property Name="id_operario" Type="int" Nullable="false" />
+    <Property Name="GpsActivo" Type="bit" Nullable="false" />
+    <Property Name="estadoBateria" Type="int" Nullable="false" />
+    <Property Name="FechaHoraAndroid" Type="datetime" Nullable="false" />
+    <Property Name="FechaAgregaRegistro" Type="datetime" Nullable="false" />
+    <Property Name="ModoAvion" Type="int" />
+    <Property Name="PlanDatos" Type="bit" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoGPS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="TempoGPS">
+    <Key>
+      <PropertyRef Name="ID_Gps" />
+    </Key>
+    <Property Name="ID_Gps" Type="int" Nullable="false" />
+    <Property Name="id_operario" Type="int" />
+    <Property Name="GPS_Latitud" Type="varchar" MaxLength="50" />
+    <Property Name="GPS_Longitud" Type="varchar" MaxLength="50" />
+    <Property Name="fecha_GPD" Type="datetime" />
+    <Property Name="fecha_Android" Type="datetime" />
+    <Property Name="fecha_AgregaRegistro" Type="datetime" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoOperario' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="TempoOperario">
+    <Key>
+      <PropertyRef Name="id_Operario" />
+      <PropertyRef Name="nroDoc_Operario" />
+      <PropertyRef Name="Apellidos_Operario" />
+      <PropertyRef Name="nombre_Operario" />
+      <PropertyRef Name="usuario_Operario" />
+      <PropertyRef Name="contrasenia_Operario" />
+    </Key>
+    <Property Name="id_Operario" Type="int" Nullable="false" />
+    <Property Name="nroDoc_Operario" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Apellidos_Operario" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="nombre_Operario" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="usuario_Operario" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="contrasenia_Operario" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.TEMPORAL_PERSONAL' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="TEMPORAL_PERSONAL">
+          <Property Name="tipoDocumento" Type="varchar" MaxLength="100" />
+          <Property Name="nroDocumento" Type="varchar" MaxLength="20" />
+          <Property Name="apellidos" Type="varchar" MaxLength="250" />
+          <Property Name="nombres" Type="varchar" MaxLength="250" />
+          <Property Name="cargo" Type="varchar" MaxLength="250" />
+          <Property Name="nombreArchivo" Type="varchar" MaxLength="100" />
+          <Property Name="empresa_importacion" Type="int" />
+          <Property Name="usuario_importacion" Type="int" />
+          <Property Name="fechaBD" Type="datetime" />
+        </EntityType>-->
+  <Association Name="FK__tbl_Acees__id_Op__3C69FB99">
+    <End Role="tbl_Definicion_Opciones" Type="Self.tbl_Definicion_Opciones" Multiplicity="0..1" />
+    <End Role="tbl_Aceesos_Evento" Type="Self.tbl_Aceesos_Evento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Definicion_Opciones">
+        <PropertyRef Name="id_Opcion" />
+      </Principal>
+      <Dependent Role="tbl_Aceesos_Evento">
+        <PropertyRef Name="id_Opcion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Acees__id_Us__3E52440B">
+    <End Role="tbl_Usuarios" Type="Self.tbl_Usuarios" Multiplicity="0..1" />
+    <End Role="tbl_Aceesos_Evento" Type="Self.tbl_Aceesos_Evento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Usuarios">
+        <PropertyRef Name="id_Usuario" />
+      </Principal>
+      <Dependent Role="tbl_Aceesos_Evento">
+        <PropertyRef Name="id_Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Empre__id_Em__0B91BA14">
+    <End Role="tbl_Empresas" Type="Self.tbl_Empresas" Multiplicity="0..1" />
+    <End Role="tbl_Empresas_Vehiculos" Type="Self.tbl_Empresas_Vehiculos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Empresas">
+        <PropertyRef Name="id_Empresa" />
+      </Principal>
+      <Dependent Role="tbl_Empresas_Vehiculos">
+        <PropertyRef Name="id_Empresa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tbl_Usuarios_tbl_Perfil">
+    <End Role="tbl_Perfil" Type="Self.tbl_Perfil" Multiplicity="1" />
+    <End Role="tbl_Usuarios" Type="Self.tbl_Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Perfil">
+        <PropertyRef Name="id_perfil" />
+      </Principal>
+      <Dependent Role="tbl_Usuarios">
+        <PropertyRef Name="id_Perfil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Proyecto_3RModelStoreContainer">
+    <EntitySet Name="tbl_Aceesos_Evento" EntityType="Self.tbl_Aceesos_Evento" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Cargo_Personal" EntityType="Self.tbl_Cargo_Personal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Configuracion_Zonas" EntityType="Self.tbl_Configuracion_Zonas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Definicion_Opciones" EntityType="Self.tbl_Definicion_Opciones" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Distritos" EntityType="Self.tbl_Distritos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Empresas" EntityType="Self.tbl_Empresas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Empresas_Vehiculos" EntityType="Self.tbl_Empresas_Vehiculos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_EstadoCelular" EntityType="Self.tbl_EstadoCelular" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Estados" EntityType="Self.tbl_Estados" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Evento" EntityType="Self.tbl_Evento" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_GrupoTabla_Cab" EntityType="Self.tbl_GrupoTabla_Cab" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_GrupoTabla_Det" EntityType="Self.tbl_GrupoTabla_Det" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Iconos" EntityType="Self.tbl_Iconos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Operarios_RegistroGPS" EntityType="Self.TBL_Operarios_RegistroGPS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_OrdenTrabajo_Cab" EntityType="Self.tbl_OrdenTrabajo_Cab" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_OrdenTrabajo_Det" EntityType="Self.tbl_OrdenTrabajo_Det" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_OrdenTrabajo_Foto" EntityType="Self.tbl_OrdenTrabajo_Foto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_OrdenTrabajo_Reasignacion" EntityType="Self.tbl_OrdenTrabajo_Reasignacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Parametro_Movil" EntityType="Self.tbl_Parametro_Movil" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Perfil" EntityType="Self.tbl_Perfil" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Perfil_Accesos" EntityType="Self.tbl_Perfil_Accesos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Personal" EntityType="Self.tbl_Personal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Precios" EntityType="Self.tbl_Precios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Servicios" EntityType="Self.tbl_Servicios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Usuarios" EntityType="Self.tbl_Usuarios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Usuarios_Servicios" EntityType="Self.tbl_Usuarios_Servicios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TempoESTADO" EntityType="Self.TempoESTADO" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [TempoESTADO].[id_estadocelular] AS [id_estadocelular], 
+    [TempoESTADO].[id_operario] AS [id_operario], 
+    [TempoESTADO].[GpsActivo] AS [GpsActivo], 
+    [TempoESTADO].[estadoBateria] AS [estadoBateria], 
+    [TempoESTADO].[FechaHoraAndroid] AS [FechaHoraAndroid], 
+    [TempoESTADO].[FechaAgregaRegistro] AS [FechaAgregaRegistro], 
+    [TempoESTADO].[ModoAvion] AS [ModoAvion], 
+    [TempoESTADO].[PlanDatos] AS [PlanDatos]
+    FROM [dbo].[TempoESTADO] AS [TempoESTADO]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="TempoGPS" EntityType="Self.TempoGPS" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [TempoGPS].[ID_Gps] AS [ID_Gps], 
+    [TempoGPS].[id_operario] AS [id_operario], 
+    [TempoGPS].[GPS_Latitud] AS [GPS_Latitud], 
+    [TempoGPS].[GPS_Longitud] AS [GPS_Longitud], 
+    [TempoGPS].[fecha_GPD] AS [fecha_GPD], 
+    [TempoGPS].[fecha_Android] AS [fecha_Android], 
+    [TempoGPS].[fecha_AgregaRegistro] AS [fecha_AgregaRegistro]
+    FROM [dbo].[TempoGPS] AS [TempoGPS]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="TempoOperario" EntityType="Self.TempoOperario" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [TempoOperario].[id_Operario] AS [id_Operario], 
+    [TempoOperario].[nroDoc_Operario] AS [nroDoc_Operario], 
+    [TempoOperario].[Apellidos_Operario] AS [Apellidos_Operario], 
+    [TempoOperario].[nombre_Operario] AS [nombre_Operario], 
+    [TempoOperario].[usuario_Operario] AS [usuario_Operario], 
+    [TempoOperario].[contrasenia_Operario] AS [contrasenia_Operario]
+    FROM [dbo].[TempoOperario] AS [TempoOperario]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__tbl_Acees__id_Op__3C69FB99" Association="Self.FK__tbl_Acees__id_Op__3C69FB99">
+      <End Role="tbl_Definicion_Opciones" EntitySet="tbl_Definicion_Opciones" />
+      <End Role="tbl_Aceesos_Evento" EntitySet="tbl_Aceesos_Evento" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Acees__id_Us__3E52440B" Association="Self.FK__tbl_Acees__id_Us__3E52440B">
+      <End Role="tbl_Usuarios" EntitySet="tbl_Usuarios" />
+      <End Role="tbl_Aceesos_Evento" EntitySet="tbl_Aceesos_Evento" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Empre__id_Em__0B91BA14" Association="Self.FK__tbl_Empre__id_Em__0B91BA14">
+      <End Role="tbl_Empresas" EntitySet="tbl_Empresas" />
+      <End Role="tbl_Empresas_Vehiculos" EntitySet="tbl_Empresas_Vehiculos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tbl_Usuarios_tbl_Perfil" Association="Self.FK_tbl_Usuarios_tbl_Perfil">
+      <End Role="tbl_Perfil" EntitySet="tbl_Perfil" />
+      <End Role="tbl_Usuarios" EntitySet="tbl_Usuarios" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

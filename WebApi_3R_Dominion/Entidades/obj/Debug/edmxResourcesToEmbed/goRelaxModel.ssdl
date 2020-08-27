@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GoRelaxModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Pub_Usuarios">
+    <Key>
+      <PropertyRef Name="Pub_Usua_Codigo" />
+    </Key>
+    <Property Name="Pub_Usua_Nombre" Type="varchar" MaxLength="100" />
+    <Property Name="Pub_Usua_Codigo" Type="char" MaxLength="6" Nullable="false" />
+    <Property Name="Pub_Usua_Login" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Pub_Usua_Clave" Type="varchar" MaxLength="30" />
+    <Property Name="Pub_Usua_Cargo" Type="varchar" MaxLength="100" />
+    <Property Name="Pub_Usua_Email" Type="varchar" MaxLength="100" />
+    <Property Name="Pub_Usua_Adm" Type="char" MaxLength="2" />
+    <Property Name="Pub_Usua_Sis" Type="char" MaxLength="2" />
+    <Property Name="Pub_Esta_Codigo" Type="char" MaxLength="3" />
+    <Property Name="Pub_Usua_UsuCrea" Type="char" MaxLength="6" />
+    <Property Name="Pub_Usua_FecCrea" Type="datetime" />
+    <Property Name="Pub_Usua_UsuModi" Type="char" MaxLength="6" />
+    <Property Name="Pub_Usua_FecModi" Type="datetime" />
+    <Property Name="Pub_Usua_Identidad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Pub_Area_Codigo" Type="char" MaxLength="3" />
+    <Property Name="Pub_Usua_Obs" Type="varchar" MaxLength="100" />
+    <Property Name="pub_dni" Type="varchar" MaxLength="20" />
+    <Property Name="pub_noPhoto" Type="varchar" MaxLength="1" />
+  </EntityType>
+  <EntityContainer Name="GoRelaxModelStoreContainer">
+    <EntitySet Name="Pub_Usuarios" EntityType="Self.Pub_Usuarios" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

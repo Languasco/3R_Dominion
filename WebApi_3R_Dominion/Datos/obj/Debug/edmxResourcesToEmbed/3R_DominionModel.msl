@@ -1,0 +1,470 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Proyecto_3RModelStoreContainer" CdmEntityContainer="Proyecto_3REntities1">
+    <EntitySetMapping Name="tbl_Aceesos_Evento">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Aceesos_Evento">
+        <MappingFragment StoreEntitySet="tbl_Aceesos_Evento">
+          <ScalarProperty Name="id_Acceso_evento" ColumnName="id_Acceso_evento" />
+          <ScalarProperty Name="id_Opcion" ColumnName="id_Opcion" />
+          <ScalarProperty Name="id_Usuario" ColumnName="id_Usuario" />
+          <ScalarProperty Name="id_Evento" ColumnName="id_Evento" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Cargo_Personal">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Cargo_Personal">
+        <MappingFragment StoreEntitySet="tbl_Cargo_Personal">
+          <ScalarProperty Name="id_Cargo" ColumnName="id_Cargo" />
+          <ScalarProperty Name="nombreCargo" ColumnName="nombreCargo" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Configuracion_Zonas">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Configuracion_Zonas">
+        <MappingFragment StoreEntitySet="tbl_Configuracion_Zonas">
+          <ScalarProperty Name="id_Configuracion" ColumnName="id_Configuracion" />
+          <ScalarProperty Name="id_Servicios" ColumnName="id_Servicios" />
+          <ScalarProperty Name="id_Empresa" ColumnName="id_Empresa" />
+          <ScalarProperty Name="id_Distrito" ColumnName="id_Distrito" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Definicion_Opciones">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Definicion_Opciones">
+        <MappingFragment StoreEntitySet="tbl_Definicion_Opciones">
+          <ScalarProperty Name="id_Opcion" ColumnName="id_Opcion" />
+          <ScalarProperty Name="nombre_opcion" ColumnName="nombre_opcion" />
+          <ScalarProperty Name="url_opcion" ColumnName="url_opcion" />
+          <ScalarProperty Name="parentID" ColumnName="parentID" />
+          <ScalarProperty Name="nombreParentID" ColumnName="nombreParentID" />
+          <ScalarProperty Name="urlImagen_Opcion" ColumnName="urlImagen_Opcion" />
+          <ScalarProperty Name="orden_Opcion" ColumnName="orden_Opcion" />
+          <ScalarProperty Name="interface_Opcion" ColumnName="interface_Opcion" />
+          <ScalarProperty Name="TipoInterface" ColumnName="TipoInterface" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Distritos">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Distritos">
+        <MappingFragment StoreEntitySet="tbl_Distritos">
+          <ScalarProperty Name="id_Distrito" ColumnName="id_Distrito" />
+          <ScalarProperty Name="nombreDistrito" ColumnName="nombreDistrito" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Empresas">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Empresas">
+        <MappingFragment StoreEntitySet="tbl_Empresas">
+          <ScalarProperty Name="id_Empresa" ColumnName="id_Empresa" />
+          <ScalarProperty Name="ruc_Empresa" ColumnName="ruc_Empresa" />
+          <ScalarProperty Name="razonSocial_Empresa" ColumnName="razonSocial_Empresa" />
+          <ScalarProperty Name="direccion_Empresa" ColumnName="direccion_Empresa" />
+          <ScalarProperty Name="id_Icono" ColumnName="id_Icono" />
+          <ScalarProperty Name="esProveedor" ColumnName="esProveedor" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Empresas_Vehiculos">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Empresas_Vehiculos">
+        <MappingFragment StoreEntitySet="tbl_Empresas_Vehiculos">
+          <ScalarProperty Name="id_Empresa_Vehiculo" ColumnName="id_Empresa_Vehiculo" />
+          <ScalarProperty Name="id_Empresa" ColumnName="id_Empresa" />
+          <ScalarProperty Name="nro_Placa" ColumnName="nro_Placa" />
+          <ScalarProperty Name="cantidadM3" ColumnName="cantidadM3" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_EstadoCelular">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_EstadoCelular">
+        <MappingFragment StoreEntitySet="tbl_EstadoCelular">
+          <ScalarProperty Name="id_EstadoCelular" ColumnName="id_EstadoCelular" />
+          <ScalarProperty Name="id_Operario" ColumnName="id_Operario" />
+          <ScalarProperty Name="GpsActivo" ColumnName="GpsActivo" />
+          <ScalarProperty Name="estadoBateria" ColumnName="estadoBateria" />
+          <ScalarProperty Name="FechaHoraAndroid" ColumnName="FechaHoraAndroid" />
+          <ScalarProperty Name="FechaAgregaRegistro" ColumnName="FechaAgregaRegistro" />
+          <ScalarProperty Name="ModoAvion" ColumnName="ModoAvion" />
+          <ScalarProperty Name="PlanDatos" ColumnName="PlanDatos" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Estados">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Estados">
+        <MappingFragment StoreEntitySet="tbl_Estados">
+          <ScalarProperty Name="id_Estado" ColumnName="id_Estado" />
+          <ScalarProperty Name="abreviatura_estado" ColumnName="abreviatura_estado" />
+          <ScalarProperty Name="descripcion_estado" ColumnName="descripcion_estado" />
+          <ScalarProperty Name="tipoproceso_estado" ColumnName="tipoproceso_estado" />
+          <ScalarProperty Name="descripcion_tipoproceso_estado" ColumnName="descripcion_tipoproceso_estado" />
+          <ScalarProperty Name="id_Modulo" ColumnName="id_Modulo" />
+          <ScalarProperty Name="orden_estado" ColumnName="orden_estado" />
+          <ScalarProperty Name="Backcolor_estado" ColumnName="Backcolor_estado" />
+          <ScalarProperty Name="forecolor_estado" ColumnName="forecolor_estado" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+          <ScalarProperty Name="Simbolo_estado" ColumnName="Simbolo_estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Evento">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Evento">
+        <MappingFragment StoreEntitySet="tbl_Evento">
+          <ScalarProperty Name="id_Evento" ColumnName="id_Evento" />
+          <ScalarProperty Name="nombre_Evento" ColumnName="nombre_Evento" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_GrupoTabla_Cab">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_GrupoTabla_Cab">
+        <MappingFragment StoreEntitySet="tbl_GrupoTabla_Cab">
+          <ScalarProperty Name="id_GrupoTabla" ColumnName="id_GrupoTabla" />
+          <ScalarProperty Name="descripcion_GrupoTabla" ColumnName="descripcion_GrupoTabla" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_GrupoTabla_Det">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_GrupoTabla_Det">
+        <MappingFragment StoreEntitySet="tbl_GrupoTabla_Det">
+          <ScalarProperty Name="id_detalleTabla" ColumnName="id_detalleTabla" />
+          <ScalarProperty Name="id_grupoTabla" ColumnName="id_grupoTabla" />
+          <ScalarProperty Name="codigo_detalleTabla" ColumnName="codigo_detalleTabla" />
+          <ScalarProperty Name="descripcion_grupoTabla" ColumnName="descripcion_grupoTabla" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Iconos">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Iconos">
+        <MappingFragment StoreEntitySet="tbl_Iconos">
+          <ScalarProperty Name="id_Icono" ColumnName="id_Icono" />
+          <ScalarProperty Name="nombre_Icono" ColumnName="nombre_Icono" />
+          <ScalarProperty Name="url_Icono" ColumnName="url_Icono" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_Operarios_RegistroGPS">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.TBL_Operarios_RegistroGPS">
+        <MappingFragment StoreEntitySet="TBL_Operarios_RegistroGPS">
+          <ScalarProperty Name="ID_Gps" ColumnName="ID_Gps" />
+          <ScalarProperty Name="id_operario" ColumnName="id_operario" />
+          <ScalarProperty Name="GPS_Latitud" ColumnName="GPS_Latitud" />
+          <ScalarProperty Name="GPS_Longitud" ColumnName="GPS_Longitud" />
+          <ScalarProperty Name="fecha_GPD" ColumnName="fecha_GPD" />
+          <ScalarProperty Name="fecha_Android" ColumnName="fecha_Android" />
+          <ScalarProperty Name="fecha_AgregaRegistro" ColumnName="fecha_AgregaRegistro" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_OrdenTrabajo_Cab">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_OrdenTrabajo_Cab">
+        <MappingFragment StoreEntitySet="tbl_OrdenTrabajo_Cab">
+          <ScalarProperty Name="id_OT" ColumnName="id_OT" />
+          <ScalarProperty Name="id_TipoOrdenTrabajo" ColumnName="id_TipoOrdenTrabajo" />
+          <ScalarProperty Name="id_Servicios" ColumnName="id_Servicios" />
+          <ScalarProperty Name="nroObraTD" ColumnName="nroObraTD" />
+          <ScalarProperty Name="direccion_OT" ColumnName="direccion_OT" />
+          <ScalarProperty Name="id_Distrito" ColumnName="id_Distrito" />
+          <ScalarProperty Name="referencia_OT" ColumnName="referencia_OT" />
+          <ScalarProperty Name="descripcion_OT" ColumnName="descripcion_OT" />
+          <ScalarProperty Name="fechaAprobacion_OT" ColumnName="fechaAprobacion_OT" />
+          <ScalarProperty Name="fechaAsignacion_OT" ColumnName="fechaAsignacion_OT" />
+          <ScalarProperty Name="fechaEnvioMovil_OT" ColumnName="fechaEnvioMovil_OT" />
+          <ScalarProperty Name="fechaRegistro_OT" ColumnName="fechaRegistro_OT" />
+          <ScalarProperty Name="fechaReasignacion_OT" ColumnName="fechaReasignacion_OT" />
+          <ScalarProperty Name="fechaCancelacion_OT" ColumnName="fechaCancelacion_OT" />
+          <ScalarProperty Name="id_Empresa" ColumnName="id_Empresa" />
+          <ScalarProperty Name="id_PersonalJefeCuadrilla" ColumnName="id_PersonalJefeCuadrilla" />
+          <ScalarProperty Name="id_OT_Origen" ColumnName="id_OT_Origen" />
+          <ScalarProperty Name="obsReasignacion_OT" ColumnName="obsReasignacion_OT" />
+          <ScalarProperty Name="id_MotivoPrioridad" ColumnName="id_MotivoPrioridad" />
+          <ScalarProperty Name="obsMotivoPrioridad_OT" ColumnName="obsMotivoPrioridad_OT" />
+          <ScalarProperty Name="observaciones_OT" ColumnName="observaciones_OT" />
+          <ScalarProperty Name="ordenamiento_OT" ColumnName="ordenamiento_OT" />
+          <ScalarProperty Name="latitud_OT" ColumnName="latitud_OT" />
+          <ScalarProperty Name="longitud_OT" ColumnName="longitud_OT" />
+          <ScalarProperty Name="totalMedidas_OT" ColumnName="totalMedidas_OT" />
+          <ScalarProperty Name="totalDesmonteRecojido_OT" ColumnName="totalDesmonteRecojido_OT" />
+          <ScalarProperty Name="totalDesmontePorRecojido_OT" ColumnName="totalDesmontePorRecojido_OT" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_OrdenTrabajo_Det">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_OrdenTrabajo_Det">
+        <MappingFragment StoreEntitySet="tbl_OrdenTrabajo_Det">
+          <ScalarProperty Name="id_OTDet" ColumnName="id_OTDet" />
+          <ScalarProperty Name="id_OT" ColumnName="id_OT" />
+          <ScalarProperty Name="id_TipoTrabajo" ColumnName="id_TipoTrabajo" />
+          <ScalarProperty Name="id_TipoMaterial" ColumnName="id_TipoMaterial" />
+          <ScalarProperty Name="id_TipoDesmonte" ColumnName="id_TipoDesmonte" />
+          <ScalarProperty Name="Largo_OTDet" ColumnName="Largo_OTDet" />
+          <ScalarProperty Name="Ancho_OTDet" ColumnName="Ancho_OTDet" />
+          <ScalarProperty Name="Espesor_OTDet" ColumnName="Espesor_OTDet" />
+          <ScalarProperty Name="total_OTDet" ColumnName="total_OTDet" />
+          <ScalarProperty Name="nroPlacaVehiculo" ColumnName="nroPlacaVehiculo" />
+          <ScalarProperty Name="m3Vehiculo" ColumnName="m3Vehiculo" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_OrdenTrabajo_Foto">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_OrdenTrabajo_Foto">
+        <MappingFragment StoreEntitySet="tbl_OrdenTrabajo_Foto">
+          <ScalarProperty Name="id_OTDet_Foto" ColumnName="id_OTDet_Foto" />
+          <ScalarProperty Name="id_OTDet" ColumnName="id_OTDet" />
+          <ScalarProperty Name="nombre_OTDet_Foto" ColumnName="nombre_OTDet_Foto" />
+          <ScalarProperty Name="url_OTDet_Foto" ColumnName="url_OTDet_Foto" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_OrdenTrabajo_Reasignacion">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_OrdenTrabajo_Reasignacion">
+        <MappingFragment StoreEntitySet="tbl_OrdenTrabajo_Reasignacion">
+          <ScalarProperty Name="id_OT_Reasignacion" ColumnName="id_OT_Reasignacion" />
+          <ScalarProperty Name="id_OT" ColumnName="id_OT" />
+          <ScalarProperty Name="id_Empresa" ColumnName="id_Empresa" />
+          <ScalarProperty Name="id_Personal" ColumnName="id_Personal" />
+          <ScalarProperty Name="fechaAsignacion_OT" ColumnName="fechaAsignacion_OT" />
+          <ScalarProperty Name="id_EmpresaReasignacion" ColumnName="id_EmpresaReasignacion" />
+          <ScalarProperty Name="id_PersonalReasignacion" ColumnName="id_PersonalReasignacion" />
+          <ScalarProperty Name="fechaReasignacion_OT" ColumnName="fechaReasignacion_OT" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Parametro_Movil">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Parametro_Movil">
+        <MappingFragment StoreEntitySet="tbl_Parametro_Movil">
+          <ScalarProperty Name="id_Parametro" ColumnName="id_Parametro" />
+          <ScalarProperty Name="nombre_Parametro" ColumnName="nombre_Parametro" />
+          <ScalarProperty Name="valor_Parametro" ColumnName="valor_Parametro" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Perfil">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Perfil">
+        <MappingFragment StoreEntitySet="tbl_Perfil">
+          <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
+          <ScalarProperty Name="descripcion_perfil" ColumnName="descripcion_perfil" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Perfil_Accesos">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Perfil_Accesos">
+        <MappingFragment StoreEntitySet="tbl_Perfil_Accesos">
+          <ScalarProperty Name="id_Perfil_Acceso" ColumnName="id_Perfil_Acceso" />
+          <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
+          <ScalarProperty Name="id_opcion" ColumnName="id_opcion" />
+          <ScalarProperty Name="id_Evento" ColumnName="id_Evento" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Personal">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Personal">
+        <MappingFragment StoreEntitySet="tbl_Personal">
+          <ScalarProperty Name="id_Personal" ColumnName="id_Personal" />
+          <ScalarProperty Name="id_Empresa" ColumnName="id_Empresa" />
+          <ScalarProperty Name="id_TipoDoc" ColumnName="id_TipoDoc" />
+          <ScalarProperty Name="nroDocumento_Personal" ColumnName="nroDocumento_Personal" />
+          <ScalarProperty Name="apellidos_Personal" ColumnName="apellidos_Personal" />
+          <ScalarProperty Name="nombres_Personal" ColumnName="nombres_Personal" />
+          <ScalarProperty Name="id_Cargo" ColumnName="id_Cargo" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Precios">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Precios">
+        <MappingFragment StoreEntitySet="tbl_Precios">
+          <ScalarProperty Name="id_Precio" ColumnName="id_Precio" />
+          <ScalarProperty Name="id_TipoOrdenTrabajo" ColumnName="id_TipoOrdenTrabajo" />
+          <ScalarProperty Name="cubicaje" ColumnName="cubicaje" />
+          <ScalarProperty Name="cubicajeFinal" ColumnName="cubicajeFinal" />
+          <ScalarProperty Name="precio" ColumnName="precio" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Servicios">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Servicios">
+        <MappingFragment StoreEntitySet="tbl_Servicios">
+          <ScalarProperty Name="id_Servicios" ColumnName="id_Servicios" />
+          <ScalarProperty Name="nombreServicio" ColumnName="nombreServicio" />
+          <ScalarProperty Name="id_Patron" ColumnName="id_Patron" />
+          <ScalarProperty Name="tiempo_Servicio" ColumnName="tiempo_Servicio" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Usuarios">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Usuarios">
+        <MappingFragment StoreEntitySet="tbl_Usuarios">
+          <ScalarProperty Name="id_Usuario" ColumnName="id_Usuario" />
+          <ScalarProperty Name="id_Personal" ColumnName="id_Personal" />
+          <ScalarProperty Name="nrodoc_usuario" ColumnName="nrodoc_usuario" />
+          <ScalarProperty Name="apellidos_usuario" ColumnName="apellidos_usuario" />
+          <ScalarProperty Name="nombres_usuario" ColumnName="nombres_usuario" />
+          <ScalarProperty Name="email_usuario" ColumnName="email_usuario" />
+          <ScalarProperty Name="id_TipoUsuario" ColumnName="id_TipoUsuario" />
+          <ScalarProperty Name="id_Perfil" ColumnName="id_Perfil" />
+          <ScalarProperty Name="fotourl" ColumnName="fotourl" />
+          <ScalarProperty Name="login_usuario" ColumnName="login_usuario" />
+          <ScalarProperty Name="contrasenia_usuario" ColumnName="contrasenia_usuario" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Usuarios_Servicios">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Usuarios_Servicios">
+        <MappingFragment StoreEntitySet="tbl_Usuarios_Servicios">
+          <ScalarProperty Name="id_usuario_servicio" ColumnName="id_usuario_servicio" />
+          <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+          <ScalarProperty Name="id_servicio" ColumnName="id_servicio" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TempoESTADO">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.TempoESTADO">
+        <MappingFragment StoreEntitySet="TempoESTADO">
+          <ScalarProperty Name="id_estadocelular" ColumnName="id_estadocelular" />
+          <ScalarProperty Name="id_operario" ColumnName="id_operario" />
+          <ScalarProperty Name="GpsActivo" ColumnName="GpsActivo" />
+          <ScalarProperty Name="estadoBateria" ColumnName="estadoBateria" />
+          <ScalarProperty Name="FechaHoraAndroid" ColumnName="FechaHoraAndroid" />
+          <ScalarProperty Name="FechaAgregaRegistro" ColumnName="FechaAgregaRegistro" />
+          <ScalarProperty Name="ModoAvion" ColumnName="ModoAvion" />
+          <ScalarProperty Name="PlanDatos" ColumnName="PlanDatos" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TempoGPS">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.TempoGPS">
+        <MappingFragment StoreEntitySet="TempoGPS">
+          <ScalarProperty Name="ID_Gps" ColumnName="ID_Gps" />
+          <ScalarProperty Name="id_operario" ColumnName="id_operario" />
+          <ScalarProperty Name="GPS_Latitud" ColumnName="GPS_Latitud" />
+          <ScalarProperty Name="GPS_Longitud" ColumnName="GPS_Longitud" />
+          <ScalarProperty Name="fecha_GPD" ColumnName="fecha_GPD" />
+          <ScalarProperty Name="fecha_Android" ColumnName="fecha_Android" />
+          <ScalarProperty Name="fecha_AgregaRegistro" ColumnName="fecha_AgregaRegistro" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TempoOperario">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.TempoOperario">
+        <MappingFragment StoreEntitySet="TempoOperario">
+          <ScalarProperty Name="id_Operario" ColumnName="id_Operario" />
+          <ScalarProperty Name="nroDoc_Operario" ColumnName="nroDoc_Operario" />
+          <ScalarProperty Name="Apellidos_Operario" ColumnName="Apellidos_Operario" />
+          <ScalarProperty Name="nombre_Operario" ColumnName="nombre_Operario" />
+          <ScalarProperty Name="usuario_Operario" ColumnName="usuario_Operario" />
+          <ScalarProperty Name="contrasenia_Operario" ColumnName="contrasenia_Operario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

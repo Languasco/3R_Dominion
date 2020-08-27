@@ -1,0 +1,11 @@
+E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Datos\bin\Debug\Datos.dll.config
+E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Datos\bin\Debug\Datos.dll
+E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Datos\bin\Debug\Datos.pdb
+E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Datos\bin\Debug\EntityFramework.dll
+E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Datos\bin\Debug\EntityFramework.SqlServer.dll
+E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Datos\bin\Debug\EntityFramework.xml
+E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Datos\bin\Debug\EntityFramework.SqlServer.xml
+E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Datos\obj\Debug\Datos.csproj.CoreCompileInputs.cache
+E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Datos\obj\Debug\Datos.csproj.CopyComplete
+E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Datos\obj\Debug\Datos.dll
+E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Datos\obj\Debug\Datos.pdb

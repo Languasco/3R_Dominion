@@ -1,0 +1,85 @@
+<app-spinnerloading></app-spinnerloading>
+
+
+<!-- Sin hacer cambios ya contiene lo que se necesita -->
+
+<!-- <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+    <a class="navbar-brand" [routerLink]="['/']">
+
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item text-center " routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['mantenimiento-proveedor']"> Mant. Proveedor </a>
+            </li>
+            <li class="nav-item text-center" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['mantenimiento-personal']"> Mant. Personal </a>
+            </li>
+            <li class="nav-item text-center" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['mantenimiento-usuarios']"> Mant. Usuarios </a>
+            </li>
+            <li class="nav-item text-center" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['mantenimiento-distritos']"> Mant. Distritos </a>
+            </li>
+            <li class="nav-item text-center" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['mantenimiento-lista-precios']"> Mant. Lista Precio </a>
+            </li>
+            <li class="nav-item text-center" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['proceso-orden-trabajo']"> Proc. Orden Trabajo </a>
+            </li>
+            <li class="nav-item text-center" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['proceso-aprobacion-orden-trabajo']"> Proc. Aprobar OT </a>
+            </li>
+            <li class="nav-item text-center" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['reporte-ubicacion-personal']"> Rep-UbicacionPersonal </a>
+            </li>
+            <li class="nav-item text-center" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['reporte-detalle-ot']"> Rep-DetalleOT </a>
+            </li>
+            <li class="nav-item text-center" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['reporte-fuerza-plazo']"> Rep-FueraPlazo </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<br> -->
+
+
+<nav class="navbar navbar-dark bg-white navbar-expand-md   sticky-top" *ngIf="showMenu">
+    <a class="navbar-brand" [routerLink]="['/']">
+        <img src="./assets/img/logoDominion.jpeg" style="width:138px; height: 30px;" class="card-img-top " alt="...">
+    </a>
+    <button class="navbar-toggler bg-dark" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav m-auto " style="color: #002f77;">
+            <li class="nav-item dropdown" *ngFor="let menu of menuPrincipal">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" style=" font-weight: 800; font-family: 'Montserrat', sans-serif !important" aria-haspopup="true" aria-expanded="false">
+                    {{menu.nombre_principal | uppercase}}
+                 </a>
+
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" [routerLink]="menu2.url_page" *ngFor="let menu2 of menu.listMenu">  {{menu2.nombre_page | uppercase }} </a>
+                </div>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0 formBoton">
+            <div class="dropdown" *ngIf="showMenu">
+                <button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                 {{nameUser}}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <div class="text-center">
+                        <button class="btn btn-outline-danger btn-sm my-2 my-sm-0 " type="button" (click)="cerrarSesion()">  Cerrar Sesion</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</nav>

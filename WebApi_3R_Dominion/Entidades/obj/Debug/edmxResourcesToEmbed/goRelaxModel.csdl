@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GoRelaxModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="GoRelaxEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Pub_Usuarios" EntityType="GoRelaxModel.Pub_Usuarios" />
+  </EntityContainer>
+  <EntityType Name="Pub_Usuarios">
+    <Key>
+      <PropertyRef Name="Pub_Usua_Codigo" />
+    </Key>
+    <Property Name="Pub_Usua_Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Pub_Usua_Codigo" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="Pub_Usua_Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Pub_Usua_Clave" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Pub_Usua_Cargo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Pub_Usua_Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Pub_Usua_Adm" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+    <Property Name="Pub_Usua_Sis" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+    <Property Name="Pub_Esta_Codigo" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="Pub_Usua_UsuCrea" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="Pub_Usua_FecCrea" Type="DateTime" Precision="3" />
+    <Property Name="Pub_Usua_UsuModi" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="Pub_Usua_FecModi" Type="DateTime" Precision="3" />
+    <Property Name="Pub_Usua_Identidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Pub_Area_Codigo" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="Pub_Usua_Obs" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="pub_dni" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="pub_noPhoto" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>
