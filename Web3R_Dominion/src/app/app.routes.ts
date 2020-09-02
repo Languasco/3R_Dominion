@@ -11,6 +11,8 @@ import { AprobacionOTComponent } from './pages/Procesos/aprobacion-ot/aprobacion
 import { UbicacionPersonalComponent } from './pages/Reportes/ubicacion-personal/ubicacion-personal.component';
 import { DetalleOTComponent } from './pages/Reportes/detalle-ot/detalle-ot.component';
 import { FueraPlazoComponent } from './pages/Reportes/fuera-plazo/fuera-plazo.component';
+import { ConfiguracionZonasComponent } from './pages/Mantenimientos/configuracion-zonas/configuracion-zonas.component';
+import { UbicacionOtComponent } from './pages/Reportes/ubicacion-ot/ubicacion-ot.component';
  
  
 const APP_ROUTERS: Routes = [
@@ -22,12 +24,16 @@ const APP_ROUTERS: Routes = [
     { path: 'mantenimiento-distritos', component: DistritosComponent},  
     { path: 'mantenimiento-lista-precios', component: ListaPreciosComponent},  
 
+
     { path: 'proceso-orden-trabajo', component: OrdenTrabajoComponent},  
     { path: 'proceso-aprobacion-orden-trabajo', component: AprobacionOTComponent},  
 
     { path: 'reporte-ubicacion-personal', component: UbicacionPersonalComponent},  
     { path: 'reporte-detalle-ot', component: DetalleOTComponent},  
     { path: 'reporte-fuerza-plazo', component: FueraPlazoComponent},  
+
+    { path: 'mantenimiento-config-zonas', component: ConfiguracionZonasComponent},  
+    { path: 'reporte-ubicacion-ot', component: UbicacionOtComponent},  
 
     { path: '', pathMatch:'full', redirectTo:'inicio' },
     { path: '**', pathMatch:'full', redirectTo:'inicio' },

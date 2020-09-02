@@ -101,14 +101,14 @@ export class UbicacionPersonalComponent implements OnInit,AfterViewInit {
         this.alertasService.Swal_alert('error','Por favor seleccione el Tipo de Orden Trabajo');
         return 
       } 
-      if (this.formParamsFiltro.value.idProveedor == '' || this.formParamsFiltro.value.idProveedor == 0) {
-        this.alertasService.Swal_alert('error','Por favor seleccione un Proveedor');
-        return 
-      }
+      // if (this.formParamsFiltro.value.idProveedor == '' || this.formParamsFiltro.value.idProveedor == 0) {
+      //   this.alertasService.Swal_alert('error','Por favor seleccione un Proveedor');
+      //   return 
+      // }
 
       const fechaFormato = this.funcionGlobalServices.formatoFecha(this.formParamsFiltro.value.fechaGps); 
       this.spinner.show();
-      this.ubicacionPersonalService.get_mostrarInfomacionMapa(this.formParamsFiltro.value,fechaFormato,  this.idUserGlobal)
+      this.ubicacionPersonalService.get_mostrar_ubicacionesPersonal(this.formParamsFiltro.value,fechaFormato,  this.idUserGlobal)
           .subscribe((res:RespuestaServer)=>{            
               this.spinner.hide();
    
@@ -190,10 +190,10 @@ export class UbicacionPersonalComponent implements OnInit,AfterViewInit {
         this.alertasService.Swal_alert('error','Por favor seleccione el Tipo de Orden Trabajo');
         return 
       } 
-      if (this.formParamsFiltro.value.idProveedor == '' || this.formParamsFiltro.value.idProveedor == 0) {
-        this.alertasService.Swal_alert('error','Por favor seleccione un Proveedor');
-        return 
-      }
+      // if (this.formParamsFiltro.value.idProveedor == '' || this.formParamsFiltro.value.idProveedor == 0) {
+      //   this.alertasService.Swal_alert('error','Por favor seleccione un Proveedor');
+      //   return 
+      // }
       const fechaFormato = this.funcionGlobalServices.formatoFecha(this.formParamsFiltro.value.fechaGps); 
     
       this.spinner.show();
@@ -209,6 +209,26 @@ export class UbicacionPersonalComponent implements OnInit,AfterViewInit {
       })
   }   
 
+  expandirComprimir(tipo:number){
+    if (tipo == 1) {
+     setTimeout(()=>{ //
+       $('#formMapa').removeClass('col-md-2 col-md-6').addClass('col-md-10');
+       $('#formDetalle').removeClass('col-md-6 col-md-10').addClass('col-md-2');
+     },0);
+    }
+    if (tipo == 3) {
+     $( "#formMapa" ).removeClass( "col-md-2 col-md-10" ).addClass( "col-md-6" );
+     $( "#formDetalle" ).removeClass( "col-md-2 col-md-10" ).addClass( "col-md-6" );
+    }
+    if (tipo == 2) {
+ 
+     setTimeout(()=>{ //
+       $('#formMapa').removeClass('col-md-6 col-md-10').addClass('col-md-2');
+       $('#formDetalle').removeClass('col-md-2 col-md-6').addClass('col-md-10');
+     },0);
+ 
+   }
+  }
  
   
  

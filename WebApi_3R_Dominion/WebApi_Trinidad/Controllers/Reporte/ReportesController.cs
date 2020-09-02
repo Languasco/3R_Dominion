@@ -28,9 +28,7 @@ namespace WebApi_3R_Dominion.Controllers.Reporte
                     int idTipoOT = Convert.ToInt32(parametros[2].ToString());
                     int idProveedor = Convert.ToInt32(parametros[3].ToString()); 
                     int idUsuario = Convert.ToInt32(parametros[4].ToString());
-
- 
-
+                    
                     res.ok = true;
                     res.data = obj_negocio.get_ubicacionesPorPersonal(idServicio, fechaGps, idTipoOT, idProveedor, idUsuario);
                     res.totalpage = 0;
@@ -103,6 +101,23 @@ namespace WebApi_3R_Dominion.Controllers.Reporte
                     int idUsuario = Convert.ToInt32(parametros[3].ToString());
 
                     resul = obj_negocio.get_descargarFueraPlazoOT(idServicio, idTipoOT, idProveedor, idUsuario);
+                }
+                else if (opcion == 7)
+                {
+                    string[] parametros = filtro.Split('|');
+                    int idServicio = Convert.ToInt32(parametros[0].ToString());
+                    string fechaGps = parametros[1].ToString();
+                    int idTipoOT = Convert.ToInt32(parametros[2].ToString());
+                    int idProveedor = Convert.ToInt32(parametros[3].ToString());
+                    int idEstado = Convert.ToInt32(parametros[4].ToString());
+                    int idUsuario = Convert.ToInt32(parametros[5].ToString());
+
+                    res.ok = true;
+                    res.data = obj_negocio.get_ubicacionesOT(idServicio, fechaGps, idTipoOT, idProveedor, idEstado, idUsuario);
+                    res.totalpage = 0;
+
+                    resul = res;
+
                 }
                 else
                 {

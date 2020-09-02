@@ -44,6 +44,7 @@ namespace WebApi_3R_Dominion.Controllers.Mantenimiento
                                     descripcion_tipoOT = b.descripcion_grupoTabla,
                                     a.precio,
                                     a.cubicaje,
+                                    a.cubicajeFinal,
                                     a.estado,
                                     descripcion_estado = a.estado == 0 ? "INACTIVO" : "ACTIVO",
                                     a.usuario_creacion
@@ -118,6 +119,7 @@ namespace WebApi_3R_Dominion.Controllers.Mantenimiento
                                 b.descripcion_grupoTabla,
                                 a.precio,
                                 a.cubicaje,
+                                a.cubicajeFinal,
                                 a.estado,
                                 descripcion_estado = a.estado == 0 ? "INACTIVO" : "ACTIVO",
                                 a.usuario_creacion
@@ -143,6 +145,7 @@ namespace WebApi_3R_Dominion.Controllers.Mantenimiento
             objReemplazar.id_TipoOrdenTrabajo = tbl_Precios.id_TipoOrdenTrabajo;
             objReemplazar.precio = tbl_Precios.precio;
             objReemplazar.cubicaje = tbl_Precios.cubicaje;
+            objReemplazar.cubicajeFinal = tbl_Precios.cubicajeFinal;
             objReemplazar.estado = tbl_Precios.estado;
 
             objReemplazar.usuario_edicion = tbl_Precios.usuario_creacion;

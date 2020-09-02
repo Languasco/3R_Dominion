@@ -53,7 +53,7 @@ export class UsuariosComponent implements OnInit {
     this.formParamsFiltro= new FormGroup({
       idEmpresa : new FormControl('0'),
       idArea : new FormControl('0'),
-      idEstado : new FormControl('0')
+      idEstado : new FormControl('1')
      }) 
  }
 
@@ -63,10 +63,11 @@ export class UsuariosComponent implements OnInit {
       id_Usuario: new FormControl('0'), 
       nrodoc_usuario: new FormControl(''),
       apellidos_usuario: new FormControl(''),
-      nombres_usuario: new FormControl(''),      
+      nombres_usuario: new FormControl(''),    
+      id_personal: new FormControl('0'),   
 
       id_area: new FormControl(false), 
-      id_empresa: new FormControl('0'), 
+      id_EmpresaUsuario: new FormControl('0'), 
       empresa_usuario: new FormControl(''),
 
       email_usuario: new FormControl(''),
@@ -95,14 +96,14 @@ export class UsuariosComponent implements OnInit {
  }
 
  mostrarInformacion(){
-       if (this.formParamsFiltro.value.idEmpresa == '' || this.formParamsFiltro.value.idEmpresa == 0) {
-        this.alertasService.Swal_alert('error','Por favor seleccione la empresa');
-        return 
-      }  
-      if (this.formParamsFiltro.value.idArea == '' || this.formParamsFiltro.value.idArea == 0) {
-        this.alertasService.Swal_alert('error','Por favor seleccione una Area');
-        return 
-      }
+      //  if (this.formParamsFiltro.value.idEmpresa == '' || this.formParamsFiltro.value.idEmpresa == 0) {
+      //   this.alertasService.Swal_alert('error','Por favor seleccione la empresa');
+      //   return 
+      // }  
+      // if (this.formParamsFiltro.value.idArea == '' || this.formParamsFiltro.value.idArea == 0) {
+      //   this.alertasService.Swal_alert('error','Por favor seleccione una Area');
+      //   return 
+      // }
       if (this.formParamsFiltro.value.idEstado == '' || this.formParamsFiltro.value.idEstado == 0) {
         this.alertasService.Swal_alert('error','Por favor seleccione un estado');
         return 
@@ -157,7 +158,7 @@ export class UsuariosComponent implements OnInit {
   if (dniPersonal==false) {
    Swal.close();
    this.alertasService.Swal_alert('error','El nro de documento no esta Registrado en Mant-Personal, verifique..');
-   this.formParams.patchValue({ "id_empresa" : '' , "empresa_usuario" : ''  , "nombres_usuario" : '' , "apellidos_usuario" : '' });
+   this.formParams.patchValue({ "id_EmpresaUsuario" : '' , "empresa_usuario" : ''  ,  "nombres_usuario" : '' , "apellidos_usuario" : '' });
    return;
   } 
 
@@ -165,13 +166,14 @@ export class UsuariosComponent implements OnInit {
   if (dniUsuario) {
    Swal.close();
    this.alertasService.Swal_alert('error','El nro de documento ya se encuentra registrada, verifique..');
-   this.formParams.patchValue({ "id_empresa" : '' , "empresa_usuario" : ''  , "nombres_usuario" : '' , "apellidos_usuario" : '' });
+   this.formParams.patchValue({ "id_EmpresaUsuario" : '' , "empresa_usuario" : ''  , "nombres_usuario" : '' , "apellidos_usuario" : '' });
    return;
   }  
 
   let  datausuario:any = await this.usuariosService.get_obtenerDatos_documento(this.formParams.value.nrodoc_usuario);
 
-  this.formParams.patchValue({ "id_empresa" : datausuario.data[0].id_Empresa , 
+  this.formParams.patchValue({ "id_personal" : datausuario.data[0].id_Personal , 
+                               "id_EmpresaUsuario" : datausuario.data[0].id_Empresa , 
                                "empresa_usuario" : datausuario.data[0].razonSocial_Empresa,
                                "nombres_usuario" : datausuario.data[0].nombres_Personal,
                                "apellidos_usuario" : datausuario.data[0].apellidos_Personal
@@ -191,7 +193,7 @@ export class UsuariosComponent implements OnInit {
     return 
   }
 
-  if (this.formParams.value.id_empresa == '' || this.formParams.value.id_empresa == 0) {
+  if (this.formParams.value.id_EmpresaUsuario == '' || this.formParams.value.id_EmpresaUsuario == 0) {
      this.alertasService.Swal_alert('error','Ingrese el nro documento y luego presione el boton Buscar ');
      return 
   }  
@@ -234,7 +236,7 @@ export class UsuariosComponent implements OnInit {
      if (dniUsuario) {
       Swal.close();
       this.alertasService.Swal_alert('error','El nro de documento ya se encuentra registrada, verifique..');
-      this.formParams.patchValue({ "id_empresa" : '' , "empresa_usuario" : ''  , "nombres_usuario" : '' , "apellidos_usuario" : '' });
+      this.formParams.patchValue({ "id_EmpresaUsuario" : '' , "empresa_usuario" : ''  , "nombres_usuario" : '' , "apellidos_usuario" : '' });
       return;
      } 
      
@@ -266,6 +268,9 @@ export class UsuariosComponent implements OnInit {
      this.usuariosService.set_editUsuario(this.formParams.value , this.formParams.value.id_Usuario).subscribe((res:RespuestaServer)=>{
        Swal.close(); 
        if (res.ok ==true) {   
+
+        $('#txtBuscarDoc').addClass('disabledForm');
+        $('#btnBuscarDoc').addClass('disabledForm');
          
          const perfilSeleccionada  = $('#cbo_cargo option:selected').text();
 
@@ -276,7 +281,7 @@ export class UsuariosComponent implements OnInit {
               obj.nrodoc_usuario= this.formParams.value.nrodoc_usuario ;
               obj.apellidos_usuario = this.formParams.value.apellidos_usuario ; ;
               obj.nombres_usuario= this.formParams.value.nombres_usuario ;            
-              obj.id_empresa= this.formParams.value.id_empresa ;
+              obj.id_empresa= this.formParams.value.id_EmpresaUsuario ;
               obj.empresa_usuario= this.formParams.value.empresa_usuario ;
               obj.email_usuario= this.formParams.value.email_usuario ;            
               obj.id_Perfil= this.formParams.value.id_Perfil ;
@@ -307,7 +312,7 @@ export class UsuariosComponent implements OnInit {
     $('#btnBuscarDoc').addClass('disabledForm');
   },0);
 
-   this.formParams.patchValue({ "id_Usuario" : id_Usuario, "id_empresa" :  id_empresa ,"empresa_usuario" :  empresa_usuario  , "nrodoc_usuario" : nrodoc_usuario ,"apellidos_usuario" : apellidos_usuario,"nombres_usuario" : nombres_usuario,"email_usuario" : email_usuario, "id_Perfil" : id_Perfil , "login_usuario" : login_usuario, "contrasenia_usuario" : contrasenia_usuario, "estado" : estado, "usuario_creacion" : this.idUserGlobal }
+   this.formParams.patchValue({ "id_Usuario" : id_Usuario, "id_EmpresaUsuario" :  id_empresa ,"empresa_usuario" :  empresa_usuario  , "nrodoc_usuario" : nrodoc_usuario ,"apellidos_usuario" : apellidos_usuario,"nombres_usuario" : nombres_usuario,"email_usuario" : email_usuario, "id_Perfil" : id_Perfil , "login_usuario" : login_usuario, "contrasenia_usuario" : contrasenia_usuario, "estado" : estado, "usuario_creacion" : this.idUserGlobal }
    );
 
    this.desmarcarChek();

@@ -9,15 +9,17 @@
                 <div class="col-md-4">
                     <label for=""> Tipo Orden Trabajo</label>
                     <select class="form-control comboBox" formControlName="idtipoOrdenT">
-                        <option value="0"> [ --SELECCIONE-- ]</option>
+                        <option value="0"> [ --TODOS-- ]</option>
                         <option [value]="tipo.id_detalleTabla" *ngFor="let tipo of tipoOrdenTrabajo">{{tipo.descripcion_grupoTabla}}</option>
                     </select>
                 </div>
                 <div class="col-md-4">
                     <label for=""> Estado</label>
                     <select class="form-control comboBox" formControlName="idEstado">
-                        <option value="0"> [ --SELECCIONE-- ]</option>
-                        <option [value]="estado.id_Estado" *ngFor="let estado of estados">{{estado.descripcion_estado}}</option>
+                        <!-- <option value="0"> [ --SELECCIONE-- ]</option>
+                        <option [value]="estado.id_Estado" *ngFor="let estado of estados">{{estado.descripcion_estado}}</option> -->
+                        <option value="1"> Activo </option>
+                        <option value="0"> Inactivo </option>
                     </select>
                 </div>
                 <div class="col-sm-6 col-md-12 col-lg-4 text-center">
@@ -124,9 +126,16 @@
                             <label> Precio </label>
                             <input type="number" class="form-control " formControlName="precio">
                         </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-md-6">
                             <label> Cubicaje </label>
                             <input type="text" class="form-control " maxlength="100" formControlName="cubicaje">
+                        </div>
+                        <div class="col-md-6">
+                            <label> Cubicaje Final </label>
+                            <input type="text" class="form-control " maxlength="100" formControlName="cubicajeFinal">
                         </div>
                     </div>
 

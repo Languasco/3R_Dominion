@@ -22,7 +22,7 @@ export class UbicacionPersonalService {
 
   constructor(private http:HttpClient) { }
 
-  get_mostrarInfomacionMapa({ idServicio, idTipoOT, idProveedor }, fechaGps:string, idUsuario:number){ 
+  get_mostrar_ubicacionesPersonal({ idServicio, idTipoOT, idProveedor }, fechaGps:string, idUsuario:number){ 
     let parametros = new HttpParams();
     parametros = parametros.append('opcion', '1');
     parametros = parametros.append('filtro', idServicio + '|' +  fechaGps + '|' +  idTipoOT + '|' +  idProveedor + '|' +  idUsuario  );
@@ -38,6 +38,14 @@ export class UbicacionPersonalService {
     return this.http.get( this.URL + 'Reportes' , {params: parametros});
   }
 
+
+  get_mostrar_ubicacionesOT({ idServicio, idTipoOT, idProveedor, idEstado }, fechaGps:string, idUsuario:number){ 
+    let parametros = new HttpParams();
+    parametros = parametros.append('opcion', '7');
+    parametros = parametros.append('filtro', idServicio + '|' +  fechaGps + '|' +  idTipoOT + '|' +  idProveedor + '|' +  idEstado + '|' +  idUsuario);
+ 
+    return this.http.get( this.URL + 'Reportes' , {params: parametros});
+  }
 
 
 }

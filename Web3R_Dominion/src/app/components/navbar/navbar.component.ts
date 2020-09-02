@@ -32,8 +32,7 @@ export class NavbarComponent implements OnInit {
     this.showMenu = this.loginService.getSession();
     this.nameUser = this.loginService.getSessionNombre();
     this.menuPrincipal =  this.loginService.getSessionMenu();
-
-    console.log(  this.menuPrincipal)
+ 
   }
  
   cerrarSesion(){

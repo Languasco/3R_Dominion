@@ -42,7 +42,8 @@ namespace WebApi_3R_Dominion.Controllers.Mantenimiento
                                 select new
                                 {
                                    a.id_Estado,
-                                   a.descripcion_estado 
+                                   a.descripcion_estado,
+                                   a.tipoproceso_estado
                                 }).ToList();
                     res.totalpage = 0;
                     resul = res;
@@ -142,7 +143,8 @@ namespace WebApi_3R_Dominion.Controllers.Mantenimiento
                                 select new
                                 {
                                     a.id_Empresa,
-                                    a.razonSocial_Empresa
+                                    a.razonSocial_Empresa,
+                                    a.esProveedor
                                 }).ToList();
                     res.totalpage = 0;
                     resul = res;

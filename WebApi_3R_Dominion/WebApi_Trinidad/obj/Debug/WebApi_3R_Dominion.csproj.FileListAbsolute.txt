@@ -1,3 +1,4 @@
+E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\WebApi_Trinidad\bin\EntityFramework.xml
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\WebApi_Trinidad\bin\WebApi_3R_Dominion.dll.config
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\WebApi_Trinidad\bin\WebApi_3R_Dominion.dll
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\WebApi_Trinidad\bin\WebApi_3R_Dominion.pdb
@@ -79,13 +80,13 @@ E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\WebApi_Trinidad\bin\Syst
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\WebApi_Trinidad\bin\WebGrease.dll
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\WebApi_Trinidad\bin\WebSocket4Net.dll
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\WebApi_Trinidad\bin\EPPlus.dll
+E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\WebApi_Trinidad\bin\Ionic.Zip.dll
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\WebApi_Trinidad\bin\ThoughtWorks.QRCode.dll
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\WebApi_Trinidad\bin\Datos.pdb
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\WebApi_Trinidad\bin\Datos.dll.config
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\WebApi_Trinidad\bin\Entidades.pdb
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\WebApi_Trinidad\bin\Entidades.dll.config
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\WebApi_Trinidad\bin\Negocio.pdb
-E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\WebApi_Trinidad\bin\EntityFramework.xml
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\WebApi_Trinidad\bin\EntityFramework.SqlServer.xml
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\WebApi_Trinidad\bin\Microsoft.Owin.xml
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\WebApi_Trinidad\bin\Microsoft.Owin.Host.SystemWeb.xml

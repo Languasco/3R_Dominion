@@ -150,15 +150,15 @@ export class AprobacionOTComponent implements OnInit,AfterViewInit {
         return 
       }  
 
-      if (this.formParamsFiltro.value.idDistrito == '' || this.formParamsFiltro.value.idDistrito == 0) {
-        this.alertasService.Swal_alert('error','Por favor seleccione un Distrito');
-        return 
-      }
+      // if (this.formParamsFiltro.value.idDistrito == '' || this.formParamsFiltro.value.idDistrito == 0) {
+      //   this.alertasService.Swal_alert('error','Por favor seleccione un Distrito');
+      //   return 
+      // }
 
-      if (this.formParamsFiltro.value.idProveedor == '' || this.formParamsFiltro.value.idProveedor == 0) {
-        this.alertasService.Swal_alert('error','Por favor seleccione un Proveedor');
-        return 
-      }
+      // if (this.formParamsFiltro.value.idProveedor == '' || this.formParamsFiltro.value.idProveedor == 0) {
+      //   this.alertasService.Swal_alert('error','Por favor seleccione un Proveedor');
+      //   return 
+      // }
 
       if (this.formParamsFiltro.value.idEstado == '' || this.formParamsFiltro.value.idEstado == 0) {
         this.alertasService.Swal_alert('error','Por favor seleccione un Estado');
@@ -339,12 +339,16 @@ abrirModal_OT( {id_OT,nroObra,fechaHora,direccion, id_Distrito, referencia, desc
        let importeTotal14 =0;
        let importeTotal15 =0;
 
+       console.log(this.desmonteDetalle)
+
        for (const iterator of  this.desmonteDetalle) {
          
-          if (iterator.id_TipoMaterial == 14 ) {
+          if (iterator.id_TipoMaterial == '14' ) {
+            console.log('entroo 14')
             importeTotal14 += iterator.total;
           }
-          if (iterator.id_TipoMaterial == 15 ) {
+          if (iterator.id_TipoMaterial == '15' ) {
+            console.log('entroo 15')
             importeTotal15 += iterator.total;
           }
 

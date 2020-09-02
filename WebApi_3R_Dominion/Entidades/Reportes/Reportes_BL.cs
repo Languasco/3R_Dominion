@@ -49,8 +49,8 @@ namespace Entidades.Reportes
         public string referencia { get; set; }
         public string descripcion_OT { get; set; }
         public int id_estado { get; set; }
-
-
+        public string descripcionServicio { get; set; }
+        public string color { get; set; }
     }
 
 

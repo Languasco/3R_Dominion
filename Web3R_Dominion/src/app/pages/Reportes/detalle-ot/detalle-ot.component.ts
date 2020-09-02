@@ -65,6 +65,7 @@ export class DetalleOTComponent implements OnInit,AfterViewInit {
   id_OTGlobal = 0;
   id_tipoOTGlobal = 0;
   id_estadoOTGlobal = 0;
+  id_FotoOTGlobal = 0;
 
   nroObraParteDiario_Global = '';
   fechaHora_Global = '';
@@ -101,8 +102,6 @@ export class DetalleOTComponent implements OnInit,AfterViewInit {
  }
 
  inicializarFormularioDatosG(){ 
- 
-
   this.formParamsDatosG= new FormGroup({ 
     direccion : new FormControl(''),
     idDistrito : new FormControl('0'),
@@ -144,20 +143,20 @@ export class DetalleOTComponent implements OnInit,AfterViewInit {
  };
 
  mostrarInformacion(){
-      if (this.formParamsFiltro.value.idServicio == '' || this.formParamsFiltro.value.idServicio == 0) {
-        this.alertasService.Swal_alert('error','Por favor seleccione el servicio');
-        return 
-      }
+      // if (this.formParamsFiltro.value.idServicio == '' || this.formParamsFiltro.value.idServicio == 0) {
+      //   this.alertasService.Swal_alert('error','Por favor seleccione el servicio');
+      //   return 
+      // }
       
       if (this.formParamsFiltro.value.idTipoOT == '' || this.formParamsFiltro.value.idTipoOT == 0) {
         this.alertasService.Swal_alert('error','Por favor seleccione el Tipo de Orden Trabajo');
         return 
       }  
  
-      if (this.formParamsFiltro.value.idProveedor == '' || this.formParamsFiltro.value.idProveedor == 0) {
-        this.alertasService.Swal_alert('error','Por favor seleccione un Proveedor');
-        return 
-      }
+      // if (this.formParamsFiltro.value.idProveedor == '' || this.formParamsFiltro.value.idProveedor == 0) {
+      //   this.alertasService.Swal_alert('error','Por favor seleccione un Proveedor');
+      //   return 
+      // }
 
       if (this.formParamsFiltro.value.fecha_ini == '' || this.formParamsFiltro.value.fecha_ini == null) {
         this.alertasService.Swal_alert('error','Por favor seleccione la fecha inicial');
@@ -168,10 +167,10 @@ export class DetalleOTComponent implements OnInit,AfterViewInit {
         return 
       }
 
-      if (this.formParamsFiltro.value.idEstado == '' || this.formParamsFiltro.value.idEstado == 0) {
-        this.alertasService.Swal_alert('error','Por favor seleccione un Estado');
-        return 
-      }
+      // if (this.formParamsFiltro.value.idEstado == '' || this.formParamsFiltro.value.idEstado == 0) {
+      //   this.alertasService.Swal_alert('error','Por favor seleccione un Estado');
+      //   return 
+      // }
 
       const fechaIni = this.funcionGlobalServices.formatoFecha(this.formParamsFiltro.value.fecha_ini);
       const fechaFin = this.funcionGlobalServices.formatoFecha(this.formParamsFiltro.value.fecha_fin);
@@ -180,10 +179,8 @@ export class DetalleOTComponent implements OnInit,AfterViewInit {
       this.detalleOTService.get_mostrarDetalleOt(this.formParamsFiltro.value,fechaIni, fechaFin, this.idUserGlobal)
           .subscribe((res:RespuestaServer)=>{            
               this.spinner.hide();
-              console.log(res.data )
-
               if (res.ok==true) {        
-                  this.ordenTrabajoCab = res.data; 
+                  this.ordenTrabajoCab = res.data;  
                }else{
                 this.alertasService.Swal_alert('error', JSON.stringify(res.data));
                 alert(JSON.stringify(res.data));
@@ -381,6 +378,7 @@ abrirModal_OT( {id_OT,nroObra,FechaAsignacion,direccion, id_Distrito, referencia
   abrirModal_visorFotos(objData:any){ 
 
     this.detalleOT = objData;
+    this.id_FotoOTGlobal = objData.id_OTDet;
 
     setTimeout(()=>{ // 
       $('#modal_visorFotos').modal('show');
@@ -474,7 +472,7 @@ descargarGrilla(){
   this.detalleOTService.get_descargarDetalleOt(this.formParamsFiltro.value,fechaIni, fechaFin, this.idUserGlobal)
       .subscribe((res:RespuestaServer)=>{            
         this.spinner.hide();
-        console.log(res.data);
+ 
         if (res.ok==true) {        
           window.open(String(res.data),'_blank');
         }else{
@@ -486,6 +484,69 @@ descargarGrilla(){
 
 
 }  
+
+descargarFotosOT(pantalla:string){
+
+  if (pantalla='P') {
+    if (this.medidasDetalle.length ==0) {
+      return;
+    }    
+  }
+
+  Swal.fire({
+    icon: 'info', allowOutsideClick: false, allowEscapeKey: false, text: 'Obteniendo Fotos, Espere por favor'
+  })
+  Swal.showLoading();  
+  this.aprobacionOTService.get_descargarFotosOT_todos( this.id_OTGlobal, this.id_tipoOTGlobal, this.idUserGlobal ).subscribe( (res:any)=>{           
+    Swal.close();
+
+    if (res.ok ==true) {   
+     window.open(String(res.data),'_blank');
+    }else{
+      this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+      alert(JSON.stringify(res.data));
+    }
+    
+  })
+
+}
+
+descargarFotosOT_visor(pantalla:string){
+ 
+  if (this.fotosDetalle.length ==0) {
+    return;
+  }    
+  Swal.fire({
+    icon: 'info', allowOutsideClick: false, allowEscapeKey: false, text: 'Obteniendo Fotos, Espere por favor'
+  })
+  Swal.showLoading();  
+  this.aprobacionOTService.get_descargarFotosOT_visor( this.id_FotoOTGlobal , this.id_tipoOTGlobal, this.idUserGlobal ).subscribe( (res:any)=>{           
+    Swal.close();
+
+    if (res.ok ==true) {   
+     window.open(String(res.data),'_blank');
+    }else{
+      this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+      alert(JSON.stringify(res.data));
+    }
+    
+  })
+
+}
+
+getColorEstado(estado:number){ 
+  switch (estado) {
+    case 6:
+      return 'white';
+    case 66:
+      return '#ff00009e';
+    case 7:
+      return '#55d272';
+    case 4:
+        return 'yellow';
+  } 
+}
+
 
   
  

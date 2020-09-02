@@ -172,6 +172,7 @@ namespace WebApi_3R_Dominion.Controllers.Mantenimiento
                                 where a.nroDocumento_Personal == nroDoc &&   a.estado == 1
                                 select new
                                 {
+                                    a.id_Personal,
                                     a.id_Empresa,
                                     b.razonSocial_Empresa,
                                     a.nombres_Personal,

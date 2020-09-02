@@ -23,14 +23,14 @@
                 <div class="col-md-2">
                     <label for=""> Distrito</label>
                     <select class="form-control comboBox" formControlName="idDistrito">
-                        <option value="0"> [ --SELECCIONE-- ]</option>
+                        <option value="0"> [ --TODOS-- ]</option>
                         <option [value]="dist.id_Distrito" *ngFor="let dist of distritos">{{dist.nombreDistrito}}</option>
                     </select>
                 </div>
                 <div class="col-md-2">
                     <label for=""> Proveedor</label>
                     <select class="form-control comboBox" formControlName="idProveedor">
-                        <option value="0"> [ --SELECCIONE-- ]</option>
+                        <option value="0"> [ -- TODOS -- ]</option>
                         <option [value]="item.id_Empresa" *ngFor="let item of proveedor">{{item.razonSocial_Empresa}}</option>
                     </select>
                 </div>

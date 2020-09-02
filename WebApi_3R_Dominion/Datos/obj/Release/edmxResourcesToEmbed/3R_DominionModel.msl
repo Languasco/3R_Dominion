@@ -210,6 +210,9 @@
     <EntitySetMapping Name="tbl_OrdenTrabajo_Cab">
       <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_OrdenTrabajo_Cab">
         <MappingFragment StoreEntitySet="tbl_OrdenTrabajo_Cab">
+          <ScalarProperty Name="solesDesmontePorRecojido_OT" ColumnName="solesDesmontePorRecojido_OT" />
+          <ScalarProperty Name="solesDesmonteRecojido_OT" ColumnName="solesDesmonteRecojido_OT" />
+          <ScalarProperty Name="solesMedidas_OT" ColumnName="solesMedidas_OT" />
           <ScalarProperty Name="id_OT" ColumnName="id_OT" />
           <ScalarProperty Name="id_TipoOrdenTrabajo" ColumnName="id_TipoOrdenTrabajo" />
           <ScalarProperty Name="id_Servicios" ColumnName="id_Servicios" />
@@ -392,28 +395,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_Usuarios">
-      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Usuarios">
-        <MappingFragment StoreEntitySet="tbl_Usuarios">
-          <ScalarProperty Name="id_Usuario" ColumnName="id_Usuario" />
-          <ScalarProperty Name="id_Personal" ColumnName="id_Personal" />
-          <ScalarProperty Name="nrodoc_usuario" ColumnName="nrodoc_usuario" />
-          <ScalarProperty Name="apellidos_usuario" ColumnName="apellidos_usuario" />
-          <ScalarProperty Name="nombres_usuario" ColumnName="nombres_usuario" />
-          <ScalarProperty Name="email_usuario" ColumnName="email_usuario" />
-          <ScalarProperty Name="id_TipoUsuario" ColumnName="id_TipoUsuario" />
-          <ScalarProperty Name="id_Perfil" ColumnName="id_Perfil" />
-          <ScalarProperty Name="fotourl" ColumnName="fotourl" />
-          <ScalarProperty Name="login_usuario" ColumnName="login_usuario" />
-          <ScalarProperty Name="contrasenia_usuario" ColumnName="contrasenia_usuario" />
-          <ScalarProperty Name="estado" ColumnName="estado" />
-          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
-          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_Usuarios_Servicios">
       <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Usuarios_Servicios">
         <MappingFragment StoreEntitySet="tbl_Usuarios_Servicios">
@@ -463,6 +444,29 @@
           <ScalarProperty Name="nombre_Operario" ColumnName="nombre_Operario" />
           <ScalarProperty Name="usuario_Operario" ColumnName="usuario_Operario" />
           <ScalarProperty Name="contrasenia_Operario" ColumnName="contrasenia_Operario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Usuarios">
+      <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Usuarios">
+        <MappingFragment StoreEntitySet="tbl_Usuarios">
+          <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+          <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="contrasenia_usuario" ColumnName="contrasenia_usuario" />
+          <ScalarProperty Name="login_usuario" ColumnName="login_usuario" />
+          <ScalarProperty Name="fotourl" ColumnName="fotourl" />
+          <ScalarProperty Name="id_Perfil" ColumnName="id_Perfil" />
+          <ScalarProperty Name="id_TipoUsuario" ColumnName="id_TipoUsuario" />
+          <ScalarProperty Name="email_usuario" ColumnName="email_usuario" />
+          <ScalarProperty Name="nombres_usuario" ColumnName="nombres_usuario" />
+          <ScalarProperty Name="apellidos_usuario" ColumnName="apellidos_usuario" />
+          <ScalarProperty Name="nrodoc_usuario" ColumnName="nrodoc_usuario" />
+          <ScalarProperty Name="id_EmpresaUsuario" ColumnName="id_EmpresaUsuario" />
+          <ScalarProperty Name="id_Personal" ColumnName="id_Personal" />
+          <ScalarProperty Name="id_Usuario" ColumnName="id_Usuario" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

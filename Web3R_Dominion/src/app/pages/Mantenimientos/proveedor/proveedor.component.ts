@@ -54,7 +54,7 @@ export class ProveedorComponent implements OnInit {
 
  inicializarFormularioFiltro(){ 
     this.formParamsFiltro= new FormGroup({
-      idEstado : new FormControl('0')
+      idEstado : new FormControl('1')
      }) 
  }
 
@@ -79,15 +79,12 @@ export class ProveedorComponent implements OnInit {
     cantidadM3: new FormControl('')
   }) 
 }
-
-
- 
  
 
  getCargarCombos(){ 
     this.spinner.show();
     this.proveedorService.get_estados().subscribe((res:any)=>{
-        this.estados = res; 
+        this.estados = res.filter((estado) => estado.tipoproceso_estado =='M'); 
         this.spinner.hide();  
     })
  }
@@ -229,6 +226,7 @@ export class ProveedorComponent implements OnInit {
              obj.id_Icono= this.formParams.value.id_Icono ;
              obj.estado= this.formParams.value.estado ;
              obj.descripcion_estado = this.formParams.value.estado == 0 ? "INACTIVO" : "ACTIVO";
+             obj.esProveedor = (this.formParams.value.esProveedor == true) ? 1:0;
 
              break;
            }

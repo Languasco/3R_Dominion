@@ -188,6 +188,8 @@ namespace Negocio.Reportes
                                 Entidad.referencia = dr["referencia"].ToString();
                                 Entidad.descripcion_OT = dr["descripcion_OT"].ToString();
                                 Entidad.id_estado = Convert.ToInt32(dr["id_estado"]);
+                                Entidad.descripcionServicio = dr["descripcionServicio"].ToString();
+                                Entidad.color = dr["color"].ToString();
 
                                 obj_List.Add(Entidad);
                             }
@@ -656,6 +658,37 @@ namespace Negocio.Reportes
             return Res;
         }
 
+        public DataTable get_ubicacionesOT(int idServicio, string fechaGps, int idTipoOT, int idProveedor, int idEstado, int idUsuario)
+        {
+            DataTable dt_detalle = new DataTable();
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(bdConexion.cadenaBDcx()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_REPORTE_UBICACION_OT", cn))
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@Fecha", SqlDbType.VarChar).Value = fechaGps;
+                        cmd.Parameters.Add("@Servicio", SqlDbType.Int).Value = idServicio;
+                        cmd.Parameters.Add("@TipoOrden", SqlDbType.Int).Value = idTipoOT;
+                        cmd.Parameters.Add("@Proveedor", SqlDbType.Int).Value = idProveedor;
+                        cmd.Parameters.Add("@Estado", SqlDbType.Int).Value = idEstado;
+
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt_detalle);
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return dt_detalle;
+        }
 
 
     }

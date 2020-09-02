@@ -49,10 +49,10 @@ namespace Datos
         public virtual DbSet<tbl_Personal> tbl_Personal { get; set; }
         public virtual DbSet<tbl_Precios> tbl_Precios { get; set; }
         public virtual DbSet<tbl_Servicios> tbl_Servicios { get; set; }
-        public virtual DbSet<tbl_Usuarios> tbl_Usuarios { get; set; }
         public virtual DbSet<tbl_Usuarios_Servicios> tbl_Usuarios_Servicios { get; set; }
         public virtual DbSet<TempoESTADO> TempoESTADO { get; set; }
         public virtual DbSet<TempoGPS> TempoGPS { get; set; }
         public virtual DbSet<TempoOperario> TempoOperario { get; set; }
+        public virtual DbSet<tbl_Usuarios> tbl_Usuarios { get; set; }
     }
 }

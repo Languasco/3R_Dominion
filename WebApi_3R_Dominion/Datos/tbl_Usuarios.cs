@@ -22,6 +22,7 @@ namespace Datos
     
         public int id_Usuario { get; set; }
         public Nullable<int> id_Personal { get; set; }
+        public Nullable<int> id_EmpresaUsuario { get; set; }
         public string nrodoc_usuario { get; set; }
         public string apellidos_usuario { get; set; }
         public string nombres_usuario { get; set; }
@@ -39,6 +40,5 @@ namespace Datos
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Aceesos_Evento> tbl_Aceesos_Evento { get; set; }
-        public virtual tbl_Perfil tbl_Perfil { get; set; }
     }
 }

@@ -9,15 +9,17 @@
                 <div class="col-md-4">
                     <label for=""> Empresa</label>
                     <select class="form-control comboBox" formControlName="idEmpresa">
-                        <option value="0"> [ --SELECCIONE-- ]</option>
+                        <option value="0"> [ -- TODOS-- ]</option>
                         <option [value]="empresa.id_Empresa" *ngFor="let empresa of empresas">{{empresa.razonSocial_Empresa}}</option>
                     </select>
                 </div>
                 <div class="col-md-4">
                     <label for=""> Estado</label>
                     <select class="form-control comboBox" formControlName="idEstado">
-                        <option value="0"> [ --SELECCIONE-- ]</option>
-                        <option [value]="estado.id_Estado" *ngFor="let estado of estados">{{estado.descripcion_estado}}</option>
+                        <!-- <option value="0"> [ --SELECCIONE-- ]</option> -->
+                        <!-- <option [value]="estado.id_Estado" *ngFor="let estado of estados">{{estado.descripcion_estado}}</option> -->
+                        <option value="1"> Activo </option>
+                        <option value="0"> Inactivo </option>
                     </select>
                 </div>
                 <div class="col-sm-6 col-md-12 col-lg-4 text-center">

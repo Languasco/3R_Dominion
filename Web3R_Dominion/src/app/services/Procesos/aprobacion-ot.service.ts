@@ -98,6 +98,20 @@ export class AprobacionOTService {
     return this.http.get( this.URL + 'AprobarOT' , {params: parametros});
   }
 
+  get_descargarFotosOT_todos( idOT:number, idTipoOT:number, idUsuario :number){ 
+    let parametros = new HttpParams();
+    parametros = parametros.append('opcion', '9');
+    parametros = parametros.append('filtro', idOT + '|' + idTipoOT + '|' + idUsuario);
+    return this.http.get( this.URL + 'AprobarOT' , {params: parametros})
+  }
+
+  get_descargarFotosOT_visor( idOT_foto:number, idTipoOT:number, idUsuario :number){ 
+    let parametros = new HttpParams();
+    parametros = parametros.append('opcion', '10');
+    parametros = parametros.append('filtro', idOT_foto + '|' + idTipoOT + '|' + idUsuario);
+    return this.http.get( this.URL + 'AprobarOT' , {params: parametros})
+  }
+
   
 
 

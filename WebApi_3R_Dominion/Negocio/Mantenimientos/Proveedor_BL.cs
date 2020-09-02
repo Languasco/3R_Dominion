@@ -102,7 +102,7 @@ namespace Negocio.Mantenimientos
             {
                 DataTable dt_usuarios = new DataTable();
                 string rutaQR = System.Web.Hosting.HostingEnvironment.MapPath("~/Archivos/QR/" + idUsuarioBD + ".gif");
-                string FileExcel = ConfigurationManager.AppSettings["ServerFilesReporte"] + "QR/" + idUsuarioBD + ".gif";
+                string FileExcel = ConfigurationManager.AppSettings["Archivos"] + "QR/" + idUsuarioBD + ".gif";
 
                 if (File.Exists(rutaQR)) /// verificando si existe el archivo zip
                 {

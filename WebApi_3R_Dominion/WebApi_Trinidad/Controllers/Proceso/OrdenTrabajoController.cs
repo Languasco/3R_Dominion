@@ -50,9 +50,7 @@ namespace WebApi_3R_Dominion.Controllers.Proceso
                 }
                 else if (opcion == 3)
                 {
-
-                    //var IDestados = new string[] { "5","6" };
-                
+                    //var IDestados = new string[] { "5","6" };                
                     res.ok = true;
                     res.data = (from a in db.tbl_Estados
                                     //where IDestados.Contains(a.id_Estado.ToString())
@@ -148,6 +146,90 @@ namespace WebApi_3R_Dominion.Controllers.Proceso
 
                     resul = obj_negocio.get_descargar_ordenTrabajoCab(idServicio, idTipoOT, idDistrito, idProveedor, idEstado, idUsuario);
 
+                }
+                else if (opcion == 10)
+                {
+                    string[] parametros = filtro.Split('|');
+                    int idEmpresa = Convert.ToInt32(parametros[0].ToString());
+                    int idUsuario = Convert.ToInt32(parametros[1].ToString());
+
+                    res.ok = true;
+                    res.data = obj_negocio.get_jefeCuadrilla_Empresa(idEmpresa, idUsuario);
+                    res.totalpage = 0;
+                    resul = res;
+                }
+                else if (opcion == 11)
+                {
+                    string[] parametros = filtro.Split('|');
+                    int idServicio = Convert.ToInt32(parametros[0].ToString());
+                    int idTipoOT = Convert.ToInt32(parametros[1].ToString());
+                    int idDistrito = Convert.ToInt32(parametros[2].ToString());
+
+                    int idProveedor = Convert.ToInt32(parametros[3].ToString());
+                    int idEstado = Convert.ToInt32(parametros[4].ToString());
+                    int idUsuario = Convert.ToInt32(parametros[5].ToString());
+
+                    resul = obj_negocio.get_ordenTrabajoCab_mapa(idServicio, idTipoOT, idDistrito, idProveedor, idEstado, idUsuario);
+                }
+                else if (opcion == 12)
+                {
+                    string[] parametros = filtro.Split('|');
+                    string codigosOT = parametros[0].ToString();
+                    int idEmpresa = Convert.ToInt32(parametros[1].ToString());
+                    int idCuadrilla = Convert.ToInt32(parametros[2].ToString());
+                    int idEstado = Convert.ToInt32(parametros[3].ToString());
+                    int idUsuario = Convert.ToInt32(parametros[4].ToString());
+
+                    res.ok = true;
+                    res.data = obj_negocio.set_asignarReasignarOT_mapa(codigosOT, idEmpresa, idCuadrilla, idEstado,  idUsuario);
+                    res.totalpage = 0;
+                    resul = res;
+                }
+                else if (opcion == 13)
+                {
+                    string[] parametros = filtro.Split('|');
+                    int idServicio = Convert.ToInt32(parametros[0].ToString());
+                    int idTipoOT = Convert.ToInt32(parametros[1].ToString());
+                    int idDistrito = Convert.ToInt32(parametros[2].ToString());
+
+                    int idProveedor = Convert.ToInt32(parametros[3].ToString());
+                    int idEstado = Convert.ToInt32(parametros[4].ToString());
+                    int idUsuario = Convert.ToInt32(parametros[5].ToString());
+
+                    resul = obj_negocio.get_detalleOrdenTrabajoCab_mapa(idServicio, idTipoOT, idDistrito, idProveedor, idEstado, idUsuario);
+                }
+                else if (opcion == 14)
+                {
+                    string[] parametros = filtro.Split('|');
+                    int idServicio = Convert.ToInt32(parametros[0].ToString());
+                    int idTipoOT = Convert.ToInt32(parametros[1].ToString());
+                    int idDistrito = Convert.ToInt32(parametros[2].ToString());
+
+                    int idProveedor = Convert.ToInt32(parametros[3].ToString());
+                    int idEstado = Convert.ToInt32(parametros[4].ToString());
+                    int idUsuario = Convert.ToInt32(parametros[5].ToString());
+
+
+                    res.ok = true;
+                    res.data = obj_negocio.set_asignacionAutomatica(idServicio, idTipoOT, idDistrito, idProveedor, idEstado, idUsuario);
+                    res.totalpage = 0;
+                    resul = res;
+
+                }
+                else if (opcion == 15)
+                {
+                    string[] parametros = filtro.Split('|');
+                    int idServicio = Convert.ToInt32(parametros[0].ToString());
+                    int idTipoOT = Convert.ToInt32(parametros[1].ToString());
+                    int idDistrito = Convert.ToInt32(parametros[2].ToString());
+
+                    int idProveedor = Convert.ToInt32(parametros[3].ToString());
+                    int idEstado = Convert.ToInt32(parametros[4].ToString());
+                    int idUsuario = Convert.ToInt32(parametros[5].ToString());
+
+                    //resul = obj_negocio.get_ordenTrabajoCab(idServicio, idTipoOT, idDistrito, idProveedor, idEstado, idUsuario);
+
+                    resul = obj_negocio.get_descargar_OT(idServicio, idTipoOT, idDistrito, idProveedor, idEstado, idUsuario);
                 }
                 else
                 {

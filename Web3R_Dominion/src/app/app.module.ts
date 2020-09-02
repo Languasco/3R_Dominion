@@ -49,6 +49,10 @@ import { AprobacionOTComponent } from './pages/Procesos/aprobacion-ot/aprobacion
 import { UbicacionPersonalComponent } from './pages/Reportes/ubicacion-personal/ubicacion-personal.component';
 import { DetalleOTComponent } from './pages/Reportes/detalle-ot/detalle-ot.component';
 import { FueraPlazoComponent } from './pages/Reportes/fuera-plazo/fuera-plazo.component';
+import { ConfiguracionZonasComponent } from './pages/Mantenimientos/configuracion-zonas/configuracion-zonas.component';
+import { UbicacionOtComponent } from './pages/Reportes/ubicacion-ot/ubicacion-ot.component';
+ 
+ 
  
 const config: SocketIoConfig = { url: 'http://173.248.174.33:5000', options: {} }; 
 // const config: SocketIoConfig = { url: environment.URL_SOCKET , options: {} }; 
@@ -72,7 +76,8 @@ const config: SocketIoConfig = { url: 'http://173.248.174.33:5000', options: {} 
     UbicacionPersonalComponent,
     DetalleOTComponent,
     FueraPlazoComponent,
-    
+    ConfiguracionZonasComponent,
+    UbicacionOtComponent
   ],
   imports: [
     BrowserModule,

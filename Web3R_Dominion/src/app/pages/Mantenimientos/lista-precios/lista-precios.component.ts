@@ -47,7 +47,7 @@ export class ListaPreciosComponent implements OnInit {
  inicializarFormularioFiltro(){ 
     this.formParamsFiltro= new FormGroup({
       idtipoOrdenT : new FormControl('0'),
-      idEstado : new FormControl('0')
+      idEstado : new FormControl('1')
      }) 
  }
 
@@ -59,6 +59,7 @@ export class ListaPreciosComponent implements OnInit {
       id_TipoOrdenTrabajo: new FormControl('0'),
       precio: new FormControl(''),
       cubicaje: new FormControl(''),
+      cubicajeFinal: new FormControl(''),
       estado : new FormControl('1'),   
       usuario_creacion : new FormControl('')
     }) 
@@ -75,10 +76,10 @@ export class ListaPreciosComponent implements OnInit {
  }
 
  mostrarInformacion(){
-       if (this.formParamsFiltro.value.idtipoOrdenT == '' || this.formParamsFiltro.value.idtipoOrdenT == 0) {
-        this.alertasService.Swal_alert('error','Por favor seleccione el Tipo de Orden Trabajo');
-        return 
-      }  
+      //  if (this.formParamsFiltro.value.idtipoOrdenT == '' || this.formParamsFiltro.value.idtipoOrdenT == 0) {
+      //   this.alertasService.Swal_alert('error','Por favor seleccione el Tipo de Orden Trabajo');
+      //   return 
+      // }  
 
       if (this.formParamsFiltro.value.idEstado == '' || this.formParamsFiltro.value.idEstado == 0) {
         this.alertasService.Swal_alert('error','Por favor seleccione un estado');
@@ -141,7 +142,12 @@ export class ListaPreciosComponent implements OnInit {
     this.alertasService.Swal_alert('error','Por favor ingrese el cubicaje');
     return 
   }
- 
+
+  if (this.formParams.value.cubicajeFinal == '' || this.formParams.value.cubicajeFinal == 0) {
+    this.alertasService.Swal_alert('error','Por favor ingrese el cubicaje Final');
+    return 
+  }
+  
  
    this.formParams.patchValue({ "usuario_creacion" : this.idUserGlobal });
 
@@ -180,6 +186,7 @@ export class ListaPreciosComponent implements OnInit {
              obj.descripcion_tipoOT = tipoOTSeleccionada ;
              obj.precio= this.formParams.value.precio ;
              obj.cubicaje= this.formParams.value.cubicaje ;
+             obj.cubicajeFinal= this.formParams.value.cubicajeFinal ;
              obj.estado= this.formParams.value.estado ;
              obj.descripcion_estado = this.formParams.value.estado == 0 ? "INACTIVO" : "ACTIVO";
              break;
@@ -196,13 +203,13 @@ export class ListaPreciosComponent implements OnInit {
 
  } 
 
- editar({ id_Precio, id_TipoOrdenTrabajo, precio, cubicaje, estado}){
+ editar({ id_Precio, id_TipoOrdenTrabajo, precio, cubicaje,cubicajeFinal, estado}){
    this.flag_modoEdicion=true;
    setTimeout(()=>{ // 
     $('#modal_mantenimiento').modal('show');
   },0);
 
-   this.formParams.patchValue({ "id_Precio" : id_Precio, "id_TipoOrdenTrabajo" :  id_TipoOrdenTrabajo  , "precio" : precio ,"cubicaje" : cubicaje, "estado" : estado, "usuario_creacion" : this.idUserGlobal }
+   this.formParams.patchValue({ "id_Precio" : id_Precio, "id_TipoOrdenTrabajo" :  id_TipoOrdenTrabajo  , "precio" : precio ,"cubicaje" : cubicaje,  "cubicajeFinal" : cubicajeFinal,  "estado" : estado, "usuario_creacion" : this.idUserGlobal }
    );
  
  } 

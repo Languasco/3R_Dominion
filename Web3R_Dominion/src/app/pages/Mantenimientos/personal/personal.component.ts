@@ -54,7 +54,7 @@ export class PersonalComponent implements OnInit {
  inicializarFormularioFiltro(){ 
     this.formParamsFiltro= new FormGroup({
       idEmpresa : new FormControl('0'),
-      idEstado : new FormControl('0')
+      idEstado : new FormControl('1')
      }) 
  }
 
@@ -97,10 +97,10 @@ export class PersonalComponent implements OnInit {
  }
 
  mostrarInformacion(){
-       if (this.formParamsFiltro.value.idEmpresa == '' || this.formParamsFiltro.value.idEmpresa == 0) {
-        this.alertasService.Swal_alert('error','Por favor seleccione la empresa');
-        return 
-      }  
+      //  if (this.formParamsFiltro.value.idEmpresa == '' || this.formParamsFiltro.value.idEmpresa == 0) {
+      //   this.alertasService.Swal_alert('error','Por favor seleccione la empresa');
+      //   return 
+      // }  
 
       if (this.formParamsFiltro.value.idEstado == '' || this.formParamsFiltro.value.idEstado == 0) {
         this.alertasService.Swal_alert('error','Por favor seleccione un estado');

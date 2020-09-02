@@ -66,6 +66,7 @@ export class FueraPlazoComponent implements OnInit,AfterViewInit {
   id_OTGlobal = 0;
   id_tipoOTGlobal = 0;
   id_estadoOTGlobal = 0;
+  id_FotoOTGlobal = 0;
 
   nroObraParteDiario_Global = '';
   fechaHora_Global = '';
@@ -367,6 +368,7 @@ cerrarModal_OT(){
   abrirModal_visorFotos(objData:any){ 
 
     this.detalleOT = objData;
+    this.id_FotoOTGlobal = objData.id_OTDet;
 
     setTimeout(()=>{ // 
       $('#modal_visorFotos').modal('show');
@@ -420,37 +422,86 @@ cerrarModal_OT(){
       
     }
   }) 
-} 
-
-descargarGrilla(){
-
-  if (this.formParamsFiltro.value.idServicio == '' || this.formParamsFiltro.value.idServicio == 0) {
-    this.alertasService.Swal_alert('error','Por favor seleccione el servicio');
-    return 
-  }     
-  if (this.formParamsFiltro.value.idTipoOT == '' || this.formParamsFiltro.value.idTipoOT == 0) {
-    this.alertasService.Swal_alert('error','Por favor seleccione el Tipo de Orden Trabajo');
-    return 
   } 
-  if (this.formParamsFiltro.value.idProveedor == '' || this.formParamsFiltro.value.idProveedor == 0) {
-    this.alertasService.Swal_alert('error','Por favor seleccione un Proveedor');
-    return 
+
+  descargarGrilla(){
+  
+    if (this.formParamsFiltro.value.idServicio == '' || this.formParamsFiltro.value.idServicio == 0) {
+      this.alertasService.Swal_alert('error','Por favor seleccione el servicio');
+      return 
+    }     
+    if (this.formParamsFiltro.value.idTipoOT == '' || this.formParamsFiltro.value.idTipoOT == 0) {
+      this.alertasService.Swal_alert('error','Por favor seleccione el Tipo de Orden Trabajo');
+      return 
+    } 
+    if (this.formParamsFiltro.value.idProveedor == '' || this.formParamsFiltro.value.idProveedor == 0) {
+      this.alertasService.Swal_alert('error','Por favor seleccione un Proveedor');
+      return 
+    }
+  
+    this.spinner.show();
+    this.fueraPlazoService.get_descargarFueraPlazoOT(this.formParamsFiltro.value, this.idUserGlobal)
+        .subscribe((res:RespuestaServer)=>{            
+          this.spinner.hide();
+          console.log(res.data);
+          if (res.ok==true) {        
+            window.open(String(res.data),'_blank');
+          }else{
+            this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+            alert(JSON.stringify(res.data));
+          }
+    })
+  
+  } 
+
+  descargarFotosOT(pantalla:string){
+
+    if (pantalla='P') {
+      if (this.medidasDetalle.length ==0) {
+        return;
+      }    
+    }
+  
+    Swal.fire({
+      icon: 'info', allowOutsideClick: false, allowEscapeKey: false, text: 'Obteniendo Fotos, Espere por favor'
+    })
+    Swal.showLoading();  
+    this.aprobacionOTService.get_descargarFotosOT_todos( this.id_OTGlobal, this.id_tipoOTGlobal, this.idUserGlobal ).subscribe( (res:any)=>{           
+      Swal.close();
+  
+      if (res.ok ==true) {   
+       window.open(String(res.data),'_blank');
+      }else{
+        this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+        alert(JSON.stringify(res.data));
+      }
+      
+    })
+  
   }
-
-  this.spinner.show();
-  this.fueraPlazoService.get_descargarFueraPlazoOT(this.formParamsFiltro.value, this.idUserGlobal)
-      .subscribe((res:RespuestaServer)=>{            
-        this.spinner.hide();
-        console.log(res.data);
-        if (res.ok==true) {        
-          window.open(String(res.data),'_blank');
-        }else{
-          this.alertasService.Swal_alert('error', JSON.stringify(res.data));
-          alert(JSON.stringify(res.data));
-        }
-  })
-
-} 
+  
+  descargarFotosOT_visor(pantalla:string){
+   
+    if (this.fotosDetalle.length ==0) {
+      return;
+    }    
+    Swal.fire({
+      icon: 'info', allowOutsideClick: false, allowEscapeKey: false, text: 'Obteniendo Fotos, Espere por favor'
+    })
+    Swal.showLoading();  
+    this.aprobacionOTService.get_descargarFotosOT_visor( this.id_FotoOTGlobal , this.id_tipoOTGlobal, this.idUserGlobal ).subscribe( (res:any)=>{           
+      Swal.close();
+  
+      if (res.ok ==true) {   
+       window.open(String(res.data),'_blank');
+      }else{
+        this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+        alert(JSON.stringify(res.data));
+      }
+      
+    })
+  
+  }
   
  
 

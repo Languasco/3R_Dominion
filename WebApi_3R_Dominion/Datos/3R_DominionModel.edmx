@@ -4,12 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Proyecto_3RModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.cesar' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="cesar">
-          <Property Name="id_Icono" Type="int" />
-        </EntityType>-->
+    <Schema Namespace="Proyecto_3RModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tbl_Aceesos_Evento">
           <Key>
             <PropertyRef Name="id_Acceso_evento" />
@@ -233,6 +228,9 @@ advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.cesar' no tiene definida una
           <Property Name="totalMedidas_OT" Type="decimal" Precision="28" Scale="3" />
           <Property Name="totalDesmonteRecojido_OT" Type="decimal" Precision="28" Scale="3" />
           <Property Name="totalDesmontePorRecojido_OT" Type="decimal" Precision="28" Scale="3" />
+          <Property Name="solesMedidas_OT" Type="decimal" Precision="28" Scale="3" />
+          <Property Name="solesDesmonteRecojido_OT" Type="decimal" Precision="28" Scale="3" />
+          <Property Name="solesDesmontePorRecojido_OT" Type="decimal" Precision="28" Scale="3" />
           <Property Name="estado" Type="int" />
           <Property Name="usuario_creacion" Type="int" />
           <Property Name="fecha_creacion" Type="datetime" />
@@ -383,6 +381,7 @@ advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.cesar' no tiene definida una
           </Key>
           <Property Name="id_Usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_Personal" Type="int" />
+          <Property Name="id_EmpresaUsuario" Type="int" />
           <Property Name="nrodoc_usuario" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="apellidos_usuario" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="nombres_usuario" Type="varchar" MaxLength="150" Nullable="false" />
@@ -462,19 +461,6 @@ advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoOperario' no tiene defi
           <Property Name="usuario_Operario" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="contrasenia_Operario" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.TEMPORAL_PERSONAL' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="TEMPORAL_PERSONAL">
-          <Property Name="tipoDocumento" Type="varchar" MaxLength="100" />
-          <Property Name="nroDocumento" Type="varchar" MaxLength="20" />
-          <Property Name="apellidos" Type="varchar" MaxLength="250" />
-          <Property Name="nombres" Type="varchar" MaxLength="250" />
-          <Property Name="cargo" Type="varchar" MaxLength="250" />
-          <Property Name="nombreArchivo" Type="varchar" MaxLength="100" />
-          <Property Name="empresa_importacion" Type="int" />
-          <Property Name="usuario_importacion" Type="int" />
-          <Property Name="fechaBD" Type="datetime" />
-        </EntityType>-->
         <Association Name="FK__tbl_Acees__id_Op__3C69FB99">
           <End Role="tbl_Definicion_Opciones" Type="Self.tbl_Definicion_Opciones" Multiplicity="0..1" />
           <End Role="tbl_Aceesos_Evento" Type="Self.tbl_Aceesos_Evento" Multiplicity="*" />
@@ -508,18 +494,6 @@ advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.TEMPORAL_PERSONAL' no tiene 
             </Principal>
             <Dependent Role="tbl_Empresas_Vehiculos">
               <PropertyRef Name="id_Empresa" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Usuarios_tbl_Perfil">
-          <End Role="tbl_Perfil" Type="Self.tbl_Perfil" Multiplicity="1" />
-          <End Role="tbl_Usuarios" Type="Self.tbl_Usuarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Perfil">
-              <PropertyRef Name="id_perfil" />
-            </Principal>
-            <Dependent Role="tbl_Usuarios">
-              <PropertyRef Name="id_Perfil" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -595,13 +569,8 @@ advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.TEMPORAL_PERSONAL' no tiene 
             <End Role="tbl_Empresas" EntitySet="tbl_Empresas" />
             <End Role="tbl_Empresas_Vehiculos" EntitySet="tbl_Empresas_Vehiculos" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_Usuarios_tbl_Perfil" Association="Self.FK_tbl_Usuarios_tbl_Perfil">
-            <End Role="tbl_Perfil" EntitySet="tbl_Perfil" />
-            <End Role="tbl_Usuarios" EntitySet="tbl_Usuarios" />
-          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Proyecto_3RModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -619,7 +588,7 @@ advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.TEMPORAL_PERSONAL' no tiene 
           <Property Name="usuario_edicion" Type="Int32" />
           <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
           <NavigationProperty Name="tbl_Definicion_Opciones" Relationship="Self.FK__tbl_Acees__id_Op__3C69FB99" FromRole="tbl_Aceesos_Evento" ToRole="tbl_Definicion_Opciones" />
-          <NavigationProperty Name="tbl_Usuarios" Relationship="Self.FK__tbl_Acees__id_Us__3E52440B" FromRole="tbl_Aceesos_Evento" ToRole="tbl_Usuarios" />
+          <NavigationProperty Name="tbl_Usuarios" Relationship="Proyecto_3RModel.FK__tbl_Acees__id_Us__3E52440B" FromRole="tbl_Aceesos_Evento" ToRole="tbl_Usuarios" />
         </EntityType>
         <EntityType Name="tbl_Cargo_Personal">
           <Key>
@@ -838,6 +807,9 @@ advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.TEMPORAL_PERSONAL' no tiene 
           <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
           <Property Name="usuario_edicion" Type="Int32" />
           <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
+          <Property Name="solesMedidas_OT" Type="Decimal" Precision="28" Scale="3" />
+          <Property Name="solesDesmonteRecojido_OT" Type="Decimal" Precision="28" Scale="3" />
+          <Property Name="solesDesmontePorRecojido_OT" Type="Decimal" Precision="28" Scale="3" />
         </EntityType>
         <EntityType Name="tbl_OrdenTrabajo_Det">
           <Key>
@@ -916,7 +888,6 @@ advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.TEMPORAL_PERSONAL' no tiene 
           <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
           <Property Name="usuario_edicion" Type="Int32" />
           <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbl_Usuarios" Relationship="Self.FK_tbl_Usuarios_tbl_Perfil" FromRole="tbl_Perfil" ToRole="tbl_Usuarios" />
         </EntityType>
         <EntityType Name="tbl_Perfil_Accesos">
           <Key>
@@ -977,29 +948,6 @@ advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.TEMPORAL_PERSONAL' no tiene 
           <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
           <Property Name="usuario_edicion" Type="Int32" />
           <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="tbl_Usuarios">
-          <Key>
-            <PropertyRef Name="id_Usuario" />
-          </Key>
-          <Property Name="id_Usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_Personal" Type="Int32" />
-          <Property Name="nrodoc_usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="apellidos_usuario" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="nombres_usuario" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="email_usuario" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="id_TipoUsuario" Type="Int32" />
-          <Property Name="id_Perfil" Type="Int32" Nullable="false" />
-          <Property Name="fotourl" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="login_usuario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="contrasenia_usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="estado" Type="Int32" Nullable="false" />
-          <Property Name="usuario_creacion" Type="Int32" />
-          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
-          <Property Name="usuario_edicion" Type="Int32" />
-          <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbl_Aceesos_Evento" Relationship="Self.FK__tbl_Acees__id_Us__3E52440B" FromRole="tbl_Usuarios" ToRole="tbl_Aceesos_Evento" />
-          <NavigationProperty Name="tbl_Perfil" Relationship="Self.FK_tbl_Usuarios_tbl_Perfil" FromRole="tbl_Usuarios" ToRole="tbl_Perfil" />
         </EntityType>
         <EntityType Name="tbl_Usuarios_Servicios">
           <Key>
@@ -1071,18 +1019,6 @@ advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.TEMPORAL_PERSONAL' no tiene 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tbl_Acees__id_Us__3E52440B">
-          <End Role="tbl_Usuarios" Type="Self.tbl_Usuarios" Multiplicity="0..1" />
-          <End Role="tbl_Aceesos_Evento" Type="Self.tbl_Aceesos_Evento" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Usuarios">
-              <PropertyRef Name="id_Usuario" />
-            </Principal>
-            <Dependent Role="tbl_Aceesos_Evento">
-              <PropertyRef Name="id_Usuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__tbl_Empre__id_Em__0B91BA14">
           <End Role="tbl_Empresas" Type="Self.tbl_Empresas" Multiplicity="0..1" />
           <End Role="tbl_Empresas_Vehiculos" Type="Self.tbl_Empresas_Vehiculos" Multiplicity="*" />
@@ -1092,18 +1028,6 @@ advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.TEMPORAL_PERSONAL' no tiene 
             </Principal>
             <Dependent Role="tbl_Empresas_Vehiculos">
               <PropertyRef Name="id_Empresa" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Usuarios_tbl_Perfil">
-          <End Role="tbl_Perfil" Type="Self.tbl_Perfil" Multiplicity="1" />
-          <End Role="tbl_Usuarios" Type="Self.tbl_Usuarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Perfil">
-              <PropertyRef Name="id_perfil" />
-            </Principal>
-            <Dependent Role="tbl_Usuarios">
-              <PropertyRef Name="id_Perfil" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1132,7 +1056,6 @@ advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.TEMPORAL_PERSONAL' no tiene 
           <EntitySet Name="tbl_Personal" EntityType="Self.tbl_Personal" />
           <EntitySet Name="tbl_Precios" EntityType="Self.tbl_Precios" />
           <EntitySet Name="tbl_Servicios" EntityType="Self.tbl_Servicios" />
-          <EntitySet Name="tbl_Usuarios" EntityType="Self.tbl_Usuarios" />
           <EntitySet Name="tbl_Usuarios_Servicios" EntityType="Self.tbl_Usuarios_Servicios" />
           <EntitySet Name="TempoESTADO" EntityType="Self.TempoESTADO" />
           <EntitySet Name="TempoGPS" EntityType="Self.TempoGPS" />
@@ -1141,19 +1064,51 @@ advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.TEMPORAL_PERSONAL' no tiene 
             <End Role="tbl_Definicion_Opciones" EntitySet="tbl_Definicion_Opciones" />
             <End Role="tbl_Aceesos_Evento" EntitySet="tbl_Aceesos_Evento" />
           </AssociationSet>
-          <AssociationSet Name="FK__tbl_Acees__id_Us__3E52440B" Association="Self.FK__tbl_Acees__id_Us__3E52440B">
-            <End Role="tbl_Usuarios" EntitySet="tbl_Usuarios" />
-            <End Role="tbl_Aceesos_Evento" EntitySet="tbl_Aceesos_Evento" />
-          </AssociationSet>
           <AssociationSet Name="FK__tbl_Empre__id_Em__0B91BA14" Association="Self.FK__tbl_Empre__id_Em__0B91BA14">
             <End Role="tbl_Empresas" EntitySet="tbl_Empresas" />
             <End Role="tbl_Empresas_Vehiculos" EntitySet="tbl_Empresas_Vehiculos" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_Usuarios_tbl_Perfil" Association="Self.FK_tbl_Usuarios_tbl_Perfil">
-            <End Role="tbl_Perfil" EntitySet="tbl_Perfil" />
+          <EntitySet Name="tbl_Usuarios" EntityType="Proyecto_3RModel.tbl_Usuarios" />
+          <AssociationSet Name="FK__tbl_Acees__id_Us__3E52440B" Association="Proyecto_3RModel.FK__tbl_Acees__id_Us__3E52440B">
             <End Role="tbl_Usuarios" EntitySet="tbl_Usuarios" />
+            <End Role="tbl_Aceesos_Evento" EntitySet="tbl_Aceesos_Evento" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="tbl_Usuarios">
+          <Key>
+            <PropertyRef Name="id_Usuario" />
+          </Key>
+          <Property Name="id_Usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Personal" Type="Int32" />
+          <Property Name="id_EmpresaUsuario" Type="Int32" />
+          <Property Name="nrodoc_usuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="apellidos_usuario" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="nombres_usuario" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="email_usuario" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="id_TipoUsuario" Type="Int32" />
+          <Property Name="id_Perfil" Type="Int32" Nullable="false" />
+          <Property Name="fotourl" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="login_usuario" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="contrasenia_usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="Int32" Nullable="false" />
+          <Property Name="usuario_creacion" Type="Int32" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="usuario_edicion" Type="Int32" />
+          <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbl_Aceesos_Evento" Relationship="Proyecto_3RModel.FK__tbl_Acees__id_Us__3E52440B" FromRole="tbl_Usuarios" ToRole="tbl_Aceesos_Evento" />
+        </EntityType>
+        <Association Name="FK__tbl_Acees__id_Us__3E52440B">
+          <End Type="Proyecto_3RModel.tbl_Usuarios" Role="tbl_Usuarios" Multiplicity="0..1" />
+          <End Type="Proyecto_3RModel.tbl_Aceesos_Evento" Role="tbl_Aceesos_Evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Usuarios">
+              <PropertyRef Name="id_Usuario" />
+            </Principal>
+            <Dependent Role="tbl_Aceesos_Evento">
+              <PropertyRef Name="id_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1369,6 +1324,9 @@ advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.TEMPORAL_PERSONAL' no tiene 
           <EntitySetMapping Name="tbl_OrdenTrabajo_Cab">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_OrdenTrabajo_Cab">
               <MappingFragment StoreEntitySet="tbl_OrdenTrabajo_Cab">
+                <ScalarProperty Name="solesDesmontePorRecojido_OT" ColumnName="solesDesmontePorRecojido_OT" />
+                <ScalarProperty Name="solesDesmonteRecojido_OT" ColumnName="solesDesmonteRecojido_OT" />
+                <ScalarProperty Name="solesMedidas_OT" ColumnName="solesMedidas_OT" />
                 <ScalarProperty Name="id_OT" ColumnName="id_OT" />
                 <ScalarProperty Name="id_TipoOrdenTrabajo" ColumnName="id_TipoOrdenTrabajo" />
                 <ScalarProperty Name="id_Servicios" ColumnName="id_Servicios" />
@@ -1551,28 +1509,6 @@ advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.TEMPORAL_PERSONAL' no tiene 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Usuarios">
-            <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Usuarios">
-              <MappingFragment StoreEntitySet="tbl_Usuarios">
-                <ScalarProperty Name="id_Usuario" ColumnName="id_Usuario" />
-                <ScalarProperty Name="id_Personal" ColumnName="id_Personal" />
-                <ScalarProperty Name="nrodoc_usuario" ColumnName="nrodoc_usuario" />
-                <ScalarProperty Name="apellidos_usuario" ColumnName="apellidos_usuario" />
-                <ScalarProperty Name="nombres_usuario" ColumnName="nombres_usuario" />
-                <ScalarProperty Name="email_usuario" ColumnName="email_usuario" />
-                <ScalarProperty Name="id_TipoUsuario" ColumnName="id_TipoUsuario" />
-                <ScalarProperty Name="id_Perfil" ColumnName="id_Perfil" />
-                <ScalarProperty Name="fotourl" ColumnName="fotourl" />
-                <ScalarProperty Name="login_usuario" ColumnName="login_usuario" />
-                <ScalarProperty Name="contrasenia_usuario" ColumnName="contrasenia_usuario" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
-                <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_Usuarios_Servicios">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Usuarios_Servicios">
               <MappingFragment StoreEntitySet="tbl_Usuarios_Servicios">
@@ -1622,6 +1558,29 @@ advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.TEMPORAL_PERSONAL' no tiene 
                 <ScalarProperty Name="nombre_Operario" ColumnName="nombre_Operario" />
                 <ScalarProperty Name="usuario_Operario" ColumnName="usuario_Operario" />
                 <ScalarProperty Name="contrasenia_Operario" ColumnName="contrasenia_Operario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Usuarios">
+            <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Usuarios">
+              <MappingFragment StoreEntitySet="tbl_Usuarios">
+                <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="contrasenia_usuario" ColumnName="contrasenia_usuario" />
+                <ScalarProperty Name="login_usuario" ColumnName="login_usuario" />
+                <ScalarProperty Name="fotourl" ColumnName="fotourl" />
+                <ScalarProperty Name="id_Perfil" ColumnName="id_Perfil" />
+                <ScalarProperty Name="id_TipoUsuario" ColumnName="id_TipoUsuario" />
+                <ScalarProperty Name="email_usuario" ColumnName="email_usuario" />
+                <ScalarProperty Name="nombres_usuario" ColumnName="nombres_usuario" />
+                <ScalarProperty Name="apellidos_usuario" ColumnName="apellidos_usuario" />
+                <ScalarProperty Name="nrodoc_usuario" ColumnName="nrodoc_usuario" />
+                <ScalarProperty Name="id_EmpresaUsuario" ColumnName="id_EmpresaUsuario" />
+                <ScalarProperty Name="id_Personal" ColumnName="id_Personal" />
+                <ScalarProperty Name="id_Usuario" ColumnName="id_Usuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

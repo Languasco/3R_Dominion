@@ -293,6 +293,14 @@
                                     <div class="card border-primary ">
                                         <div class="card-body ">
 
+                                            <div class="row">
+                                                <div class="col-md-12 text-right">
+                                                    <button style="margin-top: -22px !important; font-size: 11px;" class="btn  btn-sm  btn-warning " (click)="descargarFotosOT('P')" title="Descargar">
+                                                            <i class="fas fa-file-download"> Descargar</i> 
+                                                    </button>
+                                                </div>
+                                            </div>
+
                                             <div class=" table-responsive" *ngIf="id_OTGlobal > 0">
                                                 <table class="table table-hover table-sm">
                                                     <thead class="theadTable thead-dark">
@@ -427,7 +435,7 @@
                 </div>
             </div>
             <div class="modal-body">
-                <div class="d-flex justify-content-start" *ngIf="this.detalleOT">
+                <!-- <div class="d-flex justify-content-start" *ngIf="this.detalleOT">
                     <div class="bd-highlight">
                         <label> 
                             {{ (this.id_tipoOTGlobal == 3 || this.id_tipoOTGlobal == 4 )? 'TIPO MATERIAL ' : 'TIPO DESMONTE '  }}
@@ -436,7 +444,27 @@
                     <div class="bd-highlight ml-2">
                         <label> {{this.detalleOT.tipoMaterial}} </label>
                     </div>
+                </div> -->
+
+                <div class="d-flex justify-content-between">
+                    <div class="p-2 bd-highlight" *ngIf="this.detalleOT">
+                        <label> 
+                            {{ (this.id_tipoOTGlobal == 3 || this.id_tipoOTGlobal == 4 )? 'TIPO MATERIAL :  ' : 'TIPO DESMONTE : '  }}
+                        </label>
+
+                        <label style="margin-left: 5px;">  {{this.detalleOT.tipoMaterial}} </label>
+                    </div>
+                    <div class="p-2 bd-highlight">
+
+                    </div>
+                    <div class="p-2 bd-highlight">
+                        <button style="margin-top: -22px !important; font-size: 11px;" class="btn  btn-sm  btn-warning " (click)="descargarFotosOT_visor('V')" title="Descargar">
+                            <i class="fas fa-file-download"> Descargar</i> 
+                        </button>
+                    </div>
                 </div>
+
+
 
                 <div class="row" *ngIf="this.detalleOT">
                     <div class=" col-md-3 col-6">

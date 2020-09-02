@@ -26,6 +26,13 @@ namespace Entidades.Procesos
         public string idJefeCuadrilla { get; set; }
         public string idEmpresa { get; set; }
 
+        public int id_tipoTrabajo { get; set; }
+        public string id_Distrito { get; set; }
+        public string referencia { get; set; }
+        public string descripcion_OT { get; set; }
+        public int id_estado { get; set; }
+        public string descripcionServicio { get; set; }
+
     }
     public class Resumen_OrdenTrabajo_E
     {

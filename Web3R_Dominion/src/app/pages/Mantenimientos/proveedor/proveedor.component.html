@@ -14,8 +14,9 @@
                         <div class="col-md-6">
                             <label for=""> Estado</label>
                             <select class="form-control comboBox" formControlName="idEstado">
-                                <option value="0"> [ --SELECCIONE-- ]</option>
-                                <option [value]="estado.id_Estado" *ngFor="let estado of estados">{{estado.descripcion_estado}}</option>
+                                <option value="1"> Activo </option>
+                                <option value="0"> Inactivo </option>
+                                <!-- <option [value]="estado.id_Estado" *ngFor="let estado of estados">{{estado.descripcion_estado}}</option> -->
                             </select>
                         </div>
                         <div class="col-md-6">
@@ -81,7 +82,7 @@
 
 
 <div class="modal fade " id="modal_mantenimiento" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel  " aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-body">
                 <div class="p-3 card ">

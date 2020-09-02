@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  URL_API : 'http://www.dsige.com/WebApi_3R_Dominion/api/',
-  URL_SOCKET : 'http://70.37.52.217/:5000',
+  URL_API : 'http://173.248.174.62/WebApi_3R_Dominion/api/',
+  URL_SOCKET : 'http://173.248.174.62/:5000',
 };

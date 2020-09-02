@@ -219,7 +219,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Archivos\Descargas\XXXX.txt" />
     <Content Include="Archivos\Excel\readMe.txt" />
+    <Content Include="Archivos\Fotos\3_28082020_1129239530.jpg" />
+    <Content Include="Archivos\Fotos\3_28082020_1131006230.jpg" />
+    <Content Include="Archivos\Fotos\3_28082020_1131189740.jpg" />
+    <Content Include="Archivos\Fotos\3_28082020_1131424460.jpg" />
     <Content Include="Archivos\Iconos\iconImage1.png" />
     <Content Include="Archivos\Iconos\iconImage2.png" />
     <Content Include="Archivos\Iconos\iconImage3.png" />
@@ -285,7 +290,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Archivos\Fotos\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

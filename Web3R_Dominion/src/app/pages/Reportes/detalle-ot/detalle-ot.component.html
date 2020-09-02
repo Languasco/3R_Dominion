@@ -9,7 +9,7 @@
                 <div class="col-md-2">
                     <label for=""> Servicio</label>
                     <select class="form-control comboBox" formControlName="idServicio">
-                        <option value="0"> [ --SELECCIONE-- ]</option>
+                        <option value="0"> [ --TODOS-- ]</option>
                         <option [value]="tipo.id_servicio" *ngFor="let tipo of servicios">{{tipo.nombreServicio}}</option>
                     </select>
                 </div>
@@ -23,7 +23,7 @@
                 <div class="col-md-2">
                     <label for=""> Proveedor</label>
                     <select class="form-control comboBox" formControlName="idProveedor">
-                        <option value="0"> [ --SELECCIONE-- ]</option>
+                        <option value="0"> [ --TODOS-- ]</option>
                         <option [value]="item.id_Empresa" *ngFor="let item of proveedor">{{item.razonSocial_Empresa}}</option>
                     </select>
                 </div>
@@ -38,7 +38,7 @@
                 <div class="col-md-2 ">
                     <label for=""> Estado</label>
                     <select class="form-control comboBox" formControlName="idEstado">
-                        <option value="0"> [ --SELECCIONE-- ]</option>
+                        <option value="0"> [ --TODOS-- ]</option>
                         <option [value]="estado.id_Estado" *ngFor="let estado of estados">{{estado.descripcion_estado}}</option>
                     </select>
                 </div>
@@ -80,6 +80,7 @@
 
                                 <!-- <th scope="col">check</th> -->
                                 <th scope="col">#</th>
+                                <th class="text-center">Servicio</th>
                                 <th class="text-center">Estado</th>
                                 <th class="text-center">Tipo OT</th>
                                 <th class="text-center">Nro Obra/TD</th>
@@ -109,8 +110,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of ordenTrabajoCab |  filter: filtrarMantenimiento  ; index as j" [ngStyle]="item.estado == 0 && {'color': 'red'}">
-
+                            <!-- <tr *ngFor="let item of ordenTrabajoCab |  filter: filtrarMantenimiento  ; index as j" style="color: black;" [ngStyle]="{'background-color':getColorEstado(item.id_estado)}"> -->
+                            <tr *ngFor="let item of ordenTrabajoCab |  filter: filtrarMantenimiento  ; index as j" style="color: black;" [ngStyle]="{'background-color':item.color}">
                                 <!-- <td>
                                      <div class="custom-control custom-checkbox custom-control-inline ">
                                         <input type="checkbox" [id]="item.id_OT" [(ngModel)]="item.checkeado" class="custom-control-input">
@@ -118,6 +119,9 @@
                                     </div>  
                                 </td> -->
                                 <td scope="row"> {{j + 1}} </td>
+                                <td>
+                                    <div style="width: 150px;"> {{item.descripcionServicio}} </div>
+                                </td>
                                 <td>
                                     <div style="width: 300px;"> {{item.descripcionEstado}} </div>
                                 </td>
@@ -325,6 +329,14 @@
                                     <div class="card border-primary ">
                                         <div class="card-body ">
 
+                                            <div class="row">
+                                                <div class="col-md-12 text-right">
+                                                    <button style="margin-top: -22px !important; font-size: 11px;" class="btn  btn-sm  btn-warning " (click)="descargarFotosOT('P')" title="Descargar">
+                                                            <i class="fas fa-file-download"> Descargar</i> 
+                                                    </button>
+                                                </div>
+                                            </div>
+
                                             <div class=" table-responsive" *ngIf="id_OTGlobal > 0">
                                                 <table class="table table-hover table-sm">
                                                     <thead class="theadTable thead-dark">
@@ -459,7 +471,7 @@
                 </div>
             </div>
             <div class="modal-body">
-                <div class="d-flex justify-content-start" *ngIf="this.detalleOT">
+                <!-- <div class="d-flex justify-content-start" *ngIf="this.detalleOT">
                     <div class="bd-highlight">
                         <label> 
                             {{ (this.id_tipoOTGlobal == 3 || this.id_tipoOTGlobal == 4 )? 'TIPO MATERIAL ' : 'TIPO DESMONTE '  }}
@@ -468,7 +480,42 @@
                     <div class="bd-highlight ml-2">
                         <label> {{this.detalleOT.tipoMaterial}} </label>
                     </div>
+
+                     <div class="bd-highlight ml-2">
+                        <label> {{this.detalleOT.tipoMaterial}} </label>
+                    </div> 
+
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <button style="margin-top: -22px !important;" class="btn  btn-sm  btn-warning " (click)="descargarFotosOT('P')" title="Descargar">
+                                    <i class="fas fa-file-download"> Descargar</i> 
+                            </button>
+                        </div>
+                    </div>
+                </div> -->
+
+
+
+                <div class="d-flex justify-content-between">
+                    <div class="p-2 bd-highlight" *ngIf="this.detalleOT">
+                        <label> 
+                            {{ (this.id_tipoOTGlobal == 3 || this.id_tipoOTGlobal == 4 )? 'TIPO MATERIAL :  ' : 'TIPO DESMONTE : '  }}
+                        </label>
+
+                        <label style="margin-left: 5px;">  {{this.detalleOT.tipoMaterial}} </label>
+                    </div>
+                    <div class="p-2 bd-highlight">
+
+                    </div>
+                    <div class="p-2 bd-highlight">
+                        <button style="margin-top: -22px !important; font-size: 11px;" class="btn  btn-sm  btn-warning " (click)="descargarFotosOT_visor('V')" title="Descargar">
+                            <i class="fas fa-file-download"> Descargar</i> 
+                        </button>
+                    </div>
                 </div>
+
+
+
 
                 <div class="row" *ngIf="this.detalleOT">
                     <div class=" col-md-3 col-6">

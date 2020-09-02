@@ -108,6 +108,30 @@ namespace WebApi_3R_Dominion.Controllers.Proceso
 
                     resul = obj_negocio.get_descargar_aprobacionOTCab(idServicio, idTipoOT, idDistrito, idProveedor, idEstado, idUsuario);
                 }
+                else if (opcion == 9)
+                {
+                    string[] parametros = filtro.Split('|');
+                    int idOt = Convert.ToInt32(parametros[0].ToString());
+                    int idTipoOT = Convert.ToInt32(parametros[1].ToString());
+                    int idUsuario = Convert.ToInt32(parametros[2].ToString());
+
+                    res.ok = true;
+                    res.data = obj_negocio.get_descargar_Todos_fotosOT(idOt, idTipoOT, idUsuario);
+                    res.totalpage = 0;
+                    resul = res;
+                }
+                else if (opcion == 10)
+                {
+                    string[] parametros = filtro.Split('|');
+                    int idOt_foto = Convert.ToInt32(parametros[0].ToString());
+                    int idTipoOT = Convert.ToInt32(parametros[1].ToString());
+                    int idUsuario = Convert.ToInt32(parametros[2].ToString());
+
+                    res.ok = true;
+                    res.data = obj_negocio.get_descargar_fotosOT_visor(idOt_foto, idTipoOT, idUsuario);
+                    res.totalpage = 0;
+                    resul = res;
+                }
                 else
                 {
                     res.ok = false;

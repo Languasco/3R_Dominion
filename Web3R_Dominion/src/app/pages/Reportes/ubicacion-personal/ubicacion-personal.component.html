@@ -1,6 +1,6 @@
 <div class="card border-left-warning  shadow   ">
     <div class="card-header">
-        <h5 class="headerTitle"> UBICACIONES DE PERSONAL </h5>
+        <h5 class="headerTitle"> UBICACIONES DE PROVEEDORES Y CUADRILLAS </h5>
     </div>
     <div class="card-body">
 
@@ -27,7 +27,7 @@
                 <div class="col-md-2">
                     <label for=""> Proveedor</label>
                     <select class="form-control comboBox" formControlName="idProveedor">
-                        <option value="0"> [ --SELECCIONE-- ]</option>
+                        <option value="0"> [ --TODOS-- ]</option>
                         <option [value]="item.id_Empresa" *ngFor="let item of proveedor">{{item.razonSocial_Empresa}}</option>
                     </select>
                 </div>
@@ -47,20 +47,45 @@
 
 
         <div class="row mt-3">
-            <div class="col-md-8 shadow">
-                <div style="height: 550px;" #mapa id="id_mapa"></div>
+            <div id="formMapa" class="col-md-10">
+
+                <div class="row " style="margin-top: -20px;">
+                    <div class="col-md-12">
+                        <div class="d-flex justify-content-between">
+                            <div class="p-2">
+                                <button type="button" style="font-size: 10px;" (click)="expandirComprimir(1)" class="btn btn-success">
+                                    <i class="fas fa-expand-arrows-alt"> Expandir</i>
+                                </button>
+                            </div>
+                            <div class="p-2">
+                                <button type="button" style="font-size: 10px;" (click)="expandirComprimir(3)" class="btn btn-info">
+                                    <i class="fas fa-equals"> Igualar</i>
+                                </button>
+                            </div>
+                            <div class="p-2">
+                                <button type="button" style="font-size: 10px;" (click)="expandirComprimir(2)" class="btn btn-danger">
+                                    <i class="fas fa-compress-arrows-alt"> Comprimir</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="width: 100%; height: 550px;" #mapa id="id_mapa"></div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4 shadow">
 
+            <div id="formDetalle" class="col-md-2">
                 <div class="tableFixHead">
-
                     <div class=" table-responsive">
                         <table class="table table-hover table-sm">
                             <thead class="theadTable thead-dark">
                                 <tr>
                                     <th class="text-center">icono</th>
                                     <th class="text-center">Jefe Cuadrilla</th>
-                                    <th class="text-center">Fecha Evento</th>
+                                    <!-- <th class="text-center">Fecha Evento</th> -->
                                     <th class="text-center">Hora Evento</th>
                                     <th class="text-center">Gps</th>
                                     <th class="text-center">Bateria</th>
@@ -76,7 +101,7 @@
                                             {{item.JefeCuadrilla}}
                                         </div>
                                     </td>
-                                    <td>{{item.fecha}}</td>
+                                    <!-- <td>{{item.fecha}}</td> -->
                                     <td>{{item.Hora}}</td>
                                     <td *ngIf="item.GPS ==0 " class="text-center puntero"> <i style="color: red;" class="fas fa-ban"></i></td>
                                     <td *ngIf="item.GPS ==1 " class="text-center puntero"> <i style="color: green;" class="fas fa-check-circle"></i> </td>
@@ -85,9 +110,7 @@
                             </tbody>
                         </table>
                     </div>
-
                 </div>
-
             </div>
         </div>
 
