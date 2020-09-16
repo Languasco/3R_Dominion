@@ -5,7 +5,7 @@
     <div class="card-body">
 
         <form [formGroup]="formParamsFiltro">
-            <div class="row">
+            <div class="row" style="    margin-top: -15px;">
                 <div class="col-md-4">
                     <label for=""> Tipo Orden Trabajo</label>
                     <select class="form-control comboBox" formControlName="idtipoOrdenT">
@@ -49,7 +49,8 @@
                         <th scope="col">#</th>
                         <th scope="col">Tipo Orden Trabajo</th>
                         <th scope="col">Precio</th>
-                        <th scope="col">Cubicaje</th>
+                        <th scope="col">Cubicaje Inicial</th>
+                        <th scope="col">Cubicaje Final</th>
 
                         <th scope="col">Estado</th>
                         <th class="text-center">Editar</th>
@@ -62,7 +63,7 @@
                         <td>{{item.descripcion_tipoOT}}</td>
                         <td>{{item.precio | number:'0.1-5'}}</td>
                         <td>{{item.cubicaje}}</td>
-
+                        <td>{{item.cubicajeFinal}}</td>
                         <td>{{item.descripcion_estado}}</td>
                         <td class="text-center">
                             <a class="puntero linkOpcion" (click)="editar(item) " title="editar"> Editar</a>
@@ -111,6 +112,17 @@
                         </div>
                     </div>
 
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <label for=""> Tipo de Precio</label>
+                            <select id="cbo_tipoOT" class="form-control comboBox" formControlName="id_TipoPrecio" (change)="onChangeTipoPrecio($event)">
+                                    <option value="0"> [ --SELECCIONE-- ]</option>
+                                    <option [value]="tipo.id_detalleTabla" *ngFor="let tipo of tipoPrecios">{{tipo.descripcion_grupoTabla}}</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-8">
                             <label for=""> Tipo Orden Trabajo</label>
@@ -122,13 +134,23 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-md-8" *ngIf="formParams.value.id_TipoPrecio == 19">
+                            <label for=""> Tipo de Material</label>
+                            <select id="cbo_tipoOT" class="form-control comboBox" formControlName="id_TipoMaterial">
+                                    <option value="0"> [ --SELECCIONE-- ]</option>
+                                    <option [value]="tipo.id_detalleTabla" *ngFor="let tipo of tipoMateriales">{{tipo.descripcion_grupoTabla}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-md-6">
                             <label> Precio </label>
                             <input type="number" class="form-control " formControlName="precio">
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" *ngIf="flagCubiculo">
                         <div class="col-md-6">
                             <label> Cubicaje </label>
                             <input type="text" class="form-control " maxlength="100" formControlName="cubicaje">

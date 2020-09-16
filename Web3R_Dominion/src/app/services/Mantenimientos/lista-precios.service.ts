@@ -18,7 +18,10 @@ export class ListaPreciosService {
   URL = environment.URL_API;
   estados:any[] = [];
   tipoOrdenTrabajo :any[] = [];
- 
+
+  tipoPrecios :any[]=[];
+  tipoMateriales :any[]=[]; 
+  prioridades :any[]=[]; 
 
   constructor(private http:HttpClient) { }
 
@@ -38,8 +41,6 @@ export class ListaPreciosService {
     }
   }
 
- 
-
   get_tipoOrdenTrabajo(){
     if (this.tipoOrdenTrabajo.length > 0) {
       return of( this.tipoOrdenTrabajo )
@@ -55,6 +56,56 @@ export class ListaPreciosService {
                   }) );
     }
   } 
+
+  get_tipoPrecios(){
+    if (this.tipoPrecios.length > 0) {
+      return of( this.tipoPrecios )
+    }else{
+      let parametros = new HttpParams();
+      parametros = parametros.append('opcion', '6');
+      parametros = parametros.append('filtro', '7');
+  
+      return this.http.get( this.URL + 'tblPersonal' , {params: parametros})
+                 .pipe(map((res:any)=>{
+                       this.tipoPrecios = res.data;
+                       return res.data;
+                  }) );
+    }
+  } 
+
+  get_tiposMateriales(){
+    if (this.tipoMateriales.length > 0) {
+      return of( this.tipoMateriales )
+    }else{
+      let parametros = new HttpParams();
+      parametros = parametros.append('opcion', '6');
+      parametros = parametros.append('filtro', '4');
+  
+      return this.http.get( this.URL + 'tblPersonal' , {params: parametros})
+                 .pipe(map((res:any)=>{
+                       this.tipoMateriales = res.data;
+                       return res.data;
+                  }) );
+    }
+  } 
+
+  get_prioridades(){
+    if (this.prioridades.length > 0) {
+      return of( this.prioridades )
+    }else{
+      let parametros = new HttpParams();
+      parametros = parametros.append('opcion', '6');
+      parametros = parametros.append('filtro', '8');
+  
+      return this.http.get( this.URL + 'tblPersonal' , {params: parametros})
+                 .pipe(map((res:any)=>{
+                       this.prioridades = res.data;
+                       return res.data;
+                  }) );
+    }
+  } 
+
+
 
   get_mostrarPrecio_general(idtipoOrdenT:number, idEstado:number){
     let parametros = new HttpParams();

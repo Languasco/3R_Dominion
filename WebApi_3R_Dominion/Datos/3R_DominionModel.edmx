@@ -5,6 +5,35 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Proyecto_3RModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.cesar' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="cesar">
+          <Property Name="id_Opcion" Type="int" />
+        </EntityType>-->
+        <EntityType Name="Gps_Distrito">
+          <Key>
+            <PropertyRef Name="id_GPS" />
+          </Key>
+          <Property Name="id_GPS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="latitud" Type="varchar" MaxLength="50" />
+          <Property Name="longitud" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.jhony' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="jhony">
+          <Property Name="checkeado" Type="bit" />
+          <Property Name="id_Servicios" Type="int" />
+          <Property Name="nombreServicio" Type="varchar" MaxLength="50" />
+        </EntityType>-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.julio' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="julio">
+          <Key>
+            <PropertyRef Name="id_distrito" />
+          </Key>
+          <Property Name="id_distrito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="tbl_Aceesos_Evento">
           <Key>
             <PropertyRef Name="id_Acceso_evento" />
@@ -69,6 +98,7 @@
             <PropertyRef Name="id_Distrito" />
           </Key>
           <Property Name="id_Distrito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_Zona" Type="int" />
           <Property Name="nombreDistrito" Type="varchar" MaxLength="100" />
           <Property Name="estado" Type="int" />
           <Property Name="usuario_creacion" Type="int" />
@@ -133,6 +163,7 @@
           <Property Name="usuario_edicion" Type="int" />
           <Property Name="fecha_edicion" Type="datetime" />
           <Property Name="Simbolo_estado" Type="varchar" MaxLength="5" />
+          <Property Name="grupo_Estado" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tbl_Evento">
           <Key>
@@ -360,6 +391,8 @@
           <Property Name="fecha_creacion" Type="datetime" />
           <Property Name="usuario_edicion" Type="int" />
           <Property Name="fecha_edicion" Type="datetime" />
+          <Property Name="id_TipoPrecio" Type="int" />
+          <Property Name="id_TipoMaterial" Type="int" />
         </EntityType>
         <EntityType Name="tbl_Servicios">
           <Key>
@@ -404,6 +437,18 @@
           <Property Name="id_usuario_servicio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_usuario" Type="int" />
           <Property Name="id_servicio" Type="int" />
+          <Property Name="usuario_creacion" Type="int" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="usuario_edicion" Type="int" />
+          <Property Name="fecha_edicion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_Zonas">
+          <Key>
+            <PropertyRef Name="id_Zona" />
+          </Key>
+          <Property Name="id_Zona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_Zona" Type="varchar" MaxLength="50" />
+          <Property Name="estado" Type="int" />
           <Property Name="usuario_creacion" Type="int" />
           <Property Name="fecha_creacion" Type="datetime" />
           <Property Name="usuario_edicion" Type="int" />
@@ -461,6 +506,28 @@ advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoOperario' no tiene defi
           <Property Name="usuario_Operario" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="contrasenia_Operario" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.TEMPORAL_PERSONAL' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="TEMPORAL_PERSONAL">
+          <Property Name="tipoDocumento" Type="varchar" MaxLength="100" />
+          <Property Name="nroDocumento" Type="varchar" MaxLength="20" />
+          <Property Name="apellidos" Type="varchar" MaxLength="250" />
+          <Property Name="nombres" Type="varchar" MaxLength="250" />
+          <Property Name="cargo" Type="varchar" MaxLength="250" />
+          <Property Name="nombreArchivo" Type="varchar" MaxLength="100" />
+          <Property Name="empresa_importacion" Type="int" />
+          <Property Name="usuario_importacion" Type="int" />
+          <Property Name="fechaBD" Type="datetime" />
+        </EntityType>-->
+        <EntityType Name="Versiones">
+          <Key>
+            <PropertyRef Name="versionId" />
+          </Key>
+          <Property Name="versionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="code" Type="int" />
+          <Property Name="name" Type="varchar" MaxLength="10" />
+          <Property Name="estado" Type="int" />
+        </EntityType>
         <Association Name="FK__tbl_Acees__id_Op__3C69FB99">
           <End Role="tbl_Definicion_Opciones" Type="Self.tbl_Definicion_Opciones" Multiplicity="0..1" />
           <End Role="tbl_Aceesos_Evento" Type="Self.tbl_Aceesos_Evento" Multiplicity="*" />
@@ -498,6 +565,7 @@ advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoOperario' no tiene defi
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Proyecto_3RModelStoreContainer">
+          <EntitySet Name="Gps_Distrito" EntityType="Self.Gps_Distrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Aceesos_Evento" EntityType="Self.tbl_Aceesos_Evento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Cargo_Personal" EntityType="Self.tbl_Cargo_Personal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Configuracion_Zonas" EntityType="Self.tbl_Configuracion_Zonas" Schema="dbo" store:Type="Tables" />
@@ -524,6 +592,13 @@ advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoOperario' no tiene defi
           <EntitySet Name="tbl_Servicios" EntityType="Self.tbl_Servicios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Usuarios" EntityType="Self.tbl_Usuarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Usuarios_Servicios" EntityType="Self.tbl_Usuarios_Servicios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Zonas" EntityType="Self.tbl_Zonas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Versiones" EntityType="Self.Versiones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="julio" EntityType="Self.julio" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [julio].[id_distrito] AS [id_distrito]
+    FROM [dbo].[julio] AS [julio]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="TempoESTADO" EntityType="Self.TempoESTADO" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [TempoESTADO].[id_estadocelular] AS [id_estadocelular], 
@@ -574,6 +649,62 @@ advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoOperario' no tiene defi
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Proyecto_3RModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Proyecto_3REntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Gps_Distrito" EntityType="Proyecto_3RModel.Gps_Distrito" />
+          <EntitySet Name="tbl_Aceesos_Evento" EntityType="Proyecto_3RModel.tbl_Aceesos_Evento" />
+          <EntitySet Name="tbl_Cargo_Personal" EntityType="Proyecto_3RModel.tbl_Cargo_Personal" />
+          <EntitySet Name="tbl_Configuracion_Zonas" EntityType="Proyecto_3RModel.tbl_Configuracion_Zonas" />
+          <EntitySet Name="tbl_Definicion_Opciones" EntityType="Proyecto_3RModel.tbl_Definicion_Opciones" />
+          <EntitySet Name="tbl_Distritos" EntityType="Proyecto_3RModel.tbl_Distritos" />
+          <EntitySet Name="tbl_Empresas" EntityType="Proyecto_3RModel.tbl_Empresas" />
+          <EntitySet Name="tbl_Empresas_Vehiculos" EntityType="Proyecto_3RModel.tbl_Empresas_Vehiculos" />
+          <EntitySet Name="tbl_EstadoCelular" EntityType="Proyecto_3RModel.tbl_EstadoCelular" />
+          <EntitySet Name="tbl_Estados" EntityType="Proyecto_3RModel.tbl_Estados" />
+          <EntitySet Name="tbl_Evento" EntityType="Proyecto_3RModel.tbl_Evento" />
+          <EntitySet Name="tbl_GrupoTabla_Cab" EntityType="Proyecto_3RModel.tbl_GrupoTabla_Cab" />
+          <EntitySet Name="tbl_GrupoTabla_Det" EntityType="Proyecto_3RModel.tbl_GrupoTabla_Det" />
+          <EntitySet Name="tbl_Iconos" EntityType="Proyecto_3RModel.tbl_Iconos" />
+          <EntitySet Name="TBL_Operarios_RegistroGPS" EntityType="Proyecto_3RModel.TBL_Operarios_RegistroGPS" />
+          <EntitySet Name="tbl_OrdenTrabajo_Cab" EntityType="Proyecto_3RModel.tbl_OrdenTrabajo_Cab" />
+          <EntitySet Name="tbl_OrdenTrabajo_Det" EntityType="Proyecto_3RModel.tbl_OrdenTrabajo_Det" />
+          <EntitySet Name="tbl_OrdenTrabajo_Foto" EntityType="Proyecto_3RModel.tbl_OrdenTrabajo_Foto" />
+          <EntitySet Name="tbl_OrdenTrabajo_Reasignacion" EntityType="Proyecto_3RModel.tbl_OrdenTrabajo_Reasignacion" />
+          <EntitySet Name="tbl_Parametro_Movil" EntityType="Proyecto_3RModel.tbl_Parametro_Movil" />
+          <EntitySet Name="tbl_Perfil" EntityType="Proyecto_3RModel.tbl_Perfil" />
+          <EntitySet Name="tbl_Perfil_Accesos" EntityType="Proyecto_3RModel.tbl_Perfil_Accesos" />
+          <EntitySet Name="tbl_Personal" EntityType="Proyecto_3RModel.tbl_Personal" />
+          <EntitySet Name="tbl_Precios" EntityType="Proyecto_3RModel.tbl_Precios" />
+          <EntitySet Name="tbl_Servicios" EntityType="Proyecto_3RModel.tbl_Servicios" />
+          <EntitySet Name="tbl_Usuarios" EntityType="Proyecto_3RModel.tbl_Usuarios" />
+          <EntitySet Name="tbl_Usuarios_Servicios" EntityType="Proyecto_3RModel.tbl_Usuarios_Servicios" />
+          <EntitySet Name="tbl_Zonas" EntityType="Proyecto_3RModel.tbl_Zonas" />
+          <EntitySet Name="Versiones" EntityType="Proyecto_3RModel.Versiones" />
+          <EntitySet Name="julio" EntityType="Proyecto_3RModel.julio" />
+          <EntitySet Name="TempoESTADO" EntityType="Proyecto_3RModel.TempoESTADO" />
+          <EntitySet Name="TempoGPS" EntityType="Proyecto_3RModel.TempoGPS" />
+          <EntitySet Name="TempoOperario" EntityType="Proyecto_3RModel.TempoOperario" />
+          <AssociationSet Name="FK__tbl_Acees__id_Op__3C69FB99" Association="Proyecto_3RModel.FK__tbl_Acees__id_Op__3C69FB99">
+            <End Role="tbl_Definicion_Opciones" EntitySet="tbl_Definicion_Opciones" />
+            <End Role="tbl_Aceesos_Evento" EntitySet="tbl_Aceesos_Evento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Acees__id_Us__3E52440B" Association="Proyecto_3RModel.FK__tbl_Acees__id_Us__3E52440B">
+            <End Role="tbl_Usuarios" EntitySet="tbl_Usuarios" />
+            <End Role="tbl_Aceesos_Evento" EntitySet="tbl_Aceesos_Evento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Empre__id_Em__0B91BA14" Association="Proyecto_3RModel.FK__tbl_Empre__id_Em__0B91BA14">
+            <End Role="tbl_Empresas" EntitySet="tbl_Empresas" />
+            <End Role="tbl_Empresas_Vehiculos" EntitySet="tbl_Empresas_Vehiculos" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Gps_Distrito">
+          <Key>
+            <PropertyRef Name="id_GPS" />
+          </Key>
+          <Property Name="id_GPS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="latitud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="longitud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="tbl_Aceesos_Evento">
           <Key>
             <PropertyRef Name="id_Acceso_evento" />
@@ -587,7 +718,7 @@ advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoOperario' no tiene defi
           <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
           <Property Name="usuario_edicion" Type="Int32" />
           <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbl_Definicion_Opciones" Relationship="Self.FK__tbl_Acees__id_Op__3C69FB99" FromRole="tbl_Aceesos_Evento" ToRole="tbl_Definicion_Opciones" />
+          <NavigationProperty Name="tbl_Definicion_Opciones" Relationship="Proyecto_3RModel.FK__tbl_Acees__id_Op__3C69FB99" FromRole="tbl_Aceesos_Evento" ToRole="tbl_Definicion_Opciones" />
           <NavigationProperty Name="tbl_Usuarios" Relationship="Proyecto_3RModel.FK__tbl_Acees__id_Us__3E52440B" FromRole="tbl_Aceesos_Evento" ToRole="tbl_Usuarios" />
         </EntityType>
         <EntityType Name="tbl_Cargo_Personal">
@@ -621,7 +752,7 @@ advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoOperario' no tiene defi
             <PropertyRef Name="id_Opcion" />
           </Key>
           <Property Name="id_Opcion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre_opcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_opcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="url_opcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="parentID" Type="Int32" />
           <Property Name="nombreParentID" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
@@ -634,13 +765,14 @@ advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoOperario' no tiene defi
           <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
           <Property Name="usuario_edicion" Type="Int32" />
           <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbl_Aceesos_Evento" Relationship="Self.FK__tbl_Acees__id_Op__3C69FB99" FromRole="tbl_Definicion_Opciones" ToRole="tbl_Aceesos_Evento" />
+          <NavigationProperty Name="tbl_Aceesos_Evento" Relationship="Proyecto_3RModel.FK__tbl_Acees__id_Op__3C69FB99" FromRole="tbl_Definicion_Opciones" ToRole="tbl_Aceesos_Evento" />
         </EntityType>
         <EntityType Name="tbl_Distritos">
           <Key>
             <PropertyRef Name="id_Distrito" />
           </Key>
           <Property Name="id_Distrito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Zona" Type="Int32" />
           <Property Name="nombreDistrito" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="estado" Type="Int32" />
           <Property Name="usuario_creacion" Type="Int32" />
@@ -663,7 +795,7 @@ advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoOperario' no tiene defi
           <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
           <Property Name="usuario_edicion" Type="Int32" />
           <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbl_Empresas_Vehiculos" Relationship="Self.FK__tbl_Empre__id_Em__0B91BA14" FromRole="tbl_Empresas" ToRole="tbl_Empresas_Vehiculos" />
+          <NavigationProperty Name="tbl_Empresas_Vehiculos" Relationship="Proyecto_3RModel.FK__tbl_Empre__id_Em__0B91BA14" FromRole="tbl_Empresas" ToRole="tbl_Empresas_Vehiculos" />
         </EntityType>
         <EntityType Name="tbl_Empresas_Vehiculos">
           <Key>
@@ -673,7 +805,7 @@ advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoOperario' no tiene defi
           <Property Name="id_Empresa" Type="Int32" />
           <Property Name="nro_Placa" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="cantidadM3" Type="Decimal" Precision="18" Scale="2" />
-          <NavigationProperty Name="tbl_Empresas" Relationship="Self.FK__tbl_Empre__id_Em__0B91BA14" FromRole="tbl_Empresas_Vehiculos" ToRole="tbl_Empresas" />
+          <NavigationProperty Name="tbl_Empresas" Relationship="Proyecto_3RModel.FK__tbl_Empre__id_Em__0B91BA14" FromRole="tbl_Empresas_Vehiculos" ToRole="tbl_Empresas" />
         </EntityType>
         <EntityType Name="tbl_EstadoCelular">
           <Key>
@@ -707,6 +839,7 @@ advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoOperario' no tiene defi
           <Property Name="usuario_edicion" Type="Int32" />
           <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
           <Property Name="Simbolo_estado" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="grupo_Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbl_Evento">
           <Key>
@@ -802,14 +935,14 @@ advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoOperario' no tiene defi
           <Property Name="totalMedidas_OT" Type="Decimal" Precision="28" Scale="3" />
           <Property Name="totalDesmonteRecojido_OT" Type="Decimal" Precision="28" Scale="3" />
           <Property Name="totalDesmontePorRecojido_OT" Type="Decimal" Precision="28" Scale="3" />
+          <Property Name="solesMedidas_OT" Type="Decimal" Precision="28" Scale="3" />
+          <Property Name="solesDesmonteRecojido_OT" Type="Decimal" Precision="28" Scale="3" />
+          <Property Name="solesDesmontePorRecojido_OT" Type="Decimal" Precision="28" Scale="3" />
           <Property Name="estado" Type="Int32" />
           <Property Name="usuario_creacion" Type="Int32" />
           <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
           <Property Name="usuario_edicion" Type="Int32" />
           <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
-          <Property Name="solesMedidas_OT" Type="Decimal" Precision="28" Scale="3" />
-          <Property Name="solesDesmonteRecojido_OT" Type="Decimal" Precision="28" Scale="3" />
-          <Property Name="solesDesmontePorRecojido_OT" Type="Decimal" Precision="28" Scale="3" />
         </EntityType>
         <EntityType Name="tbl_OrdenTrabajo_Det">
           <Key>
@@ -934,6 +1067,8 @@ advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoOperario' no tiene defi
           <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
           <Property Name="usuario_edicion" Type="Int32" />
           <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
+          <Property Name="id_TipoPrecio" Type="Int32" />
+          <Property Name="id_TipoMaterial" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_Servicios">
           <Key>
@@ -949,6 +1084,29 @@ advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoOperario' no tiene defi
           <Property Name="usuario_edicion" Type="Int32" />
           <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="tbl_Usuarios">
+          <Key>
+            <PropertyRef Name="id_Usuario" />
+          </Key>
+          <Property Name="id_Usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Personal" Type="Int32" />
+          <Property Name="id_EmpresaUsuario" Type="Int32" />
+          <Property Name="nrodoc_usuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="apellidos_usuario" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="nombres_usuario" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="email_usuario" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="id_TipoUsuario" Type="Int32" />
+          <Property Name="id_Perfil" Type="Int32" Nullable="false" />
+          <Property Name="fotourl" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="login_usuario" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="contrasenia_usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="Int32" Nullable="false" />
+          <Property Name="usuario_creacion" Type="Int32" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="usuario_edicion" Type="Int32" />
+          <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbl_Aceesos_Evento" Relationship="Proyecto_3RModel.FK__tbl_Acees__id_Us__3E52440B" FromRole="tbl_Usuarios" ToRole="tbl_Aceesos_Evento" />
+        </EntityType>
         <EntityType Name="tbl_Usuarios_Servicios">
           <Key>
             <PropertyRef Name="id_usuario_servicio" />
@@ -960,6 +1118,33 @@ advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoOperario' no tiene defi
           <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
           <Property Name="usuario_edicion" Type="Int32" />
           <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_Zonas">
+          <Key>
+            <PropertyRef Name="id_Zona" />
+          </Key>
+          <Property Name="id_Zona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_Zona" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="Int32" />
+          <Property Name="usuario_creacion" Type="Int32" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="usuario_edicion" Type="Int32" />
+          <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Versiones">
+          <Key>
+            <PropertyRef Name="versionId" />
+          </Key>
+          <Property Name="versionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="Int32" />
+        </EntityType>
+        <EntityType Name="julio">
+          <Key>
+            <PropertyRef Name="id_distrito" />
+          </Key>
+          <Property Name="id_distrito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="TempoESTADO">
           <Key>
@@ -1001,15 +1186,15 @@ advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoOperario' no tiene defi
             <PropertyRef Name="contrasenia_Operario" />
           </Key>
           <Property Name="id_Operario" Type="Int32" Nullable="false" />
-          <Property Name="nroDoc_Operario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Apellidos_Operario" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="nombre_Operario" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="usuario_Operario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="contrasenia_Operario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nroDoc_Operario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Apellidos_Operario" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="nombre_Operario" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="usuario_Operario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="contrasenia_Operario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK__tbl_Acees__id_Op__3C69FB99">
-          <End Role="tbl_Definicion_Opciones" Type="Self.tbl_Definicion_Opciones" Multiplicity="0..1" />
-          <End Role="tbl_Aceesos_Evento" Type="Self.tbl_Aceesos_Evento" Multiplicity="*" />
+          <End Type="Proyecto_3RModel.tbl_Definicion_Opciones" Role="tbl_Definicion_Opciones" Multiplicity="0..1" />
+          <End Type="Proyecto_3RModel.tbl_Aceesos_Evento" Role="tbl_Aceesos_Evento" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbl_Definicion_Opciones">
               <PropertyRef Name="id_Opcion" />
@@ -1019,84 +1204,6 @@ advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoOperario' no tiene defi
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tbl_Empre__id_Em__0B91BA14">
-          <End Role="tbl_Empresas" Type="Self.tbl_Empresas" Multiplicity="0..1" />
-          <End Role="tbl_Empresas_Vehiculos" Type="Self.tbl_Empresas_Vehiculos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Empresas">
-              <PropertyRef Name="id_Empresa" />
-            </Principal>
-            <Dependent Role="tbl_Empresas_Vehiculos">
-              <PropertyRef Name="id_Empresa" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="Proyecto_3REntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tbl_Aceesos_Evento" EntityType="Self.tbl_Aceesos_Evento" />
-          <EntitySet Name="tbl_Cargo_Personal" EntityType="Self.tbl_Cargo_Personal" />
-          <EntitySet Name="tbl_Configuracion_Zonas" EntityType="Self.tbl_Configuracion_Zonas" />
-          <EntitySet Name="tbl_Definicion_Opciones" EntityType="Self.tbl_Definicion_Opciones" />
-          <EntitySet Name="tbl_Distritos" EntityType="Self.tbl_Distritos" />
-          <EntitySet Name="tbl_Empresas" EntityType="Self.tbl_Empresas" />
-          <EntitySet Name="tbl_Empresas_Vehiculos" EntityType="Self.tbl_Empresas_Vehiculos" />
-          <EntitySet Name="tbl_EstadoCelular" EntityType="Self.tbl_EstadoCelular" />
-          <EntitySet Name="tbl_Estados" EntityType="Self.tbl_Estados" />
-          <EntitySet Name="tbl_Evento" EntityType="Self.tbl_Evento" />
-          <EntitySet Name="tbl_GrupoTabla_Cab" EntityType="Self.tbl_GrupoTabla_Cab" />
-          <EntitySet Name="tbl_GrupoTabla_Det" EntityType="Self.tbl_GrupoTabla_Det" />
-          <EntitySet Name="tbl_Iconos" EntityType="Self.tbl_Iconos" />
-          <EntitySet Name="TBL_Operarios_RegistroGPS" EntityType="Self.TBL_Operarios_RegistroGPS" />
-          <EntitySet Name="tbl_OrdenTrabajo_Cab" EntityType="Self.tbl_OrdenTrabajo_Cab" />
-          <EntitySet Name="tbl_OrdenTrabajo_Det" EntityType="Self.tbl_OrdenTrabajo_Det" />
-          <EntitySet Name="tbl_OrdenTrabajo_Foto" EntityType="Self.tbl_OrdenTrabajo_Foto" />
-          <EntitySet Name="tbl_OrdenTrabajo_Reasignacion" EntityType="Self.tbl_OrdenTrabajo_Reasignacion" />
-          <EntitySet Name="tbl_Parametro_Movil" EntityType="Self.tbl_Parametro_Movil" />
-          <EntitySet Name="tbl_Perfil" EntityType="Self.tbl_Perfil" />
-          <EntitySet Name="tbl_Perfil_Accesos" EntityType="Self.tbl_Perfil_Accesos" />
-          <EntitySet Name="tbl_Personal" EntityType="Self.tbl_Personal" />
-          <EntitySet Name="tbl_Precios" EntityType="Self.tbl_Precios" />
-          <EntitySet Name="tbl_Servicios" EntityType="Self.tbl_Servicios" />
-          <EntitySet Name="tbl_Usuarios_Servicios" EntityType="Self.tbl_Usuarios_Servicios" />
-          <EntitySet Name="TempoESTADO" EntityType="Self.TempoESTADO" />
-          <EntitySet Name="TempoGPS" EntityType="Self.TempoGPS" />
-          <EntitySet Name="TempoOperario" EntityType="Self.TempoOperario" />
-          <AssociationSet Name="FK__tbl_Acees__id_Op__3C69FB99" Association="Self.FK__tbl_Acees__id_Op__3C69FB99">
-            <End Role="tbl_Definicion_Opciones" EntitySet="tbl_Definicion_Opciones" />
-            <End Role="tbl_Aceesos_Evento" EntitySet="tbl_Aceesos_Evento" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tbl_Empre__id_Em__0B91BA14" Association="Self.FK__tbl_Empre__id_Em__0B91BA14">
-            <End Role="tbl_Empresas" EntitySet="tbl_Empresas" />
-            <End Role="tbl_Empresas_Vehiculos" EntitySet="tbl_Empresas_Vehiculos" />
-          </AssociationSet>
-          <EntitySet Name="tbl_Usuarios" EntityType="Proyecto_3RModel.tbl_Usuarios" />
-          <AssociationSet Name="FK__tbl_Acees__id_Us__3E52440B" Association="Proyecto_3RModel.FK__tbl_Acees__id_Us__3E52440B">
-            <End Role="tbl_Usuarios" EntitySet="tbl_Usuarios" />
-            <End Role="tbl_Aceesos_Evento" EntitySet="tbl_Aceesos_Evento" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="tbl_Usuarios">
-          <Key>
-            <PropertyRef Name="id_Usuario" />
-          </Key>
-          <Property Name="id_Usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_Personal" Type="Int32" />
-          <Property Name="id_EmpresaUsuario" Type="Int32" />
-          <Property Name="nrodoc_usuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="apellidos_usuario" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="nombres_usuario" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="email_usuario" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="id_TipoUsuario" Type="Int32" />
-          <Property Name="id_Perfil" Type="Int32" Nullable="false" />
-          <Property Name="fotourl" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="login_usuario" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="contrasenia_usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="estado" Type="Int32" Nullable="false" />
-          <Property Name="usuario_creacion" Type="Int32" />
-          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
-          <Property Name="usuario_edicion" Type="Int32" />
-          <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbl_Aceesos_Evento" Relationship="Proyecto_3RModel.FK__tbl_Acees__id_Us__3E52440B" FromRole="tbl_Usuarios" ToRole="tbl_Aceesos_Evento" />
-        </EntityType>
         <Association Name="FK__tbl_Acees__id_Us__3E52440B">
           <End Type="Proyecto_3RModel.tbl_Usuarios" Role="tbl_Usuarios" Multiplicity="0..1" />
           <End Type="Proyecto_3RModel.tbl_Aceesos_Evento" Role="tbl_Aceesos_Evento" Multiplicity="*" />
@@ -1109,455 +1216,429 @@ advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoOperario' no tiene defi
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK__tbl_Empre__id_Em__0B91BA14">
+          <End Type="Proyecto_3RModel.tbl_Empresas" Role="tbl_Empresas" Multiplicity="0..1" />
+          <End Type="Proyecto_3RModel.tbl_Empresas_Vehiculos" Role="tbl_Empresas_Vehiculos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Empresas">
+              <PropertyRef Name="id_Empresa" />
+            </Principal>
+            <Dependent Role="tbl_Empresas_Vehiculos">
+              <PropertyRef Name="id_Empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Proyecto_3RModelStoreContainer" CdmEntityContainer="Proyecto_3REntities1">
+          <EntitySetMapping Name="Gps_Distrito">
+            <EntityTypeMapping TypeName="Proyecto_3RModel.Gps_Distrito">
+              <MappingFragment StoreEntitySet="Gps_Distrito">
+                <ScalarProperty Name="longitud" ColumnName="longitud" />
+                <ScalarProperty Name="latitud" ColumnName="latitud" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="id_GPS" ColumnName="id_GPS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tbl_Aceesos_Evento">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Aceesos_Evento">
               <MappingFragment StoreEntitySet="tbl_Aceesos_Evento">
-                <ScalarProperty Name="id_Acceso_evento" ColumnName="id_Acceso_evento" />
-                <ScalarProperty Name="id_Opcion" ColumnName="id_Opcion" />
-                <ScalarProperty Name="id_Usuario" ColumnName="id_Usuario" />
-                <ScalarProperty Name="id_Evento" ColumnName="id_Evento" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
                 <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="id_Evento" ColumnName="id_Evento" />
+                <ScalarProperty Name="id_Usuario" ColumnName="id_Usuario" />
+                <ScalarProperty Name="id_Opcion" ColumnName="id_Opcion" />
+                <ScalarProperty Name="id_Acceso_evento" ColumnName="id_Acceso_evento" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Cargo_Personal">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Cargo_Personal">
               <MappingFragment StoreEntitySet="tbl_Cargo_Personal">
-                <ScalarProperty Name="id_Cargo" ColumnName="id_Cargo" />
-                <ScalarProperty Name="nombreCargo" ColumnName="nombreCargo" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
                 <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="nombreCargo" ColumnName="nombreCargo" />
+                <ScalarProperty Name="id_Cargo" ColumnName="id_Cargo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Configuracion_Zonas">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Configuracion_Zonas">
               <MappingFragment StoreEntitySet="tbl_Configuracion_Zonas">
-                <ScalarProperty Name="id_Configuracion" ColumnName="id_Configuracion" />
-                <ScalarProperty Name="id_Servicios" ColumnName="id_Servicios" />
-                <ScalarProperty Name="id_Empresa" ColumnName="id_Empresa" />
-                <ScalarProperty Name="id_Distrito" ColumnName="id_Distrito" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
                 <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="id_Distrito" ColumnName="id_Distrito" />
+                <ScalarProperty Name="id_Empresa" ColumnName="id_Empresa" />
+                <ScalarProperty Name="id_Servicios" ColumnName="id_Servicios" />
+                <ScalarProperty Name="id_Configuracion" ColumnName="id_Configuracion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Definicion_Opciones">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Definicion_Opciones">
               <MappingFragment StoreEntitySet="tbl_Definicion_Opciones">
-                <ScalarProperty Name="id_Opcion" ColumnName="id_Opcion" />
-                <ScalarProperty Name="nombre_opcion" ColumnName="nombre_opcion" />
-                <ScalarProperty Name="url_opcion" ColumnName="url_opcion" />
-                <ScalarProperty Name="parentID" ColumnName="parentID" />
-                <ScalarProperty Name="nombreParentID" ColumnName="nombreParentID" />
-                <ScalarProperty Name="urlImagen_Opcion" ColumnName="urlImagen_Opcion" />
-                <ScalarProperty Name="orden_Opcion" ColumnName="orden_Opcion" />
-                <ScalarProperty Name="interface_Opcion" ColumnName="interface_Opcion" />
-                <ScalarProperty Name="TipoInterface" ColumnName="TipoInterface" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
                 <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="TipoInterface" ColumnName="TipoInterface" />
+                <ScalarProperty Name="interface_Opcion" ColumnName="interface_Opcion" />
+                <ScalarProperty Name="orden_Opcion" ColumnName="orden_Opcion" />
+                <ScalarProperty Name="urlImagen_Opcion" ColumnName="urlImagen_Opcion" />
+                <ScalarProperty Name="nombreParentID" ColumnName="nombreParentID" />
+                <ScalarProperty Name="parentID" ColumnName="parentID" />
+                <ScalarProperty Name="url_opcion" ColumnName="url_opcion" />
+                <ScalarProperty Name="nombre_opcion" ColumnName="nombre_opcion" />
+                <ScalarProperty Name="id_Opcion" ColumnName="id_Opcion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Distritos">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Distritos">
               <MappingFragment StoreEntitySet="tbl_Distritos">
-                <ScalarProperty Name="id_Distrito" ColumnName="id_Distrito" />
-                <ScalarProperty Name="nombreDistrito" ColumnName="nombreDistrito" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
                 <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="nombreDistrito" ColumnName="nombreDistrito" />
+                <ScalarProperty Name="id_Zona" ColumnName="id_Zona" />
+                <ScalarProperty Name="id_Distrito" ColumnName="id_Distrito" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Empresas">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Empresas">
               <MappingFragment StoreEntitySet="tbl_Empresas">
-                <ScalarProperty Name="id_Empresa" ColumnName="id_Empresa" />
-                <ScalarProperty Name="ruc_Empresa" ColumnName="ruc_Empresa" />
-                <ScalarProperty Name="razonSocial_Empresa" ColumnName="razonSocial_Empresa" />
-                <ScalarProperty Name="direccion_Empresa" ColumnName="direccion_Empresa" />
-                <ScalarProperty Name="id_Icono" ColumnName="id_Icono" />
-                <ScalarProperty Name="esProveedor" ColumnName="esProveedor" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
                 <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="esProveedor" ColumnName="esProveedor" />
+                <ScalarProperty Name="id_Icono" ColumnName="id_Icono" />
+                <ScalarProperty Name="direccion_Empresa" ColumnName="direccion_Empresa" />
+                <ScalarProperty Name="razonSocial_Empresa" ColumnName="razonSocial_Empresa" />
+                <ScalarProperty Name="ruc_Empresa" ColumnName="ruc_Empresa" />
+                <ScalarProperty Name="id_Empresa" ColumnName="id_Empresa" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Empresas_Vehiculos">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Empresas_Vehiculos">
               <MappingFragment StoreEntitySet="tbl_Empresas_Vehiculos">
-                <ScalarProperty Name="id_Empresa_Vehiculo" ColumnName="id_Empresa_Vehiculo" />
-                <ScalarProperty Name="id_Empresa" ColumnName="id_Empresa" />
-                <ScalarProperty Name="nro_Placa" ColumnName="nro_Placa" />
                 <ScalarProperty Name="cantidadM3" ColumnName="cantidadM3" />
+                <ScalarProperty Name="nro_Placa" ColumnName="nro_Placa" />
+                <ScalarProperty Name="id_Empresa" ColumnName="id_Empresa" />
+                <ScalarProperty Name="id_Empresa_Vehiculo" ColumnName="id_Empresa_Vehiculo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_EstadoCelular">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_EstadoCelular">
               <MappingFragment StoreEntitySet="tbl_EstadoCelular">
-                <ScalarProperty Name="id_EstadoCelular" ColumnName="id_EstadoCelular" />
-                <ScalarProperty Name="id_Operario" ColumnName="id_Operario" />
-                <ScalarProperty Name="GpsActivo" ColumnName="GpsActivo" />
-                <ScalarProperty Name="estadoBateria" ColumnName="estadoBateria" />
-                <ScalarProperty Name="FechaHoraAndroid" ColumnName="FechaHoraAndroid" />
-                <ScalarProperty Name="FechaAgregaRegistro" ColumnName="FechaAgregaRegistro" />
-                <ScalarProperty Name="ModoAvion" ColumnName="ModoAvion" />
                 <ScalarProperty Name="PlanDatos" ColumnName="PlanDatos" />
+                <ScalarProperty Name="ModoAvion" ColumnName="ModoAvion" />
+                <ScalarProperty Name="FechaAgregaRegistro" ColumnName="FechaAgregaRegistro" />
+                <ScalarProperty Name="FechaHoraAndroid" ColumnName="FechaHoraAndroid" />
+                <ScalarProperty Name="estadoBateria" ColumnName="estadoBateria" />
+                <ScalarProperty Name="GpsActivo" ColumnName="GpsActivo" />
+                <ScalarProperty Name="id_Operario" ColumnName="id_Operario" />
+                <ScalarProperty Name="id_EstadoCelular" ColumnName="id_EstadoCelular" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Estados">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Estados">
               <MappingFragment StoreEntitySet="tbl_Estados">
-                <ScalarProperty Name="id_Estado" ColumnName="id_Estado" />
-                <ScalarProperty Name="abreviatura_estado" ColumnName="abreviatura_estado" />
-                <ScalarProperty Name="descripcion_estado" ColumnName="descripcion_estado" />
-                <ScalarProperty Name="tipoproceso_estado" ColumnName="tipoproceso_estado" />
-                <ScalarProperty Name="descripcion_tipoproceso_estado" ColumnName="descripcion_tipoproceso_estado" />
-                <ScalarProperty Name="id_Modulo" ColumnName="id_Modulo" />
-                <ScalarProperty Name="orden_estado" ColumnName="orden_estado" />
-                <ScalarProperty Name="Backcolor_estado" ColumnName="Backcolor_estado" />
-                <ScalarProperty Name="forecolor_estado" ColumnName="forecolor_estado" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
-                <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="grupo_Estado" ColumnName="grupo_Estado" />
                 <ScalarProperty Name="Simbolo_estado" ColumnName="Simbolo_estado" />
+                <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="forecolor_estado" ColumnName="forecolor_estado" />
+                <ScalarProperty Name="Backcolor_estado" ColumnName="Backcolor_estado" />
+                <ScalarProperty Name="orden_estado" ColumnName="orden_estado" />
+                <ScalarProperty Name="id_Modulo" ColumnName="id_Modulo" />
+                <ScalarProperty Name="descripcion_tipoproceso_estado" ColumnName="descripcion_tipoproceso_estado" />
+                <ScalarProperty Name="tipoproceso_estado" ColumnName="tipoproceso_estado" />
+                <ScalarProperty Name="descripcion_estado" ColumnName="descripcion_estado" />
+                <ScalarProperty Name="abreviatura_estado" ColumnName="abreviatura_estado" />
+                <ScalarProperty Name="id_Estado" ColumnName="id_Estado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Evento">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Evento">
               <MappingFragment StoreEntitySet="tbl_Evento">
-                <ScalarProperty Name="id_Evento" ColumnName="id_Evento" />
-                <ScalarProperty Name="nombre_Evento" ColumnName="nombre_Evento" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
                 <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="nombre_Evento" ColumnName="nombre_Evento" />
+                <ScalarProperty Name="id_Evento" ColumnName="id_Evento" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_GrupoTabla_Cab">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_GrupoTabla_Cab">
               <MappingFragment StoreEntitySet="tbl_GrupoTabla_Cab">
-                <ScalarProperty Name="id_GrupoTabla" ColumnName="id_GrupoTabla" />
-                <ScalarProperty Name="descripcion_GrupoTabla" ColumnName="descripcion_GrupoTabla" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
                 <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="descripcion_GrupoTabla" ColumnName="descripcion_GrupoTabla" />
+                <ScalarProperty Name="id_GrupoTabla" ColumnName="id_GrupoTabla" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_GrupoTabla_Det">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_GrupoTabla_Det">
               <MappingFragment StoreEntitySet="tbl_GrupoTabla_Det">
-                <ScalarProperty Name="id_detalleTabla" ColumnName="id_detalleTabla" />
-                <ScalarProperty Name="id_grupoTabla" ColumnName="id_grupoTabla" />
-                <ScalarProperty Name="codigo_detalleTabla" ColumnName="codigo_detalleTabla" />
-                <ScalarProperty Name="descripcion_grupoTabla" ColumnName="descripcion_grupoTabla" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
                 <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="descripcion_grupoTabla" ColumnName="descripcion_grupoTabla" />
+                <ScalarProperty Name="codigo_detalleTabla" ColumnName="codigo_detalleTabla" />
+                <ScalarProperty Name="id_grupoTabla" ColumnName="id_grupoTabla" />
+                <ScalarProperty Name="id_detalleTabla" ColumnName="id_detalleTabla" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Iconos">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Iconos">
               <MappingFragment StoreEntitySet="tbl_Iconos">
-                <ScalarProperty Name="id_Icono" ColumnName="id_Icono" />
-                <ScalarProperty Name="nombre_Icono" ColumnName="nombre_Icono" />
-                <ScalarProperty Name="url_Icono" ColumnName="url_Icono" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
                 <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="url_Icono" ColumnName="url_Icono" />
+                <ScalarProperty Name="nombre_Icono" ColumnName="nombre_Icono" />
+                <ScalarProperty Name="id_Icono" ColumnName="id_Icono" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TBL_Operarios_RegistroGPS">
             <EntityTypeMapping TypeName="Proyecto_3RModel.TBL_Operarios_RegistroGPS">
               <MappingFragment StoreEntitySet="TBL_Operarios_RegistroGPS">
-                <ScalarProperty Name="ID_Gps" ColumnName="ID_Gps" />
-                <ScalarProperty Name="id_operario" ColumnName="id_operario" />
-                <ScalarProperty Name="GPS_Latitud" ColumnName="GPS_Latitud" />
-                <ScalarProperty Name="GPS_Longitud" ColumnName="GPS_Longitud" />
-                <ScalarProperty Name="fecha_GPD" ColumnName="fecha_GPD" />
-                <ScalarProperty Name="fecha_Android" ColumnName="fecha_Android" />
                 <ScalarProperty Name="fecha_AgregaRegistro" ColumnName="fecha_AgregaRegistro" />
+                <ScalarProperty Name="fecha_Android" ColumnName="fecha_Android" />
+                <ScalarProperty Name="fecha_GPD" ColumnName="fecha_GPD" />
+                <ScalarProperty Name="GPS_Longitud" ColumnName="GPS_Longitud" />
+                <ScalarProperty Name="GPS_Latitud" ColumnName="GPS_Latitud" />
+                <ScalarProperty Name="id_operario" ColumnName="id_operario" />
+                <ScalarProperty Name="ID_Gps" ColumnName="ID_Gps" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_OrdenTrabajo_Cab">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_OrdenTrabajo_Cab">
               <MappingFragment StoreEntitySet="tbl_OrdenTrabajo_Cab">
+                <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
                 <ScalarProperty Name="solesDesmontePorRecojido_OT" ColumnName="solesDesmontePorRecojido_OT" />
                 <ScalarProperty Name="solesDesmonteRecojido_OT" ColumnName="solesDesmonteRecojido_OT" />
                 <ScalarProperty Name="solesMedidas_OT" ColumnName="solesMedidas_OT" />
-                <ScalarProperty Name="id_OT" ColumnName="id_OT" />
-                <ScalarProperty Name="id_TipoOrdenTrabajo" ColumnName="id_TipoOrdenTrabajo" />
-                <ScalarProperty Name="id_Servicios" ColumnName="id_Servicios" />
-                <ScalarProperty Name="nroObraTD" ColumnName="nroObraTD" />
-                <ScalarProperty Name="direccion_OT" ColumnName="direccion_OT" />
-                <ScalarProperty Name="id_Distrito" ColumnName="id_Distrito" />
-                <ScalarProperty Name="referencia_OT" ColumnName="referencia_OT" />
-                <ScalarProperty Name="descripcion_OT" ColumnName="descripcion_OT" />
-                <ScalarProperty Name="fechaAprobacion_OT" ColumnName="fechaAprobacion_OT" />
-                <ScalarProperty Name="fechaAsignacion_OT" ColumnName="fechaAsignacion_OT" />
-                <ScalarProperty Name="fechaEnvioMovil_OT" ColumnName="fechaEnvioMovil_OT" />
-                <ScalarProperty Name="fechaRegistro_OT" ColumnName="fechaRegistro_OT" />
-                <ScalarProperty Name="fechaReasignacion_OT" ColumnName="fechaReasignacion_OT" />
-                <ScalarProperty Name="fechaCancelacion_OT" ColumnName="fechaCancelacion_OT" />
-                <ScalarProperty Name="id_Empresa" ColumnName="id_Empresa" />
-                <ScalarProperty Name="id_PersonalJefeCuadrilla" ColumnName="id_PersonalJefeCuadrilla" />
-                <ScalarProperty Name="id_OT_Origen" ColumnName="id_OT_Origen" />
-                <ScalarProperty Name="obsReasignacion_OT" ColumnName="obsReasignacion_OT" />
-                <ScalarProperty Name="id_MotivoPrioridad" ColumnName="id_MotivoPrioridad" />
-                <ScalarProperty Name="obsMotivoPrioridad_OT" ColumnName="obsMotivoPrioridad_OT" />
-                <ScalarProperty Name="observaciones_OT" ColumnName="observaciones_OT" />
-                <ScalarProperty Name="ordenamiento_OT" ColumnName="ordenamiento_OT" />
-                <ScalarProperty Name="latitud_OT" ColumnName="latitud_OT" />
-                <ScalarProperty Name="longitud_OT" ColumnName="longitud_OT" />
-                <ScalarProperty Name="totalMedidas_OT" ColumnName="totalMedidas_OT" />
-                <ScalarProperty Name="totalDesmonteRecojido_OT" ColumnName="totalDesmonteRecojido_OT" />
                 <ScalarProperty Name="totalDesmontePorRecojido_OT" ColumnName="totalDesmontePorRecojido_OT" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
-                <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="totalDesmonteRecojido_OT" ColumnName="totalDesmonteRecojido_OT" />
+                <ScalarProperty Name="totalMedidas_OT" ColumnName="totalMedidas_OT" />
+                <ScalarProperty Name="longitud_OT" ColumnName="longitud_OT" />
+                <ScalarProperty Name="latitud_OT" ColumnName="latitud_OT" />
+                <ScalarProperty Name="ordenamiento_OT" ColumnName="ordenamiento_OT" />
+                <ScalarProperty Name="observaciones_OT" ColumnName="observaciones_OT" />
+                <ScalarProperty Name="obsMotivoPrioridad_OT" ColumnName="obsMotivoPrioridad_OT" />
+                <ScalarProperty Name="id_MotivoPrioridad" ColumnName="id_MotivoPrioridad" />
+                <ScalarProperty Name="obsReasignacion_OT" ColumnName="obsReasignacion_OT" />
+                <ScalarProperty Name="id_OT_Origen" ColumnName="id_OT_Origen" />
+                <ScalarProperty Name="id_PersonalJefeCuadrilla" ColumnName="id_PersonalJefeCuadrilla" />
+                <ScalarProperty Name="id_Empresa" ColumnName="id_Empresa" />
+                <ScalarProperty Name="fechaCancelacion_OT" ColumnName="fechaCancelacion_OT" />
+                <ScalarProperty Name="fechaReasignacion_OT" ColumnName="fechaReasignacion_OT" />
+                <ScalarProperty Name="fechaRegistro_OT" ColumnName="fechaRegistro_OT" />
+                <ScalarProperty Name="fechaEnvioMovil_OT" ColumnName="fechaEnvioMovil_OT" />
+                <ScalarProperty Name="fechaAsignacion_OT" ColumnName="fechaAsignacion_OT" />
+                <ScalarProperty Name="fechaAprobacion_OT" ColumnName="fechaAprobacion_OT" />
+                <ScalarProperty Name="descripcion_OT" ColumnName="descripcion_OT" />
+                <ScalarProperty Name="referencia_OT" ColumnName="referencia_OT" />
+                <ScalarProperty Name="id_Distrito" ColumnName="id_Distrito" />
+                <ScalarProperty Name="direccion_OT" ColumnName="direccion_OT" />
+                <ScalarProperty Name="nroObraTD" ColumnName="nroObraTD" />
+                <ScalarProperty Name="id_Servicios" ColumnName="id_Servicios" />
+                <ScalarProperty Name="id_TipoOrdenTrabajo" ColumnName="id_TipoOrdenTrabajo" />
+                <ScalarProperty Name="id_OT" ColumnName="id_OT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_OrdenTrabajo_Det">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_OrdenTrabajo_Det">
               <MappingFragment StoreEntitySet="tbl_OrdenTrabajo_Det">
-                <ScalarProperty Name="id_OTDet" ColumnName="id_OTDet" />
-                <ScalarProperty Name="id_OT" ColumnName="id_OT" />
-                <ScalarProperty Name="id_TipoTrabajo" ColumnName="id_TipoTrabajo" />
-                <ScalarProperty Name="id_TipoMaterial" ColumnName="id_TipoMaterial" />
-                <ScalarProperty Name="id_TipoDesmonte" ColumnName="id_TipoDesmonte" />
-                <ScalarProperty Name="Largo_OTDet" ColumnName="Largo_OTDet" />
-                <ScalarProperty Name="Ancho_OTDet" ColumnName="Ancho_OTDet" />
-                <ScalarProperty Name="Espesor_OTDet" ColumnName="Espesor_OTDet" />
-                <ScalarProperty Name="total_OTDet" ColumnName="total_OTDet" />
-                <ScalarProperty Name="nroPlacaVehiculo" ColumnName="nroPlacaVehiculo" />
-                <ScalarProperty Name="m3Vehiculo" ColumnName="m3Vehiculo" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
                 <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="m3Vehiculo" ColumnName="m3Vehiculo" />
+                <ScalarProperty Name="nroPlacaVehiculo" ColumnName="nroPlacaVehiculo" />
+                <ScalarProperty Name="total_OTDet" ColumnName="total_OTDet" />
+                <ScalarProperty Name="Espesor_OTDet" ColumnName="Espesor_OTDet" />
+                <ScalarProperty Name="Ancho_OTDet" ColumnName="Ancho_OTDet" />
+                <ScalarProperty Name="Largo_OTDet" ColumnName="Largo_OTDet" />
+                <ScalarProperty Name="id_TipoDesmonte" ColumnName="id_TipoDesmonte" />
+                <ScalarProperty Name="id_TipoMaterial" ColumnName="id_TipoMaterial" />
+                <ScalarProperty Name="id_TipoTrabajo" ColumnName="id_TipoTrabajo" />
+                <ScalarProperty Name="id_OT" ColumnName="id_OT" />
+                <ScalarProperty Name="id_OTDet" ColumnName="id_OTDet" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_OrdenTrabajo_Foto">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_OrdenTrabajo_Foto">
               <MappingFragment StoreEntitySet="tbl_OrdenTrabajo_Foto">
-                <ScalarProperty Name="id_OTDet_Foto" ColumnName="id_OTDet_Foto" />
-                <ScalarProperty Name="id_OTDet" ColumnName="id_OTDet" />
-                <ScalarProperty Name="nombre_OTDet_Foto" ColumnName="nombre_OTDet_Foto" />
-                <ScalarProperty Name="url_OTDet_Foto" ColumnName="url_OTDet_Foto" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
                 <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="url_OTDet_Foto" ColumnName="url_OTDet_Foto" />
+                <ScalarProperty Name="nombre_OTDet_Foto" ColumnName="nombre_OTDet_Foto" />
+                <ScalarProperty Name="id_OTDet" ColumnName="id_OTDet" />
+                <ScalarProperty Name="id_OTDet_Foto" ColumnName="id_OTDet_Foto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_OrdenTrabajo_Reasignacion">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_OrdenTrabajo_Reasignacion">
               <MappingFragment StoreEntitySet="tbl_OrdenTrabajo_Reasignacion">
-                <ScalarProperty Name="id_OT_Reasignacion" ColumnName="id_OT_Reasignacion" />
-                <ScalarProperty Name="id_OT" ColumnName="id_OT" />
-                <ScalarProperty Name="id_Empresa" ColumnName="id_Empresa" />
-                <ScalarProperty Name="id_Personal" ColumnName="id_Personal" />
-                <ScalarProperty Name="fechaAsignacion_OT" ColumnName="fechaAsignacion_OT" />
-                <ScalarProperty Name="id_EmpresaReasignacion" ColumnName="id_EmpresaReasignacion" />
-                <ScalarProperty Name="id_PersonalReasignacion" ColumnName="id_PersonalReasignacion" />
-                <ScalarProperty Name="fechaReasignacion_OT" ColumnName="fechaReasignacion_OT" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
                 <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="fechaReasignacion_OT" ColumnName="fechaReasignacion_OT" />
+                <ScalarProperty Name="id_PersonalReasignacion" ColumnName="id_PersonalReasignacion" />
+                <ScalarProperty Name="id_EmpresaReasignacion" ColumnName="id_EmpresaReasignacion" />
+                <ScalarProperty Name="fechaAsignacion_OT" ColumnName="fechaAsignacion_OT" />
+                <ScalarProperty Name="id_Personal" ColumnName="id_Personal" />
+                <ScalarProperty Name="id_Empresa" ColumnName="id_Empresa" />
+                <ScalarProperty Name="id_OT" ColumnName="id_OT" />
+                <ScalarProperty Name="id_OT_Reasignacion" ColumnName="id_OT_Reasignacion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Parametro_Movil">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Parametro_Movil">
               <MappingFragment StoreEntitySet="tbl_Parametro_Movil">
-                <ScalarProperty Name="id_Parametro" ColumnName="id_Parametro" />
-                <ScalarProperty Name="nombre_Parametro" ColumnName="nombre_Parametro" />
-                <ScalarProperty Name="valor_Parametro" ColumnName="valor_Parametro" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
                 <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="valor_Parametro" ColumnName="valor_Parametro" />
+                <ScalarProperty Name="nombre_Parametro" ColumnName="nombre_Parametro" />
+                <ScalarProperty Name="id_Parametro" ColumnName="id_Parametro" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Perfil">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Perfil">
               <MappingFragment StoreEntitySet="tbl_Perfil">
-                <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
-                <ScalarProperty Name="descripcion_perfil" ColumnName="descripcion_perfil" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
                 <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="descripcion_perfil" ColumnName="descripcion_perfil" />
+                <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Perfil_Accesos">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Perfil_Accesos">
               <MappingFragment StoreEntitySet="tbl_Perfil_Accesos">
-                <ScalarProperty Name="id_Perfil_Acceso" ColumnName="id_Perfil_Acceso" />
-                <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
-                <ScalarProperty Name="id_opcion" ColumnName="id_opcion" />
-                <ScalarProperty Name="id_Evento" ColumnName="id_Evento" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
                 <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="id_Evento" ColumnName="id_Evento" />
+                <ScalarProperty Name="id_opcion" ColumnName="id_opcion" />
+                <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
+                <ScalarProperty Name="id_Perfil_Acceso" ColumnName="id_Perfil_Acceso" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Personal">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Personal">
               <MappingFragment StoreEntitySet="tbl_Personal">
-                <ScalarProperty Name="id_Personal" ColumnName="id_Personal" />
-                <ScalarProperty Name="id_Empresa" ColumnName="id_Empresa" />
-                <ScalarProperty Name="id_TipoDoc" ColumnName="id_TipoDoc" />
-                <ScalarProperty Name="nroDocumento_Personal" ColumnName="nroDocumento_Personal" />
-                <ScalarProperty Name="apellidos_Personal" ColumnName="apellidos_Personal" />
-                <ScalarProperty Name="nombres_Personal" ColumnName="nombres_Personal" />
-                <ScalarProperty Name="id_Cargo" ColumnName="id_Cargo" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
                 <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="id_Cargo" ColumnName="id_Cargo" />
+                <ScalarProperty Name="nombres_Personal" ColumnName="nombres_Personal" />
+                <ScalarProperty Name="apellidos_Personal" ColumnName="apellidos_Personal" />
+                <ScalarProperty Name="nroDocumento_Personal" ColumnName="nroDocumento_Personal" />
+                <ScalarProperty Name="id_TipoDoc" ColumnName="id_TipoDoc" />
+                <ScalarProperty Name="id_Empresa" ColumnName="id_Empresa" />
+                <ScalarProperty Name="id_Personal" ColumnName="id_Personal" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Precios">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Precios">
               <MappingFragment StoreEntitySet="tbl_Precios">
-                <ScalarProperty Name="id_Precio" ColumnName="id_Precio" />
-                <ScalarProperty Name="id_TipoOrdenTrabajo" ColumnName="id_TipoOrdenTrabajo" />
-                <ScalarProperty Name="cubicaje" ColumnName="cubicaje" />
-                <ScalarProperty Name="cubicajeFinal" ColumnName="cubicajeFinal" />
-                <ScalarProperty Name="precio" ColumnName="precio" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="id_TipoMaterial" ColumnName="id_TipoMaterial" />
+                <ScalarProperty Name="id_TipoPrecio" ColumnName="id_TipoPrecio" />
                 <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="cubicajeFinal" ColumnName="cubicajeFinal" />
+                <ScalarProperty Name="cubicaje" ColumnName="cubicaje" />
+                <ScalarProperty Name="id_TipoOrdenTrabajo" ColumnName="id_TipoOrdenTrabajo" />
+                <ScalarProperty Name="id_Precio" ColumnName="id_Precio" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Servicios">
             <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Servicios">
               <MappingFragment StoreEntitySet="tbl_Servicios">
-                <ScalarProperty Name="id_Servicios" ColumnName="id_Servicios" />
-                <ScalarProperty Name="nombreServicio" ColumnName="nombreServicio" />
-                <ScalarProperty Name="id_Patron" ColumnName="id_Patron" />
-                <ScalarProperty Name="tiempo_Servicio" ColumnName="tiempo_Servicio" />
+                <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
-                <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Usuarios_Servicios">
-            <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Usuarios_Servicios">
-              <MappingFragment StoreEntitySet="tbl_Usuarios_Servicios">
-                <ScalarProperty Name="id_usuario_servicio" ColumnName="id_usuario_servicio" />
-                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
-                <ScalarProperty Name="id_servicio" ColumnName="id_servicio" />
-                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
-                <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TempoESTADO">
-            <EntityTypeMapping TypeName="Proyecto_3RModel.TempoESTADO">
-              <MappingFragment StoreEntitySet="TempoESTADO">
-                <ScalarProperty Name="id_estadocelular" ColumnName="id_estadocelular" />
-                <ScalarProperty Name="id_operario" ColumnName="id_operario" />
-                <ScalarProperty Name="GpsActivo" ColumnName="GpsActivo" />
-                <ScalarProperty Name="estadoBateria" ColumnName="estadoBateria" />
-                <ScalarProperty Name="FechaHoraAndroid" ColumnName="FechaHoraAndroid" />
-                <ScalarProperty Name="FechaAgregaRegistro" ColumnName="FechaAgregaRegistro" />
-                <ScalarProperty Name="ModoAvion" ColumnName="ModoAvion" />
-                <ScalarProperty Name="PlanDatos" ColumnName="PlanDatos" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TempoGPS">
-            <EntityTypeMapping TypeName="Proyecto_3RModel.TempoGPS">
-              <MappingFragment StoreEntitySet="TempoGPS">
-                <ScalarProperty Name="ID_Gps" ColumnName="ID_Gps" />
-                <ScalarProperty Name="id_operario" ColumnName="id_operario" />
-                <ScalarProperty Name="GPS_Latitud" ColumnName="GPS_Latitud" />
-                <ScalarProperty Name="GPS_Longitud" ColumnName="GPS_Longitud" />
-                <ScalarProperty Name="fecha_GPD" ColumnName="fecha_GPD" />
-                <ScalarProperty Name="fecha_Android" ColumnName="fecha_Android" />
-                <ScalarProperty Name="fecha_AgregaRegistro" ColumnName="fecha_AgregaRegistro" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TempoOperario">
-            <EntityTypeMapping TypeName="Proyecto_3RModel.TempoOperario">
-              <MappingFragment StoreEntitySet="TempoOperario">
-                <ScalarProperty Name="id_Operario" ColumnName="id_Operario" />
-                <ScalarProperty Name="nroDoc_Operario" ColumnName="nroDoc_Operario" />
-                <ScalarProperty Name="Apellidos_Operario" ColumnName="Apellidos_Operario" />
-                <ScalarProperty Name="nombre_Operario" ColumnName="nombre_Operario" />
-                <ScalarProperty Name="usuario_Operario" ColumnName="usuario_Operario" />
-                <ScalarProperty Name="contrasenia_Operario" ColumnName="contrasenia_Operario" />
+                <ScalarProperty Name="tiempo_Servicio" ColumnName="tiempo_Servicio" />
+                <ScalarProperty Name="id_Patron" ColumnName="id_Patron" />
+                <ScalarProperty Name="nombreServicio" ColumnName="nombreServicio" />
+                <ScalarProperty Name="id_Servicios" ColumnName="id_Servicios" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1581,6 +1662,88 @@ advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoOperario' no tiene defi
                 <ScalarProperty Name="id_EmpresaUsuario" ColumnName="id_EmpresaUsuario" />
                 <ScalarProperty Name="id_Personal" ColumnName="id_Personal" />
                 <ScalarProperty Name="id_Usuario" ColumnName="id_Usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Usuarios_Servicios">
+            <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Usuarios_Servicios">
+              <MappingFragment StoreEntitySet="tbl_Usuarios_Servicios">
+                <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="id_servicio" ColumnName="id_servicio" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="id_usuario_servicio" ColumnName="id_usuario_servicio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Zonas">
+            <EntityTypeMapping TypeName="Proyecto_3RModel.tbl_Zonas">
+              <MappingFragment StoreEntitySet="tbl_Zonas">
+                <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="nombre_Zona" ColumnName="nombre_Zona" />
+                <ScalarProperty Name="id_Zona" ColumnName="id_Zona" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Versiones">
+            <EntityTypeMapping TypeName="Proyecto_3RModel.Versiones">
+              <MappingFragment StoreEntitySet="Versiones">
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="versionId" ColumnName="versionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="julio">
+            <EntityTypeMapping TypeName="Proyecto_3RModel.julio">
+              <MappingFragment StoreEntitySet="julio">
+                <ScalarProperty Name="id_distrito" ColumnName="id_distrito" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TempoESTADO">
+            <EntityTypeMapping TypeName="Proyecto_3RModel.TempoESTADO">
+              <MappingFragment StoreEntitySet="TempoESTADO">
+                <ScalarProperty Name="PlanDatos" ColumnName="PlanDatos" />
+                <ScalarProperty Name="ModoAvion" ColumnName="ModoAvion" />
+                <ScalarProperty Name="FechaAgregaRegistro" ColumnName="FechaAgregaRegistro" />
+                <ScalarProperty Name="FechaHoraAndroid" ColumnName="FechaHoraAndroid" />
+                <ScalarProperty Name="estadoBateria" ColumnName="estadoBateria" />
+                <ScalarProperty Name="GpsActivo" ColumnName="GpsActivo" />
+                <ScalarProperty Name="id_operario" ColumnName="id_operario" />
+                <ScalarProperty Name="id_estadocelular" ColumnName="id_estadocelular" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TempoGPS">
+            <EntityTypeMapping TypeName="Proyecto_3RModel.TempoGPS">
+              <MappingFragment StoreEntitySet="TempoGPS">
+                <ScalarProperty Name="fecha_AgregaRegistro" ColumnName="fecha_AgregaRegistro" />
+                <ScalarProperty Name="fecha_Android" ColumnName="fecha_Android" />
+                <ScalarProperty Name="fecha_GPD" ColumnName="fecha_GPD" />
+                <ScalarProperty Name="GPS_Longitud" ColumnName="GPS_Longitud" />
+                <ScalarProperty Name="GPS_Latitud" ColumnName="GPS_Latitud" />
+                <ScalarProperty Name="id_operario" ColumnName="id_operario" />
+                <ScalarProperty Name="ID_Gps" ColumnName="ID_Gps" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TempoOperario">
+            <EntityTypeMapping TypeName="Proyecto_3RModel.TempoOperario">
+              <MappingFragment StoreEntitySet="TempoOperario">
+                <ScalarProperty Name="contrasenia_Operario" ColumnName="contrasenia_Operario" />
+                <ScalarProperty Name="usuario_Operario" ColumnName="usuario_Operario" />
+                <ScalarProperty Name="nombre_Operario" ColumnName="nombre_Operario" />
+                <ScalarProperty Name="Apellidos_Operario" ColumnName="Apellidos_Operario" />
+                <ScalarProperty Name="nroDoc_Operario" ColumnName="nroDoc_Operario" />
+                <ScalarProperty Name="id_Operario" ColumnName="id_Operario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

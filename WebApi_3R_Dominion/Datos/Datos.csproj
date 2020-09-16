@@ -66,6 +66,12 @@
       <DependentUpon>3R_DominionModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
+    <Compile Include="Gps_Distrito.cs">
+      <DependentUpon>3R_DominionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="julio.cs">
+      <DependentUpon>3R_DominionModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="tbl_Aceesos_Evento.cs">
       <DependentUpon>3R_DominionModel.tt</DependentUpon>
@@ -145,6 +151,9 @@
     <Compile Include="tbl_Usuarios_Servicios.cs">
       <DependentUpon>3R_DominionModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbl_Zonas.cs">
+      <DependentUpon>3R_DominionModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="TempoESTADO.cs">
       <DependentUpon>3R_DominionModel.tt</DependentUpon>
     </Compile>
@@ -152,6 +161,9 @@
       <DependentUpon>3R_DominionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TempoOperario.cs">
+      <DependentUpon>3R_DominionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Versiones.cs">
       <DependentUpon>3R_DominionModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

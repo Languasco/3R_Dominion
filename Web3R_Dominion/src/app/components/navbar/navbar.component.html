@@ -71,12 +71,15 @@
         </ul>
         <form class="form-inline my-2 my-lg-0 formBoton">
             <div class="dropdown" *ngIf="showMenu">
-                <button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-sm dropdown-toggle" style="font-weight: 600;font-size: 10px; font-family: tahoma !important;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                  {{nameUser}}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <div class="text-center">
-                        <button class="btn btn-outline-danger btn-sm my-2 my-sm-0 " type="button" (click)="cerrarSesion()">  Cerrar Sesion</button>
+                        <!-- <button class="btn btn-outline-danger btn-sm my-2 my-sm-0 " type="button" (click)="cerrarSesion()">  Cerrar Sesion</button> -->
+                        <a class="dropdown-item" href="#" (click)="cerrarSesion()">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Cerrar Sesion
+                        </a>
                     </div>
                 </div>
             </div>

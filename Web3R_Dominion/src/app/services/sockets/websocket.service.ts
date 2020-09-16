@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
  
 @Injectable({
@@ -8,8 +10,9 @@ import { Socket } from 'ngx-socket-io';
 export class WebsocketService {
 
   public socketStatus = false;
+  URL = environment.URL_API;
 
-  constructor(private socket: Socket) { 
+  constructor(private socket: Socket ,private http:HttpClient) { 
     this.checkStatus();
   }
 
@@ -45,4 +48,16 @@ export class WebsocketService {
       })
     })
   }
+
+
+  get_mensajeAutomatico_vencimientoOT(idUsuario:number){  
+    let parametros = new HttpParams();
+    parametros = parametros.append('opcion', '17');
+    parametros = parametros.append('filtro', String(idUsuario) );
+ 
+    return this.http.get( this.URL + 'OrdenTrabajo' , {params: parametros});
+  }
+  
+
+
 }

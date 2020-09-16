@@ -26,11 +26,18 @@ declare var $:any;
 export class UbicacionOtComponent implements OnInit,AfterViewInit {
 
   formParamsFiltro : FormGroup;
+  formParamsDatosG : FormGroup;
   idUserGlobal :number = 0;
   servicios :any[]=[]; 
   proveedor :any[]=[];    
   tipoOrdenTrabajo :any[]=[];  
   estados :any[]=[];   
+  distritos :any[]=[];
+
+  medidasDetalle :any[]=[]; 
+  desmonteDetalle :any[]=[]; 
+  fotosDetalle :any[]=[]; 
+  detalleOT:any;
  
   filtrarMantenimiento = "";
   datepiekerConfig:Partial<BsDatepickerConfig>;
@@ -40,14 +47,35 @@ export class UbicacionOtComponent implements OnInit,AfterViewInit {
     map : google.maps.Map;
     markers :google.maps.Marker[] = [];
     infowindows :google.maps.InfoWindow[] = [];
+
+
+  //-TAB control
+  tabControlDetalle: string[] = ['DATOS GENERALES','MEDIDAS','DESMONTE',]; 
+  selectedTabControlDetalle :any;
+
+  flagMedidas =  true;
+  id_OTGlobal = 0;
+  id_tipoOTGlobal = 0;
+  id_estadoOTGlobal = 0;
+  id_FotoOTGlobal = 0;
+
+  nroObraParteDiario_Global = '';
+  fechaHora_Global = '';
+  tituloModal = "";
+
+  totalGlobal =0;
+  totalGlobal14 =0;
+  totalGlobal15 =0;
    
-  constructor(private alertasService : AlertasService, private spinner: NgxSpinnerService, private loginService: LoginService, private listaPreciosService : ListaPreciosService, private ordenTrabajoService : OrdenTrabajoService, private ubicacionPersonalService : UbicacionPersonalService , private funcionGlobalServices : FuncionesglobalesService ) {         
+  constructor(private alertasService : AlertasService, private spinner: NgxSpinnerService, private loginService: LoginService, private listaPreciosService : ListaPreciosService, private ordenTrabajoService : OrdenTrabajoService, private ubicacionPersonalService : UbicacionPersonalService , private funcionGlobalServices : FuncionesglobalesService, private aprobacionOTService: AprobacionOTService ) {         
     this.idUserGlobal = this.loginService.get_idUsuario();
   }
  
  ngOnInit(): void {
+  this.selectedTabControlDetalle = this.tabControlDetalle[0]; 
   this.getCargarCombos();
   this.inicializarFormularioFiltro();
+  this.inicializarFormularioDatosG();
  }
 
  ngAfterViewInit() {
@@ -64,13 +92,24 @@ export class UbicacionOtComponent implements OnInit,AfterViewInit {
      }) 
  }
 
+ inicializarFormularioDatosG(){ 
+  this.formParamsDatosG= new FormGroup({ 
+    direccion : new FormControl(''),
+    idDistrito : new FormControl('0'),
+    referencia : new FormControl(''),
+    descripcionTrabajo : new FormControl(''),
+    idEstado : new FormControl('0'), 
+   }) 
+} 
+
  getCargarCombos(){ 
     this.spinner.show();
-    combineLatest([this.ordenTrabajoService.get_servicio(this.idUserGlobal), this.listaPreciosService.get_tipoOrdenTrabajo(), this.ordenTrabajoService.get_Proveedor(), this.listaPreciosService.get_estados()  ]).subscribe( ([ _servicios, _tipoOrdenTrabajo, _proveedor, _estados ])=>{
+    combineLatest([this.ordenTrabajoService.get_servicio(this.idUserGlobal), this.listaPreciosService.get_tipoOrdenTrabajo(), this.ordenTrabajoService.get_Proveedor(), this.listaPreciosService.get_estados(),this.ordenTrabajoService.get_Distritos()  ]).subscribe( ([ _servicios, _tipoOrdenTrabajo, _proveedor, _estados, _distritos ])=>{
         this.servicios = _servicios;
         this.tipoOrdenTrabajo = _tipoOrdenTrabajo;  
         this.proveedor = _proveedor;  
         this.estados = _estados
+        this.distritos = _distritos; 
         this.spinner.hide(); 
     },(error)=>{
       this.spinner.hide(); 
@@ -189,18 +228,23 @@ export class UbicacionOtComponent implements OnInit,AfterViewInit {
   }
  }
 
- createMarker({empresa, personal, nroOrden, direccion, fechaRegistro, diasVencimiento, latitud, longitud, idEstado}) {
+ createMarker({id_OT, empresa, personal, nroOrden, direccion, fechaRegistro, diasVencimiento, latitud, longitud, idEstado, fechaHora, id_Distrito, referencia, id_tipoTrabajo, descripcion_OT,id_estadoOT
+
+}) {
 
   let icono = '';
   let titulo= '';
+
   let ContenidoMarker = '';
-  ContenidoMarker += '<div style="width:550px;position:relative;">';
-  ContenidoMarker += '<table><tr><td class="text-info">Empresa</td><td><b>  '+ empresa +'</b></td></tr>';
-  ContenidoMarker += '<tr><td class="text-info"><strong>Personal</strong></td><td> ' + personal + '</td></tr>';
-  ContenidoMarker += '<tr><td class="text-info"><strong>Nro Orden</strong></td><td>  ' + nroOrden + '</td></tr>';
-  ContenidoMarker += '<tr><td class="text-info"><strong>Direccion</strong></td><td> ' + direccion + '</td></tr>';
-  ContenidoMarker += '<tr><td class="text-info"><strong> Fecha Registro</strong></td><td> ' + fechaRegistro + '</td></tr>';
-  ContenidoMarker += '<tr><td class="text-info"><strong>Dias Vencimiento</strong></td><td> ' + diasVencimiento + ' </td></tr> </table>'; 
+  ContenidoMarker += '<div  id="_market" style="width:500px;height:160px;position:relative;">';
+  ContenidoMarker += '<table><tr><td class="text-info"><strong > Nro. OT/TD </strong></td><td style="width:100%">: ' + nroOrden + '</td></tr>';
+  ContenidoMarker += '<tr><td class="text-info"><div style="width: 110px;">Sub Contrata</div></td><td style="width:100%">: ' + empresa + ' </td></tr>';
+  ContenidoMarker += '<tr><td class="text-info"><strong>Personal</strong></td><td>: ' + personal + '</td></tr>';
+  ContenidoMarker += '<tr><td class="text-info"><strong>Direccion</strong></td><td>: ' + direccion + '</td></tr>';
+  ContenidoMarker += '<tr><td class="text-info"><strong> Fecha Registro</strong></td><td>: ' + fechaRegistro + '</td></tr>';
+  ContenidoMarker += '<tr><td class="text-info"><strong>Dias Vencimiento</strong></td><td>: ' + diasVencimiento + ' </td></tr></tr>'; 
+  ContenidoMarker += '<tr><td> </td><td style="width:100%"  > <button  id="btn' + id_OT + '" class="btn btn-block btn-outline-primary btn-sm ">Ver Informe</button> </td></tr></table>';
+
 
   if (idEstado =='P') {
     icono = './assets/img/mapa/sum_pendiente.png';
@@ -236,7 +280,21 @@ export class UbicacionOtComponent implements OnInit,AfterViewInit {
     infowindow.setContent('<center><h4><b> UBICACIÓN OT </b></h4></center>' + ContenidoMarker);
     infowindow.open(this.map, marker);
   }) 
+
+      //-----modal informe
+    google.maps.event.addListener(infowindow, 'domready',   ()=> { 
+      if (document.getElementById('btn' + id_OT)) { 
+          google.maps.event.addDomListener(document.getElementById('btn' + id_OT), 'click', ()=> {  
  
+          this.abrirModal_OT({id_OT : id_OT, nroObra: nroOrden ,FechaAsignacion : fechaHora ,direccion: direccion , id_Distrito: id_Distrito , referencia : referencia, descripcion_OT : descripcion_OT, id_tipoTrabajo : id_tipoTrabajo ,id_estado: id_estadoOT })
+        
+          });
+          return
+      } else {
+          return
+      }
+    })
+
 }
   
   RemoveMarker(map:any) {
@@ -244,6 +302,192 @@ export class UbicacionOtComponent implements OnInit,AfterViewInit {
         this.markers[i].setMap(map);
     }
   }
+
+
+
+
+
+  cerrarModal_OT(){
+    setTimeout(()=>{ // 
+      $('#modal_OT').modal('hide');  
+    },0); 
+  }
+
+  descargarFotosOT(pantalla:string){
+
+    if (pantalla='P') {
+      if (this.medidasDetalle.length ==0) {
+        return;
+      }    
+    }
+  
+    Swal.fire({
+      icon: 'info', allowOutsideClick: false, allowEscapeKey: false, text: 'Obteniendo Fotos, Espere por favor'
+    })
+    Swal.showLoading();  
+    this.aprobacionOTService.get_descargarFotosOT_todos( this.id_OTGlobal, this.id_tipoOTGlobal, this.idUserGlobal ).subscribe( (res:any)=>{           
+      Swal.close();
+  
+      if (res.ok ==true) {   
+       window.open(String(res.data),'_blank');
+      }else{
+        this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+        alert(JSON.stringify(res.data));
+      }
+      
+    })
+  
+  }
+  
+  descargarFotosOT_visor(pantalla:string){
+   
+    if (this.fotosDetalle.length ==0) {
+      return;
+    }    
+    Swal.fire({
+      icon: 'info', allowOutsideClick: false, allowEscapeKey: false, text: 'Obteniendo Fotos, Espere por favor'
+    })
+    Swal.showLoading();  
+    this.aprobacionOTService.get_descargarFotosOT_visor( this.id_FotoOTGlobal , this.id_tipoOTGlobal, this.idUserGlobal ).subscribe( (res:any)=>{           
+      Swal.close();
+  
+      if (res.ok ==true) {   
+       window.open(String(res.data),'_blank');
+      }else{
+        this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+        alert(JSON.stringify(res.data));
+      }
+      
+    })
+  
+  }
+
+  abrirModal_visorFotos(objData:any){ 
+
+    this.detalleOT = objData;
+    this.id_FotoOTGlobal = objData.id_OTDet;
+
+    setTimeout(()=>{ // 
+      $('#modal_visorFotos').modal('show');
+    },0);
+
+    Swal.fire({
+      icon: 'info', allowOutsideClick: false, allowEscapeKey: false, text: 'Obteniendo Fotos, Espere por favor'
+    })
+    Swal.showLoading();
+    this.aprobacionOTService.get_fotosOT(objData.id_OTDet, this.id_tipoOTGlobal, this.idUserGlobal).subscribe((res:RespuestaServer)=>{
+      Swal.close();
+      if (res.ok) {           
+        this.fotosDetalle = res.data;         
+      }else{
+        this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+        alert(JSON.stringify(res.data));
+      }      
+     })
+
+  }
+
+  
+  cerrarModal_visor(){
+    $('#modal_visorFotos').modal('hide');    
+  }
+
+      
+  get_medidasOT(){
+    this.aprobacionOTService.get_medidasOT(this.id_OTGlobal, this.id_tipoOTGlobal, this.idUserGlobal).subscribe((res:RespuestaServer)=>{
+     if (res.ok) {            
+       this.medidasDetalle = res.data; 
+       
+       let importeTotal =0;
+       for (const iterator of  this.medidasDetalle) {
+        importeTotal += iterator.total;
+       }
+       
+       this.totalGlobal = importeTotal;
+  
+     }else{
+       this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+       alert(JSON.stringify(res.data));
+     }      
+    })        
+  }
+
+  get_desmonteOT(){
+    this.aprobacionOTService.get_mesmonteOT(this.id_OTGlobal, this.id_tipoOTGlobal, this.idUserGlobal).subscribe((res:RespuestaServer)=>{
+     if (res.ok) {            
+       this.desmonteDetalle = res.data; 
+       
+       let importeTotal14 =0;
+       let importeTotal15 =0;
+
+       for (const iterator of  this.desmonteDetalle) {
+         
+          if (iterator.id_TipoMaterial == 14 ) {
+            importeTotal14 += iterator.total;
+          }
+          if (iterator.id_TipoMaterial == 15 ) {
+            importeTotal15 += iterator.total;
+          }
+
+       }
+       
+       this.totalGlobal14 = importeTotal14;
+       this.totalGlobal15 = importeTotal15;
+
+  
+     }else{
+       this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+       alert(JSON.stringify(res.data));
+     }      
+    })        
+  }
+
+
+  abrirModal_OT( {id_OT,nroObra,FechaAsignacion,direccion, id_Distrito, referencia, descripcion_OT, id_tipoTrabajo,id_estado  }){ 
+  
+    // //----- Datos Generales  -----  
+    this.id_OTGlobal = id_OT;
+    this.id_tipoOTGlobal = id_tipoTrabajo;
+    this.nroObraParteDiario_Global = nroObra;
+    this.fechaHora_Global = FechaAsignacion;
+    this.id_estadoOTGlobal = id_estado;
+  
+    this.totalGlobal =0;
+    this.totalGlobal14 =0;
+    this.totalGlobal15 =0;
+  
+    this.tituloModal = 'Tipo Trabajo No-Definido'
+  
+    if (id_tipoTrabajo == 3 ||  id_tipoTrabajo == 4 ) {  // rotura
+      
+      this.tituloModal = 'REGISTRO DE ROTURA O REPARACION'
+      this.flagMedidas =true;
+      this.get_medidasOT();
+      this.get_desmonteOT();
+  
+    }
+    else if (id_tipoTrabajo == 5 ) {  // desmonte
+      
+      this.tituloModal = 'REGISTRO DE DESMONTE'
+      this.flagMedidas =false;
+      this.medidasDetalle = [];
+      this.get_desmonteOT();
+  
+    }else{
+      this.flagMedidas =false;
+      this.medidasDetalle = [];
+      this.desmonteDetalle = [];
+    }
+    
+    
+    this.formParamsDatosG.patchValue({"direccion": direccion , "idDistrito": id_Distrito, "referencia": referencia, "descripcionTrabajo": descripcion_OT , "idEstado": id_estado });
+    this.selectedTabControlDetalle = this.tabControlDetalle[0];
+  
+    setTimeout(()=>{ // 
+      $('#modal_OT').modal('show');
+    },0);
+  }
+  
 
  
   

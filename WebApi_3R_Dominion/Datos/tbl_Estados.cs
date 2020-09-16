@@ -29,5 +29,6 @@ namespace Datos
         public Nullable<int> usuario_edicion { get; set; }
         public Nullable<System.DateTime> fecha_edicion { get; set; }
         public string Simbolo_estado { get; set; }
+        public string grupo_Estado { get; set; }
     }
 }

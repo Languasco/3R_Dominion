@@ -102,10 +102,10 @@ export class PersonalComponent implements OnInit {
       //   return 
       // }  
 
-      if (this.formParamsFiltro.value.idEstado == '' || this.formParamsFiltro.value.idEstado == 0) {
-        this.alertasService.Swal_alert('error','Por favor seleccione un estado');
-        return 
-      }
+      // if (this.formParamsFiltro.value.idEstado == '' || this.formParamsFiltro.value.idEstado == 0) {
+      //   this.alertasService.Swal_alert('error','Por favor seleccione un estado');
+      //   return 
+      // }
   
       this.spinner.show();
       this.personalService.get_mostrarPersonal_general(this.formParamsFiltro.value.idEmpresa, this.formParamsFiltro.value.idEstado)
@@ -152,7 +152,7 @@ export class PersonalComponent implements OnInit {
   }
 
   if (this.formParams.value.id_Empresa == '' || this.formParams.value.id_Empresa == 0) {
-     this.alertasService.Swal_alert('error','Por favor seleccione una Empresa ');
+     this.alertasService.Swal_alert('error','Por favor seleccione una Sub Contrata ');
      return 
   }  
   if (this.formParams.value.id_TipoDoc == '' || this.formParams.value.id_TipoDoc == 0) {

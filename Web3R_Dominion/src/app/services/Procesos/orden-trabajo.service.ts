@@ -161,7 +161,7 @@ export class OrdenTrabajoService {
  
  set_enviarOT_jefeCuadrilla (otMasivo, idUsuario:number){ 
     let parametros = new HttpParams();
-    parametros = parametros.append('opcion', '10');
+    parametros = parametros.append('opcion', '8');
     parametros = parametros.append('filtro', otMasivo + '|' +   idUsuario  );
     return this.http.get( this.URL + 'OrdenTrabajo' , {params: parametros});
  }
@@ -172,39 +172,45 @@ export class OrdenTrabajoService {
   parametros = parametros.append('opcion', '11');
   parametros = parametros.append('filtro', idServicio + '|' +  idTipoOT + '|' +  idDistrito + '|' +  idProveedor + '|' +  idEstado + '|' +  idUsuario  );
   return this.http.get( this.URL + 'OrdenTrabajo' , {params: parametros});
-}
+ }
 
-save_MapaOrdenTrabajoCab_general( idOTs:string, {idEmpresa,idCuadrilla,idEstado }, idUsuario:number){ 
-  let parametros = new HttpParams();
-  parametros = parametros.append('opcion', '12');
-  parametros = parametros.append('filtro', idOTs + '|' + idEmpresa + '|' +  idCuadrilla  + '|' +  idEstado + '|' +  idUsuario  );
-
-  console.log(parametros)
-  return this.http.get( this.URL + 'OrdenTrabajo' , {params: parametros});
-}
-
-get_detalleMapaOrdenTrabajoCab({idServicio, idTipoOT, idDistrito,idProveedor,idEstado }, idUsuario:number){ 
-  let parametros = new HttpParams();
-  parametros = parametros.append('opcion', '13');
-  parametros = parametros.append('filtro', idServicio + '|' +  idTipoOT + '|' +  idDistrito + '|' +  idProveedor + '|' +  idEstado + '|' +  idUsuario  );
-  return this.http.get( this.URL + 'OrdenTrabajo' , {params: parametros});
-}
-
-set_asignacionAutomatica({idServicio, idTipoOT, idDistrito,idProveedor,idEstado }, idUsuario:number){ 
-  let parametros = new HttpParams();
-  parametros = parametros.append('opcion', '14');
-  parametros = parametros.append('filtro', idServicio + '|' +  idTipoOT + '|' +  idDistrito + '|' +  idProveedor + '|' +  idEstado + '|' +  idUsuario  );
-  return this.http.get( this.URL + 'OrdenTrabajo' , {params: parametros});
-}
-
-get_descargarOT_general({idServicio, idTipoOT, idDistrito,idProveedor,idEstado }, idUsuario:number){ 
-  let parametros = new HttpParams();
-  parametros = parametros.append('opcion', '15');
-  parametros = parametros.append('filtro', idServicio + '|' +  idTipoOT + '|' +  idDistrito + '|' +  idProveedor + '|' +  idEstado + '|' +  idUsuario  );
-  return this.http.get( this.URL + 'OrdenTrabajo' , {params: parametros});
-}
-
+  save_MapaOrdenTrabajoCab_general( idOTs:string, {idEmpresa,idCuadrilla,idEstado }, idUsuario:number){ 
+    let parametros = new HttpParams();
+    parametros = parametros.append('opcion', '12');
+    parametros = parametros.append('filtro', idOTs + '|' + idEmpresa + '|' +  idCuadrilla  + '|' +  idEstado + '|' +  idUsuario  );
   
+    console.log(parametros)
+    return this.http.get( this.URL + 'OrdenTrabajo' , {params: parametros});
+  }
+  
+  get_detalleMapaOrdenTrabajoCab({idServicio, idTipoOT, idDistrito,idProveedor,idEstado }, idUsuario:number){ 
+    let parametros = new HttpParams();
+    parametros = parametros.append('opcion', '13');
+    parametros = parametros.append('filtro', idServicio + '|' +  idTipoOT + '|' +  idDistrito + '|' +  idProveedor + '|' +  idEstado + '|' +  idUsuario  );
+    return this.http.get( this.URL + 'OrdenTrabajo' , {params: parametros});
+  }
+  
+  set_asignacionAutomatica({idServicio, idTipoOT, idDistrito,idProveedor,idEstado }, idUsuario:number){ 
+    let parametros = new HttpParams();
+    parametros = parametros.append('opcion', '14');
+    parametros = parametros.append('filtro', idServicio + '|' +  idTipoOT + '|' +  idDistrito + '|' +  idProveedor + '|' +  idEstado + '|' +  idUsuario  );
+    return this.http.get( this.URL + 'OrdenTrabajo' , {params: parametros});
+  }
+  
+  get_descargarOT_general({idServicio, idTipoOT, idDistrito,idProveedor,idEstado }, idUsuario:number){ 
+    let parametros = new HttpParams();
+    parametros = parametros.append('opcion', '15');
+    parametros = parametros.append('filtro', idServicio + '|' +  idTipoOT + '|' +  idDistrito + '|' +  idProveedor + '|' +  idEstado + '|' +  idUsuario  );
+    return this.http.get( this.URL + 'OrdenTrabajo' , {params: parametros});
+  }
+
+  set_envioPrioridades( otMasivo:string, idPrioridad : number, observacionPrioridad :string , idusario:number){ 
+    let parametros = new HttpParams();
+    parametros = parametros.append('opcion', '16');
+    parametros = parametros.append('filtro', otMasivo + '|' +   idPrioridad  + '|' +   observacionPrioridad + '|' +   idusario );
+    return this.http.get( this.URL + 'OrdenTrabajo' , {params: parametros});
+ }
+
 
 
 }

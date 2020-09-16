@@ -29,9 +29,14 @@ export class ListaPreciosComponent implements OnInit {
   flag_modoEdicion :boolean =false
   estados :any[]=[];   
   tipoOrdenTrabajo :any[]=[];
+
+  tipoPrecios :any[]=[];
+  tipoMateriales :any[]=[];
  
   precios :any[]=[]; 
   filtrarMantenimiento = "";
+
+  flagCubiculo =false;
  
  
   constructor(private alertasService : AlertasService, private spinner: NgxSpinnerService, private loginService: LoginService,private funcionGlobalServices : FuncionesglobalesService, private funcionesglobalesService : FuncionesglobalesService, private listaPreciosService : ListaPreciosService, private uploadService : UploadService) {         
@@ -58,6 +63,8 @@ export class ListaPreciosComponent implements OnInit {
       id_Precio: new FormControl('0'), 
       id_TipoOrdenTrabajo: new FormControl('0'),
       precio: new FormControl(''),
+      id_TipoPrecio : new FormControl('0'),
+      id_TipoMaterial : new FormControl('0'),
       cubicaje: new FormControl(''),
       cubicajeFinal: new FormControl(''),
       estado : new FormControl('1'),   
@@ -67,9 +74,11 @@ export class ListaPreciosComponent implements OnInit {
 
  getCargarCombos(){ 
     this.spinner.show();
-    combineLatest([ this.listaPreciosService.get_estados(), this.listaPreciosService.get_tipoOrdenTrabajo()]).subscribe( ([_estados,  _tipoOrdenTrabajo ])=>{
+    combineLatest([ this.listaPreciosService.get_estados(), this.listaPreciosService.get_tipoOrdenTrabajo(), this.listaPreciosService.get_tipoPrecios(), this.listaPreciosService.get_tiposMateriales() ]).subscribe( ([_estados,  _tipoOrdenTrabajo, _tipoPrecios,_tipoMateriales ])=>{
       this.estados = _estados;
       this.tipoOrdenTrabajo = _tipoOrdenTrabajo; 
+      this.tipoPrecios = _tipoPrecios; 
+      this.tipoMateriales = _tipoMateriales; 
       this.spinner.hide(); 
     })
 
@@ -81,10 +90,10 @@ export class ListaPreciosComponent implements OnInit {
       //   return 
       // }  
 
-      if (this.formParamsFiltro.value.idEstado == '' || this.formParamsFiltro.value.idEstado == 0) {
-        this.alertasService.Swal_alert('error','Por favor seleccione un estado');
-        return 
-      }
+      // if (this.formParamsFiltro.value.idEstado == '' || this.formParamsFiltro.value.idEstado == 0) {
+      //   this.alertasService.Swal_alert('error','Por favor seleccione un estado');
+      //   return 
+      // }
   
       this.spinner.show();
       this.listaPreciosService.get_mostrarPrecio_general(this.formParamsFiltro.value.idtipoOrdenT, this.formParamsFiltro.value.idEstado)
@@ -107,6 +116,7 @@ export class ListaPreciosComponent implements OnInit {
 
  nuevo(){
     this.flag_modoEdicion = false;
+    this.flagCubiculo =false;
 
     setTimeout(()=>{ // 
       $('#modal_mantenimiento').modal('show');
@@ -138,16 +148,17 @@ export class ListaPreciosComponent implements OnInit {
     return 
   }
 
-  if (this.formParams.value.cubicaje == '' || this.formParams.value.cubicaje == 0) {
-    this.alertasService.Swal_alert('error','Por favor ingrese el cubicaje');
-    return 
-  }
-
-  if (this.formParams.value.cubicajeFinal == '' || this.formParams.value.cubicajeFinal == 0) {
-    this.alertasService.Swal_alert('error','Por favor ingrese el cubicaje Final');
-    return 
-  }
+  if (this.formParams.value.id_TipoOrdenTrabajo == 18 ) {
+    if (this.formParams.value.cubicaje == '' || this.formParams.value.cubicaje == 0) {
+      this.alertasService.Swal_alert('error','Por favor ingrese el cubicaje');
+      return 
+    }
   
+    if (this.formParams.value.cubicajeFinal == '' || this.formParams.value.cubicajeFinal == 0) {
+      this.alertasService.Swal_alert('error','Por favor ingrese el cubicaje Final');
+      return 
+    }
+  }  
  
    this.formParams.patchValue({ "usuario_creacion" : this.idUserGlobal });
 
@@ -203,13 +214,13 @@ export class ListaPreciosComponent implements OnInit {
 
  } 
 
- editar({ id_Precio, id_TipoOrdenTrabajo, precio, cubicaje,cubicajeFinal, estado}){
+ editar({ id_Precio, id_TipoOrdenTrabajo, precio, cubicaje,cubicajeFinal,  estado  , id_TipoPrecio, id_TipoMaterial}){
    this.flag_modoEdicion=true;
    setTimeout(()=>{ // 
     $('#modal_mantenimiento').modal('show');
   },0);
 
-   this.formParams.patchValue({ "id_Precio" : id_Precio, "id_TipoOrdenTrabajo" :  id_TipoOrdenTrabajo  , "precio" : precio ,"cubicaje" : cubicaje,  "cubicajeFinal" : cubicajeFinal,  "estado" : estado, "usuario_creacion" : this.idUserGlobal }
+   this.formParams.patchValue({ "id_Precio" : id_Precio, "id_TipoOrdenTrabajo" :  id_TipoOrdenTrabajo  , "precio" : precio ,"cubicaje" : cubicaje,  "cubicajeFinal" : cubicajeFinal,  "estado" : estado, "usuario_creacion" : this.idUserGlobal,"id_TipoPrecio" : id_TipoPrecio, "id_TipoMaterial" : id_TipoMaterial  }
    );
  
  } 
@@ -249,6 +260,16 @@ export class ListaPreciosComponent implements OnInit {
      }
    }) 
 
+ }
+
+ onChangeTipoPrecio(obj:any){
+    if (obj.target.value ==18) {
+      this.flagCubiculo =true;
+      this.formParams.patchValue({ "id_TipoMaterial" : 0} );
+    }else{
+      this.flagCubiculo =false;
+      this.formParams.patchValue({ "cubicaje" : 0,  "cubicajeFinal" : 0 } );
+    }
  }
   
 

@@ -21,7 +21,7 @@
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <label for=""> Proveedor</label>
+                    <label for=""> Sub Contrata</label>
                     <select class="form-control comboBox" formControlName="idProveedor">
                         <option value="0"> [ --TODOS-- ]</option>
                         <option [value]="item.id_Empresa" *ngFor="let item of proveedor">{{item.razonSocial_Empresa}}</option>
@@ -89,14 +89,14 @@
                                 <th class="text-center">Ubicacion</th>
 
                                 <th class="text-center">Fecha Asignacion</th>
-                                <th class="text-center">Fecha Envio M</th>
+                                <th class="text-center">Fecha Envio Movil</th>
                                 <th class="text-center">Emp. Contratista</th>
                                 <th class="text-center">Jefe Cuadrilla</th>
 
                                 <th class="text-center">Fecha Registro</th>
                                 <th class="text-center">Genero Volumen</th>
                                 <th class="text-center">Volumen en Desmonte</th>
-                                <th class="text-center">Volumen en Desmonte Recoger</th>
+                                <th class="text-center">Volumen Desmonte Recoger</th>
 
                                 <th class="text-center">Fecha Aprobacion</th>
                                 <th class="text-center">Fecha Cancelacion</th>

@@ -7,6 +7,7 @@ import { LoginService } from '../../../services/login/login.service';
 import Swal from 'sweetalert2';
 import { AlertasService } from '../../../services/alertas/alertas.service';
 import { DistritosService } from '../../../services/Mantenimientos/distritos.service';
+import { combineLatest } from 'rxjs';
  
 
 @Component({
@@ -18,6 +19,8 @@ export class DistritosComponent implements OnInit {
 
   formParams : FormGroup; 
   distritos:any [] =  []; 
+  zonas:any [] =  []; 
+  
   idUserGlobal : number = 0;
   showDetalle = false;
   flagModo_Edicion = false;
@@ -33,6 +36,7 @@ export class DistritosComponent implements OnInit {
   }
  
   ngOnInit(): void {
+   this.getCargarCombos();
    this.inicializarFormulario();
    this.mostrarInformacion()
   }
@@ -40,11 +44,21 @@ export class DistritosComponent implements OnInit {
   inicializarFormulario(){ 
     this.formParams= new FormGroup({
       id_Distrito: new FormControl('0'), 
+      id_Zona: new FormControl('0'), 
       nombreDistrito: new FormControl(''),
       estado : new FormControl('1'),   
       usuario_creacion : new FormControl('')
     }) 
   }
+
+  getCargarCombos(){ 
+    this.spinner.show();
+    combineLatest([ this.distritosService.get_zonas()]).subscribe( ([_zonas ])=>{
+      this.zonas = _zonas;
+       this.spinner.hide(); 
+    })
+
+ }
  
   mostrarInformacion(){
     this.spinner.show();
@@ -95,12 +109,15 @@ export class DistritosComponent implements OnInit {
 
       this.distritosService.set_saveDistrito(this.formParams.value).subscribe((res:RespuestaServer)=>{
         Swal.close(); 
-        console.log(res.data);        
-        if (res.ok ==true) {     
+      
+        if (res.ok ==true) {    
+
           this.flag_modoEdicion = true;
-          this.formParams.patchValue({ "id_Distrito" : Number(res.data) });
-          this.mostrarInformacion();
+          this.formParams.patchValue({ "id_Distrito" : Number(res.data[0].id_Distrito) });
+          this.distritos.push(res.data[0])
+          console.log(Number(res.data[0].id_Distrito))
           this.alertasService.Swal_Success('Se agrego correctamente..');
+          
         }else{
           this.alertasService.Swal_alert('error', JSON.stringify(res.data));
           alert(JSON.stringify(res.data));

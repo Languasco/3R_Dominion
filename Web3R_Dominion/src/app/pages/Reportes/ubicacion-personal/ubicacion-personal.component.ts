@@ -140,7 +140,7 @@ export class UbicacionPersonalComponent implements OnInit,AfterViewInit {
 
   let ContenidoMarker = '';
   ContenidoMarker += '<div style="width:550px;position:relative;">';
-  ContenidoMarker += '<table><tr><td class="text-info" >Empresa</td><td><b>  '+ razonSocial_Empresa +'</b></td></tr>';
+  ContenidoMarker += '<table><tr><td class="text-info" >Sub Contrata</td><td><b>  '+ razonSocial_Empresa +'</b></td></tr>';
   ContenidoMarker += '<tr><td class="text-info"><strong>Personal</strong></td><td> ' + JefeCuadrilla + '</td></tr>';
   ContenidoMarker += '<tr><td class="text-info"><strong>Cant OT Asignadas</strong></td><td>  ' + Asignado + '</td></tr>';
   ContenidoMarker += '<tr><td class="text-info"><strong>Cant OT Realizadas</strong></td><td> ' + Realizado + '</td></tr>';

@@ -1063,8 +1063,7 @@ namespace Negocio.Procesos
             }
             return resultado;
         }
-
-
+        
         public object get_detalleOrdenTrabajoCab_mapa(int idServicio, int idTipoOT, int idDistrito, int idProveedor, int idEstado, int idUsuario)
         {
             Resultado res = new Resultado();
@@ -1142,9 +1141,7 @@ namespace Negocio.Procesos
             }
             return res;
         }
-
-
-  
+                 
         public class download
         {
             public string nombreFile { get; set; }
@@ -1508,6 +1505,93 @@ namespace Negocio.Procesos
             return Res;
         }
 
+        public string set_enviarPrioridades(string codigosOT, int idPrioridad, string observacion, int idUsuario)
+        {
+            string resultado = "";
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(bdConexion.cadenaBDcx()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_ORDENES_TRABAJO_ENVIAR_PRIORIDAD", cn))
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@codigosOT", SqlDbType.VarChar).Value = codigosOT;
+                        cmd.Parameters.Add("@idPrioridad", SqlDbType.Int).Value = idPrioridad;
+                        cmd.Parameters.Add("@observacion", SqlDbType.VarChar).Value = observacion;
+                        cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+
+                        cmd.ExecuteNonQuery();
+                        resultado = "OK";
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                resultado = e.Message;
+            }
+            return resultado;
+        }
+
+        public class notificacion
+        {
+            public string  idEmpresa { get; set; }
+            public string  idCuadrilla { get; set; }
+            public string  cantidadOT { get; set; }
+            public string  idServicio { get; set; }
+            public string  idTipoOT { get; set; }
+            public string mensaje { get; set; }
+            public string titulo { get; set; }
+        }
+        
+        public object get_notificacionVencimientoOT(int idUsuario)
+        {
+            Resultado res = new Resultado();
+            List<notificacion> obj_List = new List<notificacion>();
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(bdConexion.cadenaBDcx()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_SOCKET_OT_VENCIDAS", cn))
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@id_usuario", SqlDbType.Int).Value = idUsuario;
+
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                notificacion Entidad = new notificacion();
+ 
+                                Entidad.idEmpresa = dr["idEmpresa"].ToString();
+                                Entidad.idCuadrilla = dr["idCuadrilla"].ToString();
+                                Entidad.cantidadOT = dr["cantidadOT"].ToString();
+                                Entidad.idServicio = dr["idServicio"].ToString();
+                                Entidad.idTipoOT = dr["idTipoOT"].ToString();
+                                Entidad.mensaje = dr["mensaje"].ToString();
+                                Entidad.titulo = dr["titulo"].ToString();
+
+                                obj_List.Add(Entidad);
+                            }
+
+                            res.ok = true;
+                            res.data = obj_List;
+                            res.totalpage = 0;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                res.ok = false;
+                res.data = ex.Message;
+                res.totalpage = 0;
+            }
+            return res;
+        }
 
     }
 }

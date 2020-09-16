@@ -1,5 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Proyecto_3RModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.cesar' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="cesar">
+          <Property Name="id_Opcion" Type="int" />
+        </EntityType>-->
+  <EntityType Name="Gps_Distrito">
+    <Key>
+      <PropertyRef Name="id_GPS" />
+    </Key>
+    <Property Name="id_GPS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" />
+    <Property Name="latitud" Type="varchar" MaxLength="50" />
+    <Property Name="longitud" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.jhony' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="jhony">
+          <Property Name="checkeado" Type="bit" />
+          <Property Name="id_Servicios" Type="int" />
+          <Property Name="nombreServicio" Type="varchar" MaxLength="50" />
+        </EntityType>-->
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.julio' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="julio">
+    <Key>
+      <PropertyRef Name="id_distrito" />
+    </Key>
+    <Property Name="id_distrito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
   <EntityType Name="tbl_Aceesos_Evento">
     <Key>
       <PropertyRef Name="id_Acceso_evento" />
@@ -64,6 +93,7 @@
       <PropertyRef Name="id_Distrito" />
     </Key>
     <Property Name="id_Distrito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_Zona" Type="int" />
     <Property Name="nombreDistrito" Type="varchar" MaxLength="100" />
     <Property Name="estado" Type="int" />
     <Property Name="usuario_creacion" Type="int" />
@@ -128,6 +158,7 @@
     <Property Name="usuario_edicion" Type="int" />
     <Property Name="fecha_edicion" Type="datetime" />
     <Property Name="Simbolo_estado" Type="varchar" MaxLength="5" />
+    <Property Name="grupo_Estado" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="tbl_Evento">
     <Key>
@@ -355,6 +386,8 @@
     <Property Name="fecha_creacion" Type="datetime" />
     <Property Name="usuario_edicion" Type="int" />
     <Property Name="fecha_edicion" Type="datetime" />
+    <Property Name="id_TipoPrecio" Type="int" />
+    <Property Name="id_TipoMaterial" Type="int" />
   </EntityType>
   <EntityType Name="tbl_Servicios">
     <Key>
@@ -399,6 +432,18 @@
     <Property Name="id_usuario_servicio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="id_usuario" Type="int" />
     <Property Name="id_servicio" Type="int" />
+    <Property Name="usuario_creacion" Type="int" />
+    <Property Name="fecha_creacion" Type="datetime" />
+    <Property Name="usuario_edicion" Type="int" />
+    <Property Name="fecha_edicion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_Zonas">
+    <Key>
+      <PropertyRef Name="id_Zona" />
+    </Key>
+    <Property Name="id_Zona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre_Zona" Type="varchar" MaxLength="50" />
+    <Property Name="estado" Type="int" />
     <Property Name="usuario_creacion" Type="int" />
     <Property Name="fecha_creacion" Type="datetime" />
     <Property Name="usuario_edicion" Type="int" />
@@ -456,6 +501,28 @@ advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoOperario' no tiene defi
     <Property Name="usuario_Operario" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="contrasenia_Operario" Type="varchar" MaxLength="20" Nullable="false" />
   </EntityType>
+  <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'Proyecto_3R.dbo.TEMPORAL_PERSONAL' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="TEMPORAL_PERSONAL">
+          <Property Name="tipoDocumento" Type="varchar" MaxLength="100" />
+          <Property Name="nroDocumento" Type="varchar" MaxLength="20" />
+          <Property Name="apellidos" Type="varchar" MaxLength="250" />
+          <Property Name="nombres" Type="varchar" MaxLength="250" />
+          <Property Name="cargo" Type="varchar" MaxLength="250" />
+          <Property Name="nombreArchivo" Type="varchar" MaxLength="100" />
+          <Property Name="empresa_importacion" Type="int" />
+          <Property Name="usuario_importacion" Type="int" />
+          <Property Name="fechaBD" Type="datetime" />
+        </EntityType>-->
+  <EntityType Name="Versiones">
+    <Key>
+      <PropertyRef Name="versionId" />
+    </Key>
+    <Property Name="versionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="code" Type="int" />
+    <Property Name="name" Type="varchar" MaxLength="10" />
+    <Property Name="estado" Type="int" />
+  </EntityType>
   <Association Name="FK__tbl_Acees__id_Op__3C69FB99">
     <End Role="tbl_Definicion_Opciones" Type="Self.tbl_Definicion_Opciones" Multiplicity="0..1" />
     <End Role="tbl_Aceesos_Evento" Type="Self.tbl_Aceesos_Evento" Multiplicity="*" />
@@ -493,6 +560,7 @@ advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoOperario' no tiene defi
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="Proyecto_3RModelStoreContainer">
+    <EntitySet Name="Gps_Distrito" EntityType="Self.Gps_Distrito" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Aceesos_Evento" EntityType="Self.tbl_Aceesos_Evento" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Cargo_Personal" EntityType="Self.tbl_Cargo_Personal" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Configuracion_Zonas" EntityType="Self.tbl_Configuracion_Zonas" Schema="dbo" store:Type="Tables" />
@@ -519,6 +587,13 @@ advertencia 6002: La tabla o vista 'Proyecto_3R.dbo.TempoOperario' no tiene defi
     <EntitySet Name="tbl_Servicios" EntityType="Self.tbl_Servicios" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Usuarios" EntityType="Self.tbl_Usuarios" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Usuarios_Servicios" EntityType="Self.tbl_Usuarios_Servicios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_Zonas" EntityType="Self.tbl_Zonas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Versiones" EntityType="Self.Versiones" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="julio" EntityType="Self.julio" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [julio].[id_distrito] AS [id_distrito]
+    FROM [dbo].[julio] AS [julio]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="TempoESTADO" EntityType="Self.TempoESTADO" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [TempoESTADO].[id_estadocelular] AS [id_estadocelular], 

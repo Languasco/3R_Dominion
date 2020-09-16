@@ -40,14 +40,15 @@ export class LoginService {
 
     return this.http.get( this.URL + 'Login' , {params: parametros})
                .pipe(map((res:any)=>{       
-                    if (res.ok ==true || res.ok == 'true' ) {        
-               
+                    if (res.ok ==true || res.ok == 'true' ) {     
+                
                       let infoUser = {
                         id_usuario:res.data.id_usuario,                        
                         nombre_usuario : res.data.nombre_usuario,
                         id_perfil:res.data.id_perfil,
                         menu_permisos : res.data.menuPermisos,
-                        menu_eventos : res.data.menuEventos
+                        menu_eventos : res.data.menuEventos,
+                        areas : res.data.areas
                       }                      
                       this.guardarSesion(infoUser);
 
@@ -134,6 +135,16 @@ export class LoginService {
     if (localStorage.getItem('data_Dominion_usuario')) { 
       this.dataLogeado =  JSON.parse(localStorage.getItem("data_Dominion_usuario"));
       const listEventos = this.dataLogeado['menu_eventos'].filter(evento => evento.id_opcion == modulo);
+      return listEventos
+    }else{
+      return null;
+    }
+  }
+
+  getServiciosMenu(){ 
+    if (localStorage.getItem('data_Dominion_usuario')) { 
+      this.dataLogeado =  JSON.parse(localStorage.getItem("data_Dominion_usuario"));
+      const listEventos = this.dataLogeado['areas'];
       return listEventos
     }else{
       return null;

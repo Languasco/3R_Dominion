@@ -13,6 +13,10 @@ import { DetalleOTComponent } from './pages/Reportes/detalle-ot/detalle-ot.compo
 import { FueraPlazoComponent } from './pages/Reportes/fuera-plazo/fuera-plazo.component';
 import { ConfiguracionZonasComponent } from './pages/Mantenimientos/configuracion-zonas/configuracion-zonas.component';
 import { UbicacionOtComponent } from './pages/Reportes/ubicacion-ot/ubicacion-ot.component';
+import { AccesosComponent } from './pages/Accesos/accesos/accesos.component';
+import { CargoPersonalComponent } from './pages/Mantenimientos/cargo-personal/cargo-personal.component';
+import { AreasComponent } from './pages/Mantenimientos/areas/areas.component';
+import { EstadosComponent } from './pages/Mantenimientos/estados/estados.component';
  
  
 const APP_ROUTERS: Routes = [
@@ -34,6 +38,11 @@ const APP_ROUTERS: Routes = [
 
     { path: 'mantenimiento-config-zonas', component: ConfiguracionZonasComponent},  
     { path: 'reporte-ubicacion-ot', component: UbicacionOtComponent},  
+
+    { path: 'seguridad-accesos', component: AccesosComponent , canActivate: [ AuthGuard]}, 
+    { path: 'mantenimiento-cargo-personal', component: CargoPersonalComponent},  
+    { path: 'mantenimiento-areas', component: AreasComponent},  
+    { path: 'mantenimiento-estados', component: EstadosComponent},  
 
     { path: '', pathMatch:'full', redirectTo:'inicio' },
     { path: '**', pathMatch:'full', redirectTo:'inicio' },

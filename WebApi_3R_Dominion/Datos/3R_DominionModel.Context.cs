@@ -25,6 +25,7 @@ namespace Datos
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Gps_Distrito> Gps_Distrito { get; set; }
         public virtual DbSet<tbl_Aceesos_Evento> tbl_Aceesos_Evento { get; set; }
         public virtual DbSet<tbl_Cargo_Personal> tbl_Cargo_Personal { get; set; }
         public virtual DbSet<tbl_Configuracion_Zonas> tbl_Configuracion_Zonas { get; set; }
@@ -49,10 +50,13 @@ namespace Datos
         public virtual DbSet<tbl_Personal> tbl_Personal { get; set; }
         public virtual DbSet<tbl_Precios> tbl_Precios { get; set; }
         public virtual DbSet<tbl_Servicios> tbl_Servicios { get; set; }
+        public virtual DbSet<tbl_Usuarios> tbl_Usuarios { get; set; }
         public virtual DbSet<tbl_Usuarios_Servicios> tbl_Usuarios_Servicios { get; set; }
+        public virtual DbSet<tbl_Zonas> tbl_Zonas { get; set; }
+        public virtual DbSet<Versiones> Versiones { get; set; }
+        public virtual DbSet<julio> julio { get; set; }
         public virtual DbSet<TempoESTADO> TempoESTADO { get; set; }
         public virtual DbSet<TempoGPS> TempoGPS { get; set; }
         public virtual DbSet<TempoOperario> TempoOperario { get; set; }
-        public virtual DbSet<tbl_Usuarios> tbl_Usuarios { get; set; }
     }
 }

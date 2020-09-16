@@ -35,10 +35,13 @@ namespace WebApi_3R_Dominion.Controllers.Mantenimiento
                 {
                     res.ok = true;
                     res.data = (from a in db.tbl_Distritos
+                                join b in db.tbl_Zonas on a.id_Zona equals b.id_Zona      
+                                
                                 select new
                                 {
                                     a.id_Distrito,
                                     a.nombreDistrito,
+                                    b.nombre_Zona,
                                     a.estado,
                                     descripcion_estado = a.estado == 0 ? "INACTIVO" : "ACTIVO",
                                     a.usuario_creacion
@@ -86,6 +89,19 @@ namespace WebApi_3R_Dominion.Controllers.Mantenimiento
                     res.totalpage = 0;
                     resul = res;
                 }
+                else if (opcion == 4)
+                {
+                    res.ok = true;
+                    res.data = (from a in db.tbl_Zonas 
+                                where a.estado == 1
+                                select new
+                                {
+                                    a.id_Zona,
+                                    a.nombre_Zona
+                                }).ToList();
+                    res.totalpage = 0;
+                    resul = res;
+                }
                 else
                 {
                     res.ok = false;
@@ -115,7 +131,17 @@ namespace WebApi_3R_Dominion.Controllers.Mantenimiento
                 db.SaveChanges();
 
                 res.ok = true;
-                res.data = tbl_Distritos.id_Distrito;
+                //res.data = tbl_Distritos.id_Distrito;
+                res.data = (from a in db.tbl_Distritos
+                            where a.id_Distrito == tbl_Distritos.id_Distrito
+                            select new
+                            {
+                                a.id_Distrito,
+                                a.nombreDistrito,
+                                a.estado,
+                                descripcion_estado = a.estado == 0 ? "INACTIVO" : "ACTIVO",
+                                a.usuario_creacion
+                            }).ToList();
                 res.totalpage = 0;
             }
             catch (Exception ex)
@@ -134,6 +160,8 @@ namespace WebApi_3R_Dominion.Controllers.Mantenimiento
             tbl_Distritos objReemplazar;
             objReemplazar = db.tbl_Distritos.Where(u => u.id_Distrito == id).FirstOrDefault<tbl_Distritos>();
 
+
+            objReemplazar.id_Zona = tbl_Distritos.id_Zona;
             objReemplazar.nombreDistrito = tbl_Distritos.nombreDistrito;
             objReemplazar.estado = tbl_Distritos.estado;
 

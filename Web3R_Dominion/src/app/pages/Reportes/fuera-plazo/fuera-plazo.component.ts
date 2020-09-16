@@ -144,22 +144,13 @@ export class FueraPlazoComponent implements OnInit,AfterViewInit {
   this.marker.setMap(this.map);
  };
 
- 
 
- mostrarInformacion(){
-  if (this.formParamsFiltro.value.idServicio == '' || this.formParamsFiltro.value.idServicio == 0) {
-    this.alertasService.Swal_alert('error','Por favor seleccione el servicio');
-    return 
-  }     
+ mostrarInformacion(){     
   if (this.formParamsFiltro.value.idTipoOT == '' || this.formParamsFiltro.value.idTipoOT == 0) {
     this.alertasService.Swal_alert('error','Por favor seleccione el Tipo de Orden Trabajo');
     return 
   } 
-  if (this.formParamsFiltro.value.idProveedor == '' || this.formParamsFiltro.value.idProveedor == 0) {
-    this.alertasService.Swal_alert('error','Por favor seleccione un Proveedor');
-    return 
-  }
-
+ 
   const fechaFormato = this.funcionGlobalServices.formatoFecha(this.formParamsFiltro.value.fechaGps); 
   this.spinner.show();
   this.fueraPlazoService.get_mostrarFueraPlazoOT(this.formParamsFiltro.value,  this.idUserGlobal)

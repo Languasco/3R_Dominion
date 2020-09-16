@@ -15,6 +15,7 @@ namespace Datos
     public partial class tbl_Distritos
     {
         public int id_Distrito { get; set; }
+        public Nullable<int> id_Zona { get; set; }
         public string nombreDistrito { get; set; }
         public Nullable<int> estado { get; set; }
         public Nullable<int> usuario_creacion { get; set; }

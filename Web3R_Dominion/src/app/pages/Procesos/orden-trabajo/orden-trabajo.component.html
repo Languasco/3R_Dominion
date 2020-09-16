@@ -28,7 +28,7 @@
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <label for=""> Proveedor</label>
+                    <label for=""> Sub Contrata</label>
                     <select class="form-control comboBox" formControlName="idProveedor">
                         <option value="0"> [ --TODOS-- ]</option>
                         <option [value]="item.id_Empresa" *ngFor="let item of proveedor">{{item.razonSocial_Empresa}}</option>
@@ -89,6 +89,10 @@
                                                     </div>
 
                                                     <div class="p-2">
+                                                        <button class="btn btn-dark btn-block  " style="font-size: 13px;" (click)="OpenModal_Prioridad()">  <i class="far fa-share-square"> Envio Prioridad</i> </button>
+                                                    </div>
+
+                                                    <div class="p-2">
                                                         <button class="btn btn-success btn-block  " (click)="abrir_modalOT('Asignar')" style="font-size: 13px;">  <i class="fa fa-plus-circle"> Asignar OT</i> </button>
                                                     </div>
                                                     <div class="p-2">
@@ -119,7 +123,7 @@
                                                     <th class="text-center">Distrito</th>
                                                     <th class="text-center">Volumen</th>
                                                     <th class="text-center">Jefe Cuadrilla</th>
-                                                    <th class="text-center">Emp. Contratista</th>
+                                                    <th class="text-center">Sub Contrata</th>
 
                                                     <th class="text-center">Fecha Hora Registro</th>
                                                     <th class="text-center">Informe</th>
@@ -261,7 +265,7 @@
                                                             <thead class="theadTable">
                                                                 <tr>
                                                                     <th class="text-center">icono</th>
-                                                                    <th class="text-center">Proveedor</th>
+                                                                    <th class="text-center">Sub Contrata</th>
                                                                     <th class="text-center">Jefe Cuadrilla</th>
                                                                     <th class="text-center">Cant. Pendiente</th>
                                                                     <th class="text-center">Cant. Fuera Plazo</th>
@@ -342,7 +346,7 @@
                             <div class="panel-body">
                                 <div class="row" style="margin-top: -15px !important;">
                                     <div class="col-md-6">
-                                        <label for=""> Empresa Colaboradora</label>
+                                        <label for=""> Sub Contrata</label>
                                         <select class="form-control comboBox" formControlName="empresa1" (change)="changeCalculos_AsignacionReasignacion_Origen($event); changeEmpresaJefeCuadrilla_origen($event)">
                                             <option value="0"> [ --SELECCIONE-- ]</option>
                                             <option [value]="item.id_Empresa" *ngFor="let item of proveedor">{{item.razonSocial_Empresa}}</option>
@@ -366,7 +370,7 @@
                             <div class="panel-body">
                                 <div class="row" style="margin-top: -15px !important;">
                                     <div class="col-md-6">
-                                        <label for=""> Empresa Colaboradora  </label>
+                                        <label for=""> Sub Contrata  </label>
                                         <select class="form-control comboBox" formControlName="empresa2" (change)="changeCalculos_AsignacionReasignacion_Destino($event); ; changeEmpresaJefeCuadrilla_destino($event)">
                                             <option value="0"> [ --SELECCIONE-- ]</option>
                                             <option [value]="item.id_Empresa" *ngFor="let item of proveedor">{{item.razonSocial_Empresa}}</option>
@@ -390,7 +394,7 @@
                             <div class="panel-body">
                                 <div class="row" style="margin-top: -15px !important;">
                                     <div class="col-md-4">
-                                        <label> Total M3 Empresa   </label>
+                                        <label> Total M3 Sub Contrata   </label>
                                         <input type="text" class="form-control disabledForm ml-2" style="background-color:yellow ; color: black;font-size: 13px !important;font-weight: 500;" [value]="totalM3_empresa">
                                     </div>
                                     <div class="col-md-4">
@@ -440,7 +444,7 @@
                                 <th class="text-center">Nro Obra/TD</th>
                                 <th class="text-center">Direccion</th>
                                 <th class="text-center">Distrito</th>
-                                <th class="text-center">Empresa Colaboradora</th>
+                                <th class="text-center">Sub Contrata</th>
                                 <th class="text-center">Jefe Cuadrilla</th>
                                 <th class="text-center">Volumen</th>
                                 <th scope="col">Acciones</th>
@@ -474,35 +478,6 @@
                         </tfoot>
                     </table>
                 </div>
-
-                <!-- <div class="row">
-                    <div class="col-md-12 form-inline ">
-                        <div class="form-group " style="margin-bottom: 0px;">
-                            <label> Total M3 Empresa   </label>
-                            <input type="text" class="form-control disabledForm ml-2" style="background-color:yellow ; color: black;font-size: 13px !important;font-weight: 500;" [value]="totalM3_empresa">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12 form-inline">
-                        <div class="form-group " style="margin-bottom: 0px;">
-                            <label> Total M3 Asignados   </label>
-                            <input type="text" class="form-control disabledForm ml-2" style="background-color:green  ; color: black; font-size: 13px !important;font-weight: 500;" [value]="totalM3_asignado">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12 form-inline">
-                        <div class="form-group " style="margin-bottom: 0px;">
-                            <label> Total M3 Pendientes   </label>
-                            <input type="text" class="form-control disabledForm ml-2" style="background-color:cyan  ; color: black ;font-size: 13px !important;font-weight: 500;" [value]="totalM3_pendiente">
-                        </div>
-                    </div>
-                </div> -->
-
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Close</button>
@@ -510,7 +485,6 @@
         </div>
     </div>
 </div>
-
 
 <div class="modal fade " id="modal_resumen" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel  " aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable " role="document">
@@ -537,7 +511,7 @@
                                     <tr style="height: 40px !important;">
                                         <th scope="col">#</th>
                                         <th class="text-center">Color </th>
-                                        <th class="text-center">Proveedor </th>
+                                        <th class="text-center">Sub Contrata </th>
                                         <th class="text-center">Jefe Cuadrilla</th>
                                         <th class="text-center">M3 Asignados</th>
                                         <th class="text-center">Cant OT Asignados </th>
@@ -569,9 +543,6 @@
     </div>
 </div>
 
-
-
-
 <div class="modal fade " id="modal_asignar" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel  " aria-hidden="true">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
@@ -599,7 +570,7 @@
                                     <div class="panel-body">
                                         <div class="row" style="margin-top: -15px !important;">
                                             <div class="col-md-12">
-                                                <label for=""> Empresa Colaboradora</label>
+                                                <label for=""> Sub Contrata</label>
                                                 <select class="form-control comboBox" formControlName="idEmpresa" (change)="changeEmpresaJefeCuadrilla_mapa($event)">
                                                     <option value="0"> [ --SELECCIONE-- ]</option>
                                                     <option [value]="item.id_Empresa" *ngFor="let item of proveedor">{{item.razonSocial_Empresa}}</option>
@@ -636,9 +607,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 <div class="modal fade " id="modal_VisorOT" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel  " aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable " role="document">
@@ -882,8 +850,6 @@
     </div>
 </div>
 
-
-
 <div class="modal fade " id="modal_visorFotos" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel  " aria-hidden="true">
     <div class="modal-dialog modal-lg   modal-dialog-scrollable " role="document">
         <div class="modal-content">
@@ -901,31 +867,6 @@
                 </div>
             </div>
             <div class="modal-body">
-                <!-- <div class="d-flex justify-content-start" *ngIf="this.detalleOT">
-                    <div class="bd-highlight">
-                        <label> 
-                            {{ (this.id_tipoOTGlobal == 3 || this.id_tipoOTGlobal == 4 )? 'TIPO MATERIAL ' : 'TIPO DESMONTE '  }}
-                        </label>
-                    </div>
-                    <div class="bd-highlight ml-2">
-                        <label> {{this.detalleOT.tipoMaterial}} </label>
-                    </div>
-
-                     <div class="bd-highlight ml-2">
-                        <label> {{this.detalleOT.tipoMaterial}} </label>
-                    </div> 
-
-                    <div class="row">
-                        <div class="col-md-12 text-right">
-                            <button style="margin-top: -22px !important;" class="btn  btn-sm  btn-warning " (click)="descargarFotosOT('P')" title="Descargar">
-                                    <i class="fas fa-file-download"> Descargar</i> 
-                            </button>
-                        </div>
-                    </div>
-                </div> -->
-
-
-
                 <div class="d-flex justify-content-between">
                     <div class="p-2 bd-highlight" *ngIf="this.detalleOT">
                         <label> 
@@ -943,10 +884,6 @@
                         </button>
                     </div>
                 </div>
-
-
-
-
                 <div class="row" *ngIf="this.detalleOT">
                     <div class=" col-md-3 col-6">
                         <label for=""> Largo : {{this.detalleOT.largo}} </label>
@@ -986,6 +923,57 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="cerrarModal_visor()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade " id="modal_prioridad" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel  " aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="p-3 card ">
+                <div class="d-flex justify-content-between flotante">
+                    <div class=" bd-highlight">
+                        <i class="fas fa-arrow-circle-left  fa-2x puntero" title="Retornar" (click)="cerrarModal_prioridad()">  </i>
+                    </div>
+                    <div class=" bd-highlight">
+                        <h5 class="headerTitleModal"> Ingrese Prioridad </h5>
+                    </div>
+                    <div class=" bd-highlight">
+                        <i class="far fa-times-circle fa-2x puntero" title="Retornar" (click)="cerrarModal_prioridad()">  </i>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+
+                        <div class="row" style="margin-top: -15px !important;">
+                            <div class="col-md-12">
+                                <label for=""> Prioridad</label>
+                                <select id="cbo_tipoOT" class="form-control comboBox" [(ngModel)]="idPrioridad" name="idPrioridad">
+                                    <option value="0"> [ --SELECCIONE-- ]</option>
+                                    <option [value]="tipo.id_detalleTabla" *ngFor="let tipo of prioridades">{{tipo.descripcion_grupoTabla}}</option>
+                            </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for=""> Observacion</label>
+                                <input type="text" class="form-control " [(ngModel)]="observacionPrioridad" name="observacionPrioridad">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="text-center">
+                            <button class="btn btn-success" (click)="grabarPrioridad()" title="Almacenar"> <i class="fas fa-save"> Enviar</i></button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="cerrarModal_prioridad()">Close</button>
             </div>
         </div>
     </div>

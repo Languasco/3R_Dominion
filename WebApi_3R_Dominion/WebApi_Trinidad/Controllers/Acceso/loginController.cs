@@ -91,6 +91,12 @@ namespace WebApi_3R_Dominion.Controllers.Acceso
                         listamenu.id_usuario = objUsuario.id_Usuario;
                         listamenu.nombre_usuario = objUsuario.apellidos_usuario + " " + objUsuario.nombres_usuario;
                         listamenu.id_perfil = objUsuario.id_Perfil;
+                        listamenu.areas = (from a in db.tbl_Usuarios_Servicios
+                                           where a.id_usuario == objUsuario.id_Usuario
+                                           select new
+                                           {
+                                               a.id_servicio
+                                           }).ToList();
 
                         res.ok = true;
                         res.data = listamenu;
@@ -103,20 +109,13 @@ namespace WebApi_3R_Dominion.Controllers.Acceso
 
                 else if (opcion == 2)
                 {
-                    //string[] parametros = filtro.Split('|');
-                    //string login = parametros[0].ToString();
-                    //string contra = parametros[1].ToString();
-
-                    //var flagLogin = db.tbl_Usuarios.Count(e => e.login_usuario == login && e.contrasenia_usuario == contra);
 
                     var Parents = new string[] { "1" };
-                    //tbl_Usuarios objUsuario = db.tbl_Usuarios.Where(p => p.login_usuario == login && p.contrasenia_usuario == contra).SingleOrDefault();
-
                     MenuAcceso listamenuAcceso = new MenuAcceso();
                     List<MenuPermisosAcceso> listaAccesos = new List<MenuPermisosAcceso>();
 
                     var listaMenu = (from od in db.tbl_Definicion_Opciones
-                                     where Parents.Contains(od.parentID.ToString()) && od.estado == 1 && od.TipoInterface == "W"
+                                     where Parents.Contains(od.parentID.ToString()) && od.estado == 1 && od.TipoInterface == "WM"
                                      select new
                                      {
                                          od.id_Opcion,
@@ -142,7 +141,7 @@ namespace WebApi_3R_Dominion.Controllers.Acceso
                         listaAccesos.Add(listaJsonObj);
                     }
 
-                    listamenuAcceso.text = "SISTEMA APPLUS";
+                    listamenuAcceso.text = "SISTEMA 3R-DOMINION";
                     listamenuAcceso.value = "-1";
                     listamenuAcceso.children = listaAccesos;
 

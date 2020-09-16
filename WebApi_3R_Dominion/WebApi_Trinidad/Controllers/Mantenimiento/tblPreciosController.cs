@@ -34,21 +34,56 @@ namespace WebApi_3R_Dominion.Controllers.Mantenimiento
             {
                 if (opcion == 1)
                 {
+
+                    string[] parametros = filtro.Split('|');
+                    int idtipoOrden = Convert.ToInt32(parametros[0].ToString());
+                    int idEstado = Convert.ToInt32(parametros[1].ToString());
+
+
                     res.ok = true;
-                    res.data = (from a in db.tbl_Precios 
-                                join b in db.tbl_GrupoTabla_Det on a.id_TipoOrdenTrabajo equals b.id_detalleTabla
-                                select new
-                                {
-                                    a.id_Precio,
-                                    a.id_TipoOrdenTrabajo,
-                                    descripcion_tipoOT = b.descripcion_grupoTabla,
-                                    a.precio,
-                                    a.cubicaje,
-                                    a.cubicajeFinal,
-                                    a.estado,
-                                    descripcion_estado = a.estado == 0 ? "INACTIVO" : "ACTIVO",
-                                    a.usuario_creacion
-                                }).ToList();
+
+                    if (idtipoOrden == 0)
+                    {
+                        res.data = (from a in db.tbl_Precios
+                                    join b in db.tbl_GrupoTabla_Det on a.id_TipoOrdenTrabajo equals b.id_detalleTabla                                    
+                                    select new
+                                    {
+                                        a.id_Precio,
+                                        a.id_TipoOrdenTrabajo,
+                                        descripcion_tipoOT = b.descripcion_grupoTabla,
+                                        a.precio,
+                                        a.cubicaje,
+                                        a.cubicajeFinal,
+                                        a.estado,
+                                        descripcion_estado = a.estado == 0 ? "INACTIVO" : "ACTIVO",
+                                        a.usuario_creacion,
+                                        a.id_TipoPrecio,
+                                        a.id_TipoMaterial
+                                    }).ToList();
+                    }
+                    else {
+                        res.data = (from a in db.tbl_Precios
+                                    join b in db.tbl_GrupoTabla_Det on a.id_TipoOrdenTrabajo equals b.id_detalleTabla
+                                    where a.id_TipoOrdenTrabajo == idtipoOrden && a.estado == idEstado
+                                    select new
+                                    {
+                                        a.id_Precio,
+                                        a.id_TipoOrdenTrabajo,
+                                        descripcion_tipoOT = b.descripcion_grupoTabla,
+                                        a.precio,
+                                        a.cubicaje,
+                                        a.cubicajeFinal,
+                                        a.estado,
+                                        descripcion_estado = a.estado == 0 ? "INACTIVO" : "ACTIVO",
+                                        a.usuario_creacion,
+                                        a.id_TipoPrecio,
+                                        a.id_TipoMaterial
+                                    }).ToList();
+                    }
+
+
+
+
                     res.totalpage = 0;
                     resul = res;
                 }
@@ -112,6 +147,7 @@ namespace WebApi_3R_Dominion.Controllers.Mantenimiento
                 //res.data = tbl_Precios.id_Precio;
                 res.data = (from a in db.tbl_Precios
                             join b in db.tbl_GrupoTabla_Det on a.id_TipoOrdenTrabajo equals b.id_detalleTabla
+                            where a.id_Precio == tbl_Precios.id_Precio
                             select new
                             {
                                 a.id_Precio,
@@ -122,7 +158,9 @@ namespace WebApi_3R_Dominion.Controllers.Mantenimiento
                                 a.cubicajeFinal,
                                 a.estado,
                                 descripcion_estado = a.estado == 0 ? "INACTIVO" : "ACTIVO",
-                                a.usuario_creacion
+                                a.usuario_creacion,
+                                a.id_TipoPrecio,
+                                a.id_TipoMaterial
                             }).ToList();
                 res.totalpage = 0;
             }
@@ -144,6 +182,10 @@ namespace WebApi_3R_Dominion.Controllers.Mantenimiento
 
             objReemplazar.id_TipoOrdenTrabajo = tbl_Precios.id_TipoOrdenTrabajo;
             objReemplazar.precio = tbl_Precios.precio;
+
+            objReemplazar.id_TipoPrecio = tbl_Precios.id_TipoPrecio;
+            objReemplazar.id_TipoMaterial = tbl_Precios.id_TipoMaterial;
+
             objReemplazar.cubicaje = tbl_Precios.cubicaje;
             objReemplazar.cubicajeFinal = tbl_Precios.cubicajeFinal;
             objReemplazar.estado = tbl_Precios.estado;

@@ -41,13 +41,13 @@ namespace Datos
         public Nullable<decimal> totalMedidas_OT { get; set; }
         public Nullable<decimal> totalDesmonteRecojido_OT { get; set; }
         public Nullable<decimal> totalDesmontePorRecojido_OT { get; set; }
+        public Nullable<decimal> solesMedidas_OT { get; set; }
+        public Nullable<decimal> solesDesmonteRecojido_OT { get; set; }
+        public Nullable<decimal> solesDesmontePorRecojido_OT { get; set; }
         public Nullable<int> estado { get; set; }
         public Nullable<int> usuario_creacion { get; set; }
         public Nullable<System.DateTime> fecha_creacion { get; set; }
         public Nullable<int> usuario_edicion { get; set; }
         public Nullable<System.DateTime> fecha_edicion { get; set; }
-        public Nullable<decimal> solesMedidas_OT { get; set; }
-        public Nullable<decimal> solesDesmonteRecojido_OT { get; set; }
-        public Nullable<decimal> solesDesmontePorRecojido_OT { get; set; }
     }
 }

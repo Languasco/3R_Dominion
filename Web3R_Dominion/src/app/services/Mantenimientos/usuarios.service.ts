@@ -172,5 +172,67 @@ export class UsuariosService {
     return this.http.get( this.URL + 'tblUsuarios' , {params: parametros});
   } 
 
+
+
+    //-----accesos  menu
+
+    get_accesosMenu(){
+      let parametros = new HttpParams();
+      parametros = parametros.append('opcion', '2');
+      parametros = parametros.append('filtro',  '' );
+  
+      return this.http.get( this.URL + 'Login' , {params: parametros});
+    }
+  
+    get_mostrarUsuarios_generalAccesos(){
+      let parametros = new HttpParams();
+      parametros = parametros.append('opcion', '13');
+      parametros = parametros.append('filtro',  '' );
+      return this.http.get( this.URL + 'tblUsuarios' , {params: parametros});
+    }
+
+    get_mostrarPerfiles_generalAccesos(){
+      let parametros = new HttpParams();
+      parametros = parametros.append('opcion', '17');
+      parametros = parametros.append('filtro',  '' );
+      return this.http.get( this.URL + 'tblUsuarios' , {params: parametros});
+    }
+  
+    get_permisosUsuarioAcceso(idOpciones:string ){
+      let parametros = new HttpParams();
+      parametros = parametros.append('opcion', '14');
+      parametros = parametros.append('filtro',  idOpciones );
+      return this.http.get( this.URL + 'tblUsuarios' , {params: parametros});
+    }
+
+    get_permisosPerfilAcceso(idOpciones:string ){
+      let parametros = new HttpParams();
+      parametros = parametros.append('opcion', '18');
+      parametros = parametros.append('filtro',  idOpciones );
+      return this.http.get( this.URL + 'tblUsuarios' , {params: parametros});
+    }
+    
+    get_eventosUsuarioMarcados(idOpciones:string,id_usuario:number ){
+      let parametros = new HttpParams();
+      parametros = parametros.append('opcion', '15');
+      parametros = parametros.append('filtro',  idOpciones +'|'+ id_usuario );
+      return this.http.get( this.URL + 'tblUsuarios' , {params: parametros});
+    }
+    
+    get_eventosPerfilMarcados(idOpciones:string, idPerfil:number ){
+      let parametros = new HttpParams();
+      parametros = parametros.append('opcion', '19');
+      parametros = parametros.append('filtro',  idOpciones +'|'+ idPerfil );
+      return this.http.get( this.URL + 'tblUsuarios' , {params: parametros});
+    }
+
+    set_grabarEventos(idOpciones:string,idEventos :string , id_usuario:number, modalElegido:string ){
+      let parametros = new HttpParams();
+      parametros = parametros.append('opcion', '16');
+      parametros = parametros.append('filtro',  idOpciones +'|'+ idEventos +'|'+ id_usuario +'|'+ modalElegido );
+      return this.http.get( this.URL + 'tblUsuarios' , {params: parametros});
+    }
+
+
  
 }

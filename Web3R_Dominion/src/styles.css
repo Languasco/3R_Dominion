@@ -225,3 +225,9 @@
      color: #002f77;
      font-family: 'Montserrat', sans-serif !important;
  }
+ /*  Menu ----- TreeeView */
+ 
+ .treeview-container .row-item {
+     margin-bottom: -16px !important;
+     flex-wrap: nowrap;
+ }

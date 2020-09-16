@@ -51,11 +51,14 @@ import { DetalleOTComponent } from './pages/Reportes/detalle-ot/detalle-ot.compo
 import { FueraPlazoComponent } from './pages/Reportes/fuera-plazo/fuera-plazo.component';
 import { ConfiguracionZonasComponent } from './pages/Mantenimientos/configuracion-zonas/configuracion-zonas.component';
 import { UbicacionOtComponent } from './pages/Reportes/ubicacion-ot/ubicacion-ot.component';
+import { TreeviewModule } from 'ngx-treeview';
+import { CargoPersonalComponent } from './pages/Mantenimientos/cargo-personal/cargo-personal.component';
+import { EstadosComponent } from './pages/Mantenimientos/estados/estados.component';
+
  
+   //const config: SocketIoConfig = { url: 'http://173.248.174.85:5000', options: {} }; 
+   const config: SocketIoConfig = { url: 'http://192.168.20.249:5001', options: {} }; 
  
- 
-const config: SocketIoConfig = { url: 'http://173.248.174.33:5000', options: {} }; 
-// const config: SocketIoConfig = { url: environment.URL_SOCKET , options: {} }; 
 
 @NgModule({
   declarations: [
@@ -77,7 +80,9 @@ const config: SocketIoConfig = { url: 'http://173.248.174.33:5000', options: {} 
     DetalleOTComponent,
     FueraPlazoComponent,
     ConfiguracionZonasComponent,
-    UbicacionOtComponent
+    UbicacionOtComponent,
+    CargoPersonalComponent,
+    EstadosComponent
   ],
   imports: [
     BrowserModule,
@@ -92,6 +97,8 @@ const config: SocketIoConfig = { url: 'http://173.248.174.33:5000', options: {} 
     LightboxModule,
     Ng2SearchPipeModule,
     SocketIoModule.forRoot(config),
+    TreeviewModule.forRoot(),
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -7,7 +7,7 @@
         <form [formGroup]="formParamsFiltro">
             <div class="row">
                 <div class="col-md-4">
-                    <label for=""> Empresa</label>
+                    <label for=""> Sub Contrata</label>
                     <select class="form-control comboBox" formControlName="idEmpresa">
                         <option value="0"> [ -- TODOS-- ]</option>
                         <option [value]="empresa.id_Empresa" *ngFor="let empresa of empresas">{{empresa.razonSocial_Empresa}}</option>
@@ -104,7 +104,7 @@
                 <form [formGroup]="formParams" style=" margin-top: -15px;">
                     <div class="row">
                         <div class="col-md-6">
-                            <label for=""> Empresa</label>
+                            <label for=""> Sub Contrata</label>
                             <select id="cbo_empresa" class="form-control comboBox" formControlName="id_Empresa">
                                 <option value="0"> [ --SELECCIONE-- ]</option>
                                 <option [value]="empresa.id_Empresa" *ngFor="let empresa of empresas">{{empresa.razonSocial_Empresa}}</option>

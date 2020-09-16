@@ -67,6 +67,7 @@ export class OrdenTrabajoComponent implements OnInit  {
    markers :google.maps.Marker[] = [];
    infowindows :google.maps.InfoWindow[] = [];
 
+
    showRectangle = false;
    colorRectangle = "#34495e";
    showPolyLine = false;
@@ -104,11 +105,13 @@ export class OrdenTrabajoComponent implements OnInit  {
    fotosDetalle :any[]=[]; 
    detalleOT:any = {};
 
-
      //-TAB control
   tabControlDetalle2: string[] = ['DATOS GENERALES','MEDIDAS','DESMONTE',]; 
   selectedTabControlDetalle2 :any;
 
+  prioridades :any[]=[]; 
+  idPrioridad =0;
+  observacionPrioridad ="";
    
   constructor(private alertasService : AlertasService, private spinner: NgxSpinnerService, private loginService: LoginService, private listaPreciosService : ListaPreciosService, private ordenTrabajoService : OrdenTrabajoService, private funcionGlobalServices : FuncionesglobalesService, private websocketService : WebsocketService, private aprobacionOTService : AprobacionOTService   ) {         
     this.idUserGlobal = this.loginService.get_idUsuario();
@@ -437,7 +440,7 @@ export class OrdenTrabajoComponent implements OnInit  {
  actualizarOT(){
  
   if (this.formParamsMapa.value.idEmpresa == '' || this.formParamsMapa.value.idEmpresa == 0) {
-    this.alertasService.Swal_alert('error','Por favor seleccione la Empresa');
+    this.alertasService.Swal_alert('error','Por favor seleccione la Sub Contrata');
     return 
   }
     
@@ -521,12 +524,13 @@ export class OrdenTrabajoComponent implements OnInit  {
 
  getCargarCombos(){ 
     this.spinner.show();
-    combineLatest([this.ordenTrabajoService.get_servicio(this.idUserGlobal), this.listaPreciosService.get_tipoOrdenTrabajo(), this.ordenTrabajoService.get_Distritos(), this.ordenTrabajoService.get_Proveedor(), this.ordenTrabajoService.get_estados() ]).subscribe( ([ _servicios, _tipoOrdenTrabajo, _distritos, _proveedor,_estados ])=>{
+    combineLatest([this.ordenTrabajoService.get_servicio(this.idUserGlobal), this.listaPreciosService.get_tipoOrdenTrabajo(), this.ordenTrabajoService.get_Distritos(), this.ordenTrabajoService.get_Proveedor(), this.ordenTrabajoService.get_estados(), this.listaPreciosService.get_prioridades() ]).subscribe( ([ _servicios, _tipoOrdenTrabajo, _distritos, _proveedor,_estados, _prioridades ])=>{
         this.servicios = _servicios;
         this.tipoOrdenTrabajo = _tipoOrdenTrabajo; 
         this.distritos = _distritos; 
         this.proveedor = _proveedor; 
         this.estados = _estados;
+        this.prioridades = _prioridades
       this.spinner.hide(); 
     },(error)=>{
       this.spinner.hide(); 
@@ -558,11 +562,12 @@ export class OrdenTrabajoComponent implements OnInit  {
   data.forEach((item)=> {
 
       let ContenidoMarker = '';
-          ContenidoMarker += '<div  id="_market" style="width:400px;height:80px;position:relative;">';
+          ContenidoMarker += '<div  id="_market" style="width:500px;height:120px;position:relative;">';
           ContenidoMarker += '<table><tr><td><strong > Nro. OT/TD </strong></td><td style="width:100%">: ' + item.nroOT + '</td></tr>';
-          ContenidoMarker += '<tr><td><div style="width: 110px;">Empresa</div></td><td style="width:100%">: ' + item.empresa + ' </td></tr>';
+          ContenidoMarker += '<tr><td><div style="width: 110px;">Sub Contrata</div></td><td style="width:100%">: ' + item.empresa + ' </td></tr>';
           ContenidoMarker += '<tr><td>Jefe Cuadrilla</td><td style="width:100%">: ' + item.jefeCuadrilla + ' </td></tr>';
-          ContenidoMarker += '<tr><td><strong>Fecha Asignacion</strong></td><td style="width:100%">: ' + item.fechaAsignacion + ' </td></tr></table>';
+          ContenidoMarker += '<tr><td><strong>Fecha Asignacion</strong></td><td style="width:100%">: ' + item.fechaAsignacion + ' </td></tr>';
+          ContenidoMarker += '<tr><td> </td><td style="width:100%"  > <button  id="btn' + item.id_OT + '" class="btn btn-block btn-outline-primary btn-sm ">Ver Informe</button> </td></tr></table>';
  
       if (item.estado == 8 ) {
         icono = './assets/img/mapa/sum_pendiente.png';
@@ -593,7 +598,21 @@ export class OrdenTrabajoComponent implements OnInit  {
         this.infowindows.forEach(infoW => infoW.close());
         infowindow.setContent('<center><h4><b> UBICACIÓN OT </b></h4></center>' + ContenidoMarker);
         infowindow.open(this.map, marker);
-    })       
+    })      
+    
+    //-----modal informe
+    google.maps.event.addListener(infowindow, 'domready',   ()=> { 
+      if (document.getElementById('btn' + item.id_OT)) { 
+          google.maps.event.addDomListener(document.getElementById('btn' + item.id_OT), 'click', ()=> {  
+
+          this.abrirModal_OT({id_OT : item.id_OT,nroObra: item.nroOT ,fechaHora : item.fechaHora ,direccion: item.direccion , id_Distrito: item.id_Distrito , referencia : item.referencia, descripcion_OT : item.descripcion_OT, id_tipoTrabajo : item.id_tipoTrabajo ,id_estado: item.estado })
+       
+          });
+          return
+      } else {
+          return
+      }
+    })
       
 
   })   
@@ -745,7 +764,6 @@ export class OrdenTrabajoComponent implements OnInit  {
 
  validacionCheckMarcado(){    
   let CheckMarcado = false;
-  // CheckMarcado = this.verificarCheckMarcado();
   CheckMarcado = this.funcionGlobalServices.verificarCheck_marcado(this.ordenTrabajoCab);
 
   if (CheckMarcado ==false) {
@@ -821,7 +839,7 @@ export class OrdenTrabajoComponent implements OnInit  {
   
     if (this.opcionModal == 'Asignar') { // 
       if (this.formParams.value.empresa1 == '' || this.formParams.value.empresa1 == 0 || this.formParams.value.empresa1 == null)  {
-        this.alertasService.Swal_alert('error', 'Por favor seleccione la empresa.');
+        this.alertasService.Swal_alert('error', 'Por favor seleccione la Sub Contrata.');
         return;
       }
       if( this.verificarProveedor(this.formParams.value.empresa1) ==0 ){
@@ -856,41 +874,7 @@ export class OrdenTrabajoComponent implements OnInit  {
       if (res.ok) { 
          this.alertasService.Swal_Success("Proceso realizado correctamente..")
            //-----listando la informacion  
-         this.mostrarInformacion();
-  
-          ////-- notificaciones Socket para el movil----        
-          // if (this.opcionModal == 'P') { // proyectista
-          //     // const dataOt = {
-          //     //   id_usuario : this.idUserGlobal,
-          //     //   id_proyectista : this.formParams.value.proyectista,
-          //     //   array_id_ots : codigos,
-          //     //   cadena_id_ots : codigos.join(),
-          //     //   cant_ots : codigos.length
-          //     // }   
-              
-          //     const dataOt = {
-          //       cant_ot : codigos.length,
-          //       mensaje : `Usted tiene  ${codigos.length} ot, asignada`,
-          //       id_personal : this.formParams.value.proyectista,
-          //       tipo : 'Proyectista'
-          //     }  
-  
-          //     this.websocketService.NotificacionOT_WebSocket(dataOt)
-          //     .then( (res:any) =>{
-          //       if (res.ok==true) {
-          //         console.log(res.data);
-          //       }else{
-          //         this.alertasService.Swal_alert('Error Socket', JSON.stringify(res.data));
-          //         alert(JSON.stringify(res.data));
-          //       }
-          //     }).catch((error)=>{
-          //       this.alertasService.Swal_alert('Error Socket', JSON.stringify(error));
-          //       alert(JSON.stringify(error));
-          //     })           
-          // }
-        ////-- Fin de notificaciones Socket para el movil----
-  
-  
+         this.mostrarInformacion();  
       }else{
         this.alertasService.Swal_alert('error', JSON.stringify(res.data));
         alert(JSON.stringify(res.data));
@@ -957,7 +941,7 @@ export class OrdenTrabajoComponent implements OnInit  {
   
   abrirModal_Resumen(){
   
-          if (this.formParamsFiltro.value.idServicio == '' || this.formParamsFiltro.value.idServicio == 0) {
+        if (this.formParamsFiltro.value.idServicio == '' || this.formParamsFiltro.value.idServicio == 0) {
           this.alertasService.Swal_alert('error','Por favor seleccione el servicio');
           return 
         }
@@ -966,21 +950,12 @@ export class OrdenTrabajoComponent implements OnInit  {
           this.alertasService.Swal_alert('error','Por favor seleccione el Tipo de Orden Trabajo');
           return 
         }  
-  
-        if (this.formParamsFiltro.value.idDistrito == '' || this.formParamsFiltro.value.idDistrito == 0) {
-          this.alertasService.Swal_alert('error','Por favor seleccione un Distrito');
-          return 
-        }
-  
-        if (this.formParamsFiltro.value.idProveedor == '' || this.formParamsFiltro.value.idProveedor == 0) {
-          this.alertasService.Swal_alert('error','Por favor seleccione un Proveedor');
-          return 
-        }
-  
+      
         if (this.formParamsFiltro.value.idEstado == '' || this.formParamsFiltro.value.idEstado == 0) {
           this.alertasService.Swal_alert('error','Por favor seleccione un Estado');
           return 
         }
+
     
         this.spinner.show();
         this.ordenTrabajoService.get_resumenOT_proveedor(this.formParamsFiltro.value, this.idUserGlobal)
@@ -1054,8 +1029,48 @@ export class OrdenTrabajoComponent implements OnInit  {
    return listSocket;
 
   }
+
+  cantidadAsignadaOT_new():any[]{
+    const map = new Map();
+    const listCheck = this.ordenTrabajoCab.filter((ot)=>ot.checkeado == true).map((detalleOT)=>{
+      return {idJefeCuadrilla : detalleOT.idJefeCuadrilla, idEmpresa : detalleOT.idEmpresa }
+    })
+
+    let listSocket = [];
+    let total =0;
+
+    const listEmpresaCuadrilla = [];        
+    for (const item of listCheck) {
+        if(!map.has(item.idEmpresa +'-'+ item.idJefeCuadrilla )){
+            map.set(item.idEmpresa +'-'+ item.idJefeCuadrilla, true);  
+            listEmpresaCuadrilla.push({ empresaCuadrilla: item.idEmpresa +'-'+ item.idJefeCuadrilla , empresa: item.idEmpresa, cuadrilla : item.idJefeCuadrilla  });
+        }
+    }
+
+    for (const objEmpresa of listEmpresaCuadrilla) {          
+        total =0;
+        for (const datos of listCheck) {
+          if (datos.idEmpresa +'-'+ datos.idJefeCuadrilla  == objEmpresa.empresaCuadrilla ) {
+            total += 1; 
+          }
+        }
+        listSocket.push({idEmpresa : objEmpresa.empresa , 
+                        idCuadrilla : objEmpresa.cuadrilla, 
+                        cantidadOT :  total , 
+                        idServicio : this.formParamsFiltro.value.idServicio , 
+                        idTipoOT : this.formParamsFiltro.value.idTipoOT , 
+                        mensaje : `Usted tiene  ${total} ot, asignada`,
+                        titulo : 'Alerta de OT Asignada - Dominion'
+                      },);     
+ 
+    }
+
+   return listSocket;
+
+  }
+
   
-  enviarOT_jefeCuadrilla(){
+  enviarOT_jefeCuadrilla(){ 
 
     if (this.formParamsFiltro.value.idServicio == '' || this.formParamsFiltro.value.idServicio == 0) {
       this.alertasService.Swal_alert('error','Por favor seleccione el servicio');
@@ -1081,7 +1096,9 @@ export class OrdenTrabajoComponent implements OnInit  {
              this.alertasService.Swal_Success("Proceso realizado correctamente..")
              
            ////-- notificaciones Socket para el movil----    
-              const listOTSocket  = this.cantidadAsignadaOT();   
+              const listOTSocket  = this.cantidadAsignadaOT_new();   
+
+              console.log(listOTSocket);
   
               this.websocketService.NotificacionOT_WebSocket(listOTSocket)
               .then( (res:any) =>{
@@ -1408,8 +1425,70 @@ export class OrdenTrabajoComponent implements OnInit  {
             }
     })
   }  
-  
 
+  cerrarModal_prioridad(){
+    $('#modal_prioridad').modal('hide');    
+  }
+
+  OpenModal_Prioridad(){  
+      if (this.validacionCheckMarcado()==false){
+        return;
+      }  
+      this.idPrioridad = 0;
+      this.observacionPrioridad = "";
+      setTimeout(() => {
+          $('#modal_prioridad').modal('show');
+       }, 0);
+  }
+ 
+ grabarPrioridad(){ 
+  if (this.idPrioridad ==0) {
+    this.alertasService.Swal_alert('error','Por favor seleccione el la Prioridad');
+    return;
+  }
+  const otMarcadas =  this.funcionGlobalServices.obtenerCheck_IdPrincipal(this.ordenTrabajoCab, 'id_OT');
+  console.log(otMarcadas)  
+  this.spinner.show();
+  this.ordenTrabajoService.set_envioPrioridades( otMarcadas.join(), this.idPrioridad, this.observacionPrioridad , this.idUserGlobal)
+      .subscribe((res:RespuestaServer)=>{            
+          this.spinner.hide();
+          if (res.ok==true) {   
+            this.alertasService.Swal_Success("Proceso realizado correctamente..")
+            this.cerrarModal_prioridad();
+
+              ////-- notificaciones Socket para el movil----    
+                  const listOTSocket = this.ordenTrabajoCab.filter((ot)=>ot.checkeado == true).map((detalleOT)=>{
+                    return { 
+                             idEmpresa : detalleOT.idEmpresa , 
+                             idCuadrilla : detalleOT.idJefeCuadrilla, 
+                             cantidadOT :  1 , 
+                             idServicio : this.formParamsFiltro.value.idServicio , 
+                             idTipoOT : this.formParamsFiltro.value.idTipoOT , 
+                             mensaje : `El Nro de Orden ${detalleOT.nroObra} se tiene que Atender con Urgencia ..!`,
+                             titulo : 'Alerta de Prioridad de OT - Dominion'
+                           } 
+                   })      
+                  this.websocketService.NotificacionOT_WebSocket(listOTSocket)
+                  .then( (res:any) =>{
+                    if (res.ok==true) {
+                      console.log(res.data);
+                    }else{
+                      this.alertasService.Swal_alert('Error Socket', JSON.stringify(res.data));
+                      alert(JSON.stringify(res.data));
+                    }
+                  }).catch((error)=>{
+                    this.alertasService.Swal_alert('Error Socket', JSON.stringify(error));
+                    alert(JSON.stringify(error));
+                  })                 
+              ////-- Fin de notificaciones Socket para el movil----
+
+          }else{
+            this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+            alert(JSON.stringify(res.data));
+          }
+  })
+  
+ }
 
 
 

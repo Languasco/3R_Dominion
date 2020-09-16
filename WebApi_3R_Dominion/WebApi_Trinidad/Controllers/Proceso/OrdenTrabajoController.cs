@@ -231,6 +231,26 @@ namespace WebApi_3R_Dominion.Controllers.Proceso
 
                     resul = obj_negocio.get_descargar_OT(idServicio, idTipoOT, idDistrito, idProveedor, idEstado, idUsuario);
                 }
+                else if (opcion == 16)
+                {
+                    string[] parametros = filtro.Split('|');
+                    string codigosOT = parametros[0].ToString();
+                    int idPrioridad = Convert.ToInt32(parametros[1].ToString());
+                    string observacion = parametros[2].ToString();
+                    int idUsuario = Convert.ToInt32(parametros[3].ToString());
+
+                    res.ok = true;
+                    res.data = obj_negocio.set_enviarPrioridades(codigosOT, idPrioridad, observacion, idUsuario);
+                    res.totalpage = 0;
+                    resul = res;
+                }
+                else if (opcion == 17)
+                {
+                    string[] parametros = filtro.Split('|');
+                    int idUsuario = Convert.ToInt32(parametros[0].ToString());
+
+                    resul = obj_negocio.get_notificacionVencimientoOT(idUsuario); ;
+                }
                 else
                 {
                     res.ok = false;

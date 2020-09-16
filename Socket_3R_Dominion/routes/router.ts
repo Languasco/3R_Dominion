@@ -6,7 +6,7 @@ const router = Router();
 router.get('/dsigeSocket',( req : Request, res : Response)=>{
     res.json('Probando socket por Api rest');
     const server = Server.Instance;
-    server.io.emit('Alertas_web_OT', 'Que fue oie Cachudazo Web jajajaja');
+    server.io.emit('Alertas_web_OT', 'Probando el servidor de sockets por rest');
 })
 
 //--- body 

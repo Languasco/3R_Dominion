@@ -233,6 +233,116 @@ namespace WebApi_3R_Dominion.Controllers.Mantenimiento
                     res.totalpage = 0;
                     resul = res;
                 }
+                else if (opcion == 13)
+                {
+                    res.ok = true;
+                    res.data = (from a in db.tbl_Usuarios
+                                where a.estado == 1
+                                orderby a.id_Usuario ascending
+                                select new
+                                {
+                                    checkeado = false,
+                                    a.id_Usuario,
+                                    a.nrodoc_usuario,
+                                    apellidos_usuario = a.apellidos_usuario + " " + a.nombres_usuario,
+                                    a.nombres_usuario
+                                }).ToList();
+                    res.totalpage = 0;
+                    resul = res;
+                }
+                else if (opcion == 14)
+                {
+                    string[] parametros = filtro.Split('|');
+                    string idOpciones = parametros[0].ToString();
+
+                    Usuarios_BL obj_negocios = new Usuarios_BL();
+
+                    res.ok = true;
+                    res.data = obj_negocios.get_usuariosAccesos(idOpciones);
+                    res.totalpage = 0;
+                    resul = res;
+                }
+                else if (opcion == 15)
+                {
+                    string[] parametros = filtro.Split('|');
+                    string idOpciones = parametros[0].ToString();
+                    int idUsuario = Convert.ToInt32(parametros[1].ToString());
+
+                    Usuarios_BL obj_negocios = new Usuarios_BL();
+
+                    res.ok = true;
+                    res.data = obj_negocios.get_eventosUsuarioMarcados(idOpciones, idUsuario);
+                    res.totalpage = 0;
+                    resul = res;
+                }
+                else if (opcion == 16)
+                {
+                    string[] parametros = filtro.Split('|');
+                    string idOpciones = parametros[0].ToString();
+                    string idEventos = parametros[1].ToString();
+                    int idPrincipal = Convert.ToInt32(parametros[2].ToString());
+                    string modalElegido = parametros[3].ToString();
+
+                    Usuarios_BL obj_negocios = new Usuarios_BL();
+                    
+
+                    res.ok = true;
+                    if (modalElegido == "usuarios")
+                    {
+                        res.data = obj_negocios.set_grabandoEventos(idOpciones, idEventos, idPrincipal);
+                    }
+                    if (modalElegido == "perfiles")
+                    {
+                        res.data = obj_negocios.set_grabandoEventosPerfiles(idOpciones, idEventos, idPrincipal);
+                    }
+                    res.totalpage = 0;
+                    resul = res;
+
+                    //res.ok = true;
+                    //res.data = obj_negocios.set_grabandoEventos(idOpciones, idEventos, idUsuario);
+                    //res.totalpage = 0;
+                    //resul = res;
+                }
+
+                else if (opcion == 17) //----- PERFILES
+                {
+                    res.ok = true;
+                    res.data = (from a in db.tbl_Perfil 
+                                where a.estado == 1
+                                select new
+                                {
+                                    checkeando = false,
+                                    a.id_perfil,
+                                    a.descripcion_perfil
+                                }).ToList();
+                    res.totalpage = 0;
+                    resul = res;
+                }
+                else if (opcion == 18)
+                {
+                    string[] parametros = filtro.Split('|');
+                    string idOpciones = parametros[0].ToString();
+
+                    Usuarios_BL obj_negocios = new Usuarios_BL();
+
+                    res.ok = true;
+                    res.data = obj_negocios.get_perfilAccesos(idOpciones);
+                    res.totalpage = 0;
+                    resul = res;
+                }
+                else if (opcion == 19)
+                {
+                    string[] parametros = filtro.Split('|');
+                    string idOpciones = parametros[0].ToString();
+                    int idPerfil = Convert.ToInt32(parametros[1].ToString());
+
+                    Usuarios_BL obj_negocios = new Usuarios_BL();
+
+                    res.ok = true;
+                    res.data = obj_negocios.get_eventosPerfilMarcados(idOpciones, idPerfil);
+                    res.totalpage = 0;
+                    resul = res;
+                }
 
                 else
                 {

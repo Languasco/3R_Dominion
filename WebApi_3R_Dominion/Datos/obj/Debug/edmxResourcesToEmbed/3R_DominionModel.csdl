@@ -1,5 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Proyecto_3RModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="Proyecto_3REntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Gps_Distrito" EntityType="Proyecto_3RModel.Gps_Distrito" />
+    <EntitySet Name="tbl_Aceesos_Evento" EntityType="Proyecto_3RModel.tbl_Aceesos_Evento" />
+    <EntitySet Name="tbl_Cargo_Personal" EntityType="Proyecto_3RModel.tbl_Cargo_Personal" />
+    <EntitySet Name="tbl_Configuracion_Zonas" EntityType="Proyecto_3RModel.tbl_Configuracion_Zonas" />
+    <EntitySet Name="tbl_Definicion_Opciones" EntityType="Proyecto_3RModel.tbl_Definicion_Opciones" />
+    <EntitySet Name="tbl_Distritos" EntityType="Proyecto_3RModel.tbl_Distritos" />
+    <EntitySet Name="tbl_Empresas" EntityType="Proyecto_3RModel.tbl_Empresas" />
+    <EntitySet Name="tbl_Empresas_Vehiculos" EntityType="Proyecto_3RModel.tbl_Empresas_Vehiculos" />
+    <EntitySet Name="tbl_EstadoCelular" EntityType="Proyecto_3RModel.tbl_EstadoCelular" />
+    <EntitySet Name="tbl_Estados" EntityType="Proyecto_3RModel.tbl_Estados" />
+    <EntitySet Name="tbl_Evento" EntityType="Proyecto_3RModel.tbl_Evento" />
+    <EntitySet Name="tbl_GrupoTabla_Cab" EntityType="Proyecto_3RModel.tbl_GrupoTabla_Cab" />
+    <EntitySet Name="tbl_GrupoTabla_Det" EntityType="Proyecto_3RModel.tbl_GrupoTabla_Det" />
+    <EntitySet Name="tbl_Iconos" EntityType="Proyecto_3RModel.tbl_Iconos" />
+    <EntitySet Name="TBL_Operarios_RegistroGPS" EntityType="Proyecto_3RModel.TBL_Operarios_RegistroGPS" />
+    <EntitySet Name="tbl_OrdenTrabajo_Cab" EntityType="Proyecto_3RModel.tbl_OrdenTrabajo_Cab" />
+    <EntitySet Name="tbl_OrdenTrabajo_Det" EntityType="Proyecto_3RModel.tbl_OrdenTrabajo_Det" />
+    <EntitySet Name="tbl_OrdenTrabajo_Foto" EntityType="Proyecto_3RModel.tbl_OrdenTrabajo_Foto" />
+    <EntitySet Name="tbl_OrdenTrabajo_Reasignacion" EntityType="Proyecto_3RModel.tbl_OrdenTrabajo_Reasignacion" />
+    <EntitySet Name="tbl_Parametro_Movil" EntityType="Proyecto_3RModel.tbl_Parametro_Movil" />
+    <EntitySet Name="tbl_Perfil" EntityType="Proyecto_3RModel.tbl_Perfil" />
+    <EntitySet Name="tbl_Perfil_Accesos" EntityType="Proyecto_3RModel.tbl_Perfil_Accesos" />
+    <EntitySet Name="tbl_Personal" EntityType="Proyecto_3RModel.tbl_Personal" />
+    <EntitySet Name="tbl_Precios" EntityType="Proyecto_3RModel.tbl_Precios" />
+    <EntitySet Name="tbl_Servicios" EntityType="Proyecto_3RModel.tbl_Servicios" />
+    <EntitySet Name="tbl_Usuarios" EntityType="Proyecto_3RModel.tbl_Usuarios" />
+    <EntitySet Name="tbl_Usuarios_Servicios" EntityType="Proyecto_3RModel.tbl_Usuarios_Servicios" />
+    <EntitySet Name="tbl_Zonas" EntityType="Proyecto_3RModel.tbl_Zonas" />
+    <EntitySet Name="Versiones" EntityType="Proyecto_3RModel.Versiones" />
+    <EntitySet Name="julio" EntityType="Proyecto_3RModel.julio" />
+    <EntitySet Name="TempoESTADO" EntityType="Proyecto_3RModel.TempoESTADO" />
+    <EntitySet Name="TempoGPS" EntityType="Proyecto_3RModel.TempoGPS" />
+    <EntitySet Name="TempoOperario" EntityType="Proyecto_3RModel.TempoOperario" />
+    <AssociationSet Name="FK__tbl_Acees__id_Op__3C69FB99" Association="Proyecto_3RModel.FK__tbl_Acees__id_Op__3C69FB99">
+      <End Role="tbl_Definicion_Opciones" EntitySet="tbl_Definicion_Opciones" />
+      <End Role="tbl_Aceesos_Evento" EntitySet="tbl_Aceesos_Evento" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Acees__id_Us__3E52440B" Association="Proyecto_3RModel.FK__tbl_Acees__id_Us__3E52440B">
+      <End Role="tbl_Usuarios" EntitySet="tbl_Usuarios" />
+      <End Role="tbl_Aceesos_Evento" EntitySet="tbl_Aceesos_Evento" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tbl_Empre__id_Em__0B91BA14" Association="Proyecto_3RModel.FK__tbl_Empre__id_Em__0B91BA14">
+      <End Role="tbl_Empresas" EntitySet="tbl_Empresas" />
+      <End Role="tbl_Empresas_Vehiculos" EntitySet="tbl_Empresas_Vehiculos" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Gps_Distrito">
+    <Key>
+      <PropertyRef Name="id_GPS" />
+    </Key>
+    <Property Name="id_GPS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="latitud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="longitud" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
   <EntityType Name="tbl_Aceesos_Evento">
     <Key>
       <PropertyRef Name="id_Acceso_evento" />
@@ -13,7 +69,7 @@
     <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
     <Property Name="usuario_edicion" Type="Int32" />
     <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="tbl_Definicion_Opciones" Relationship="Self.FK__tbl_Acees__id_Op__3C69FB99" FromRole="tbl_Aceesos_Evento" ToRole="tbl_Definicion_Opciones" />
+    <NavigationProperty Name="tbl_Definicion_Opciones" Relationship="Proyecto_3RModel.FK__tbl_Acees__id_Op__3C69FB99" FromRole="tbl_Aceesos_Evento" ToRole="tbl_Definicion_Opciones" />
     <NavigationProperty Name="tbl_Usuarios" Relationship="Proyecto_3RModel.FK__tbl_Acees__id_Us__3E52440B" FromRole="tbl_Aceesos_Evento" ToRole="tbl_Usuarios" />
   </EntityType>
   <EntityType Name="tbl_Cargo_Personal">
@@ -47,7 +103,7 @@
       <PropertyRef Name="id_Opcion" />
     </Key>
     <Property Name="id_Opcion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="nombre_opcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nombre_opcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="url_opcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="parentID" Type="Int32" />
     <Property Name="nombreParentID" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
@@ -60,13 +116,14 @@
     <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
     <Property Name="usuario_edicion" Type="Int32" />
     <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="tbl_Aceesos_Evento" Relationship="Self.FK__tbl_Acees__id_Op__3C69FB99" FromRole="tbl_Definicion_Opciones" ToRole="tbl_Aceesos_Evento" />
+    <NavigationProperty Name="tbl_Aceesos_Evento" Relationship="Proyecto_3RModel.FK__tbl_Acees__id_Op__3C69FB99" FromRole="tbl_Definicion_Opciones" ToRole="tbl_Aceesos_Evento" />
   </EntityType>
   <EntityType Name="tbl_Distritos">
     <Key>
       <PropertyRef Name="id_Distrito" />
     </Key>
     <Property Name="id_Distrito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_Zona" Type="Int32" />
     <Property Name="nombreDistrito" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="estado" Type="Int32" />
     <Property Name="usuario_creacion" Type="Int32" />
@@ -89,7 +146,7 @@
     <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
     <Property Name="usuario_edicion" Type="Int32" />
     <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="tbl_Empresas_Vehiculos" Relationship="Self.FK__tbl_Empre__id_Em__0B91BA14" FromRole="tbl_Empresas" ToRole="tbl_Empresas_Vehiculos" />
+    <NavigationProperty Name="tbl_Empresas_Vehiculos" Relationship="Proyecto_3RModel.FK__tbl_Empre__id_Em__0B91BA14" FromRole="tbl_Empresas" ToRole="tbl_Empresas_Vehiculos" />
   </EntityType>
   <EntityType Name="tbl_Empresas_Vehiculos">
     <Key>
@@ -99,7 +156,7 @@
     <Property Name="id_Empresa" Type="Int32" />
     <Property Name="nro_Placa" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="cantidadM3" Type="Decimal" Precision="18" Scale="2" />
-    <NavigationProperty Name="tbl_Empresas" Relationship="Self.FK__tbl_Empre__id_Em__0B91BA14" FromRole="tbl_Empresas_Vehiculos" ToRole="tbl_Empresas" />
+    <NavigationProperty Name="tbl_Empresas" Relationship="Proyecto_3RModel.FK__tbl_Empre__id_Em__0B91BA14" FromRole="tbl_Empresas_Vehiculos" ToRole="tbl_Empresas" />
   </EntityType>
   <EntityType Name="tbl_EstadoCelular">
     <Key>
@@ -133,6 +190,7 @@
     <Property Name="usuario_edicion" Type="Int32" />
     <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
     <Property Name="Simbolo_estado" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="grupo_Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="tbl_Evento">
     <Key>
@@ -228,14 +286,14 @@
     <Property Name="totalMedidas_OT" Type="Decimal" Precision="28" Scale="3" />
     <Property Name="totalDesmonteRecojido_OT" Type="Decimal" Precision="28" Scale="3" />
     <Property Name="totalDesmontePorRecojido_OT" Type="Decimal" Precision="28" Scale="3" />
+    <Property Name="solesMedidas_OT" Type="Decimal" Precision="28" Scale="3" />
+    <Property Name="solesDesmonteRecojido_OT" Type="Decimal" Precision="28" Scale="3" />
+    <Property Name="solesDesmontePorRecojido_OT" Type="Decimal" Precision="28" Scale="3" />
     <Property Name="estado" Type="Int32" />
     <Property Name="usuario_creacion" Type="Int32" />
     <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
     <Property Name="usuario_edicion" Type="Int32" />
     <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
-    <Property Name="solesMedidas_OT" Type="Decimal" Precision="28" Scale="3" />
-    <Property Name="solesDesmonteRecojido_OT" Type="Decimal" Precision="28" Scale="3" />
-    <Property Name="solesDesmontePorRecojido_OT" Type="Decimal" Precision="28" Scale="3" />
   </EntityType>
   <EntityType Name="tbl_OrdenTrabajo_Det">
     <Key>
@@ -360,6 +418,8 @@
     <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
     <Property Name="usuario_edicion" Type="Int32" />
     <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
+    <Property Name="id_TipoPrecio" Type="Int32" />
+    <Property Name="id_TipoMaterial" Type="Int32" />
   </EntityType>
   <EntityType Name="tbl_Servicios">
     <Key>
@@ -375,6 +435,29 @@
     <Property Name="usuario_edicion" Type="Int32" />
     <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
   </EntityType>
+  <EntityType Name="tbl_Usuarios">
+    <Key>
+      <PropertyRef Name="id_Usuario" />
+    </Key>
+    <Property Name="id_Usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_Personal" Type="Int32" />
+    <Property Name="id_EmpresaUsuario" Type="Int32" />
+    <Property Name="nrodoc_usuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="apellidos_usuario" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="nombres_usuario" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="email_usuario" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="id_TipoUsuario" Type="Int32" />
+    <Property Name="id_Perfil" Type="Int32" Nullable="false" />
+    <Property Name="fotourl" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="login_usuario" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="contrasenia_usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="estado" Type="Int32" Nullable="false" />
+    <Property Name="usuario_creacion" Type="Int32" />
+    <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+    <Property Name="usuario_edicion" Type="Int32" />
+    <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="tbl_Aceesos_Evento" Relationship="Proyecto_3RModel.FK__tbl_Acees__id_Us__3E52440B" FromRole="tbl_Usuarios" ToRole="tbl_Aceesos_Evento" />
+  </EntityType>
   <EntityType Name="tbl_Usuarios_Servicios">
     <Key>
       <PropertyRef Name="id_usuario_servicio" />
@@ -386,6 +469,33 @@
     <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
     <Property Name="usuario_edicion" Type="Int32" />
     <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tbl_Zonas">
+    <Key>
+      <PropertyRef Name="id_Zona" />
+    </Key>
+    <Property Name="id_Zona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre_Zona" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="estado" Type="Int32" />
+    <Property Name="usuario_creacion" Type="Int32" />
+    <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+    <Property Name="usuario_edicion" Type="Int32" />
+    <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Versiones">
+    <Key>
+      <PropertyRef Name="versionId" />
+    </Key>
+    <Property Name="versionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="code" Type="Int32" />
+    <Property Name="name" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="estado" Type="Int32" />
+  </EntityType>
+  <EntityType Name="julio">
+    <Key>
+      <PropertyRef Name="id_distrito" />
+    </Key>
+    <Property Name="id_distrito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
   </EntityType>
   <EntityType Name="TempoESTADO">
     <Key>
@@ -427,15 +537,15 @@
       <PropertyRef Name="contrasenia_Operario" />
     </Key>
     <Property Name="id_Operario" Type="Int32" Nullable="false" />
-    <Property Name="nroDoc_Operario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Apellidos_Operario" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="nombre_Operario" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="usuario_Operario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="contrasenia_Operario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nroDoc_Operario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Apellidos_Operario" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="nombre_Operario" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="usuario_Operario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="contrasenia_Operario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="FK__tbl_Acees__id_Op__3C69FB99">
-    <End Role="tbl_Definicion_Opciones" Type="Self.tbl_Definicion_Opciones" Multiplicity="0..1" />
-    <End Role="tbl_Aceesos_Evento" Type="Self.tbl_Aceesos_Evento" Multiplicity="*" />
+    <End Type="Proyecto_3RModel.tbl_Definicion_Opciones" Role="tbl_Definicion_Opciones" Multiplicity="0..1" />
+    <End Type="Proyecto_3RModel.tbl_Aceesos_Evento" Role="tbl_Aceesos_Evento" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="tbl_Definicion_Opciones">
         <PropertyRef Name="id_Opcion" />
@@ -445,84 +555,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__tbl_Empre__id_Em__0B91BA14">
-    <End Role="tbl_Empresas" Type="Self.tbl_Empresas" Multiplicity="0..1" />
-    <End Role="tbl_Empresas_Vehiculos" Type="Self.tbl_Empresas_Vehiculos" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Empresas">
-        <PropertyRef Name="id_Empresa" />
-      </Principal>
-      <Dependent Role="tbl_Empresas_Vehiculos">
-        <PropertyRef Name="id_Empresa" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityContainer Name="Proyecto_3REntities1" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="tbl_Aceesos_Evento" EntityType="Self.tbl_Aceesos_Evento" />
-    <EntitySet Name="tbl_Cargo_Personal" EntityType="Self.tbl_Cargo_Personal" />
-    <EntitySet Name="tbl_Configuracion_Zonas" EntityType="Self.tbl_Configuracion_Zonas" />
-    <EntitySet Name="tbl_Definicion_Opciones" EntityType="Self.tbl_Definicion_Opciones" />
-    <EntitySet Name="tbl_Distritos" EntityType="Self.tbl_Distritos" />
-    <EntitySet Name="tbl_Empresas" EntityType="Self.tbl_Empresas" />
-    <EntitySet Name="tbl_Empresas_Vehiculos" EntityType="Self.tbl_Empresas_Vehiculos" />
-    <EntitySet Name="tbl_EstadoCelular" EntityType="Self.tbl_EstadoCelular" />
-    <EntitySet Name="tbl_Estados" EntityType="Self.tbl_Estados" />
-    <EntitySet Name="tbl_Evento" EntityType="Self.tbl_Evento" />
-    <EntitySet Name="tbl_GrupoTabla_Cab" EntityType="Self.tbl_GrupoTabla_Cab" />
-    <EntitySet Name="tbl_GrupoTabla_Det" EntityType="Self.tbl_GrupoTabla_Det" />
-    <EntitySet Name="tbl_Iconos" EntityType="Self.tbl_Iconos" />
-    <EntitySet Name="TBL_Operarios_RegistroGPS" EntityType="Self.TBL_Operarios_RegistroGPS" />
-    <EntitySet Name="tbl_OrdenTrabajo_Cab" EntityType="Self.tbl_OrdenTrabajo_Cab" />
-    <EntitySet Name="tbl_OrdenTrabajo_Det" EntityType="Self.tbl_OrdenTrabajo_Det" />
-    <EntitySet Name="tbl_OrdenTrabajo_Foto" EntityType="Self.tbl_OrdenTrabajo_Foto" />
-    <EntitySet Name="tbl_OrdenTrabajo_Reasignacion" EntityType="Self.tbl_OrdenTrabajo_Reasignacion" />
-    <EntitySet Name="tbl_Parametro_Movil" EntityType="Self.tbl_Parametro_Movil" />
-    <EntitySet Name="tbl_Perfil" EntityType="Self.tbl_Perfil" />
-    <EntitySet Name="tbl_Perfil_Accesos" EntityType="Self.tbl_Perfil_Accesos" />
-    <EntitySet Name="tbl_Personal" EntityType="Self.tbl_Personal" />
-    <EntitySet Name="tbl_Precios" EntityType="Self.tbl_Precios" />
-    <EntitySet Name="tbl_Servicios" EntityType="Self.tbl_Servicios" />
-    <EntitySet Name="tbl_Usuarios_Servicios" EntityType="Self.tbl_Usuarios_Servicios" />
-    <EntitySet Name="TempoESTADO" EntityType="Self.TempoESTADO" />
-    <EntitySet Name="TempoGPS" EntityType="Self.TempoGPS" />
-    <EntitySet Name="TempoOperario" EntityType="Self.TempoOperario" />
-    <AssociationSet Name="FK__tbl_Acees__id_Op__3C69FB99" Association="Self.FK__tbl_Acees__id_Op__3C69FB99">
-      <End Role="tbl_Definicion_Opciones" EntitySet="tbl_Definicion_Opciones" />
-      <End Role="tbl_Aceesos_Evento" EntitySet="tbl_Aceesos_Evento" />
-    </AssociationSet>
-    <AssociationSet Name="FK__tbl_Empre__id_Em__0B91BA14" Association="Self.FK__tbl_Empre__id_Em__0B91BA14">
-      <End Role="tbl_Empresas" EntitySet="tbl_Empresas" />
-      <End Role="tbl_Empresas_Vehiculos" EntitySet="tbl_Empresas_Vehiculos" />
-    </AssociationSet>
-    <EntitySet Name="tbl_Usuarios" EntityType="Proyecto_3RModel.tbl_Usuarios" />
-    <AssociationSet Name="FK__tbl_Acees__id_Us__3E52440B" Association="Proyecto_3RModel.FK__tbl_Acees__id_Us__3E52440B">
-      <End Role="tbl_Usuarios" EntitySet="tbl_Usuarios" />
-      <End Role="tbl_Aceesos_Evento" EntitySet="tbl_Aceesos_Evento" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="tbl_Usuarios">
-    <Key>
-      <PropertyRef Name="id_Usuario" />
-    </Key>
-    <Property Name="id_Usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="id_Personal" Type="Int32" />
-    <Property Name="id_EmpresaUsuario" Type="Int32" />
-    <Property Name="nrodoc_usuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="apellidos_usuario" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
-    <Property Name="nombres_usuario" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
-    <Property Name="email_usuario" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-    <Property Name="id_TipoUsuario" Type="Int32" />
-    <Property Name="id_Perfil" Type="Int32" Nullable="false" />
-    <Property Name="fotourl" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-    <Property Name="login_usuario" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="contrasenia_usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="estado" Type="Int32" Nullable="false" />
-    <Property Name="usuario_creacion" Type="Int32" />
-    <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
-    <Property Name="usuario_edicion" Type="Int32" />
-    <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="tbl_Aceesos_Evento" Relationship="Proyecto_3RModel.FK__tbl_Acees__id_Us__3E52440B" FromRole="tbl_Usuarios" ToRole="tbl_Aceesos_Evento" />
-  </EntityType>
   <Association Name="FK__tbl_Acees__id_Us__3E52440B">
     <End Type="Proyecto_3RModel.tbl_Usuarios" Role="tbl_Usuarios" Multiplicity="0..1" />
     <End Type="Proyecto_3RModel.tbl_Aceesos_Evento" Role="tbl_Aceesos_Evento" Multiplicity="*" />
@@ -532,6 +564,18 @@
       </Principal>
       <Dependent Role="tbl_Aceesos_Evento">
         <PropertyRef Name="id_Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tbl_Empre__id_Em__0B91BA14">
+    <End Type="Proyecto_3RModel.tbl_Empresas" Role="tbl_Empresas" Multiplicity="0..1" />
+    <End Type="Proyecto_3RModel.tbl_Empresas_Vehiculos" Role="tbl_Empresas_Vehiculos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_Empresas">
+        <PropertyRef Name="id_Empresa" />
+      </Principal>
+      <Dependent Role="tbl_Empresas_Vehiculos">
+        <PropertyRef Name="id_Empresa" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

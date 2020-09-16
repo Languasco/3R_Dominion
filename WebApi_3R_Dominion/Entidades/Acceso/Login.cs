@@ -28,6 +28,7 @@ namespace Entidades.Acceso
         public int id_usuario { get; set; }
         public int id_perfil { get; set; }
         public string nombre_usuario { get; set; }
+        public object areas { get; set; }
     }
 
     public class MenuPermisosAcceso
