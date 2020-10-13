@@ -33,7 +33,10 @@ namespace WebApi_3R_Dominion.Controllers.Proceso
                     int idEstado = Convert.ToInt32(parametros[4].ToString());
                     int idUsuario = Convert.ToInt32(parametros[5].ToString());
 
-                    resul = obj_negocio.get_aprobacionOTCab(idServicio, idTipoOT, idDistrito, idProveedor, idEstado, idUsuario);
+                    string fechaIni = parametros[6].ToString();
+                    string fechaFin = parametros[7].ToString();
+
+                    resul = obj_negocio.get_aprobacionOTCab(idServicio, idTipoOT, idDistrito, idProveedor, idEstado, idUsuario, fechaIni, fechaFin);
                 }
                 else if (opcion == 2)
                 {

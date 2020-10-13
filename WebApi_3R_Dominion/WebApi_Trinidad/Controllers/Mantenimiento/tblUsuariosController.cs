@@ -80,32 +80,39 @@ namespace WebApi_3R_Dominion.Controllers.Mantenimiento
                     int idArea = Convert.ToInt32(parametros[1].ToString());
                     int idEstado = Convert.ToInt32(parametros[2].ToString());
 
+                    //res.ok = true;
+                    //res.data = (from a in db.tbl_Usuarios
+                    //            join b in db.tbl_Perfil on a.id_Perfil equals b.id_perfil
+                    //            join c in db.tbl_Personal on a.nrodoc_usuario equals c.nroDocumento_Personal
+                    //            join d in db.tbl_Empresas on c.id_Empresa equals d.id_Empresa 
+                    //            select new
+                    //            {
+                    //                a.id_Usuario,
+                    //                a.nrodoc_usuario,
+                    //                a.apellidos_usuario,
+                    //                a.nombres_usuario,
+                    //                id_empresa  = c.id_Empresa,
+                    //                empresa_usuario = d.razonSocial_Empresa,
+                    //                a.email_usuario,
+                    //                a.id_TipoUsuario,
+                    //                a.id_Perfil,
+                    //                b.descripcion_perfil,
+                    //                a.fotourl,
+                    //                a.login_usuario,
+                    //                a.contrasenia_usuario,
+                    //                a.estado,
+                    //                descripcion_estado = a.estado == 0 ? "INACTIVO" : "ACTIVO",
+                    //                a.usuario_creacion
+                    //            }).ToList();
+                    //res.totalpage = 0;
+                    //resul = res;
+                    Usuarios_BL objNegocio = new Usuarios_BL();
                     res.ok = true;
-                    res.data = (from a in db.tbl_Usuarios
-                                join b in db.tbl_Perfil on a.id_Perfil equals b.id_perfil
-                                join c in db.tbl_Personal on a.nrodoc_usuario equals c.nroDocumento_Personal
-                                join d in db.tbl_Empresas on c.id_Empresa equals d.id_Empresa 
-                                select new
-                                {
-                                    a.id_Usuario,
-                                    a.nrodoc_usuario,
-                                    a.apellidos_usuario,
-                                    a.nombres_usuario,
-                                    id_empresa  = c.id_Empresa,
-                                    empresa_usuario = d.razonSocial_Empresa,
-                                    a.email_usuario,
-                                    a.id_TipoUsuario,
-                                    a.id_Perfil,
-                                    b.descripcion_perfil,
-                                    a.fotourl,
-                                    a.login_usuario,
-                                    a.contrasenia_usuario,
-                                    a.estado,
-                                    descripcion_estado = a.estado == 0 ? "INACTIVO" : "ACTIVO",
-                                    a.usuario_creacion
-                                }).ToList();
+                    res.data = objNegocio.get_usuariosMantenimiento(idEmpresa, idArea, idEstado);
                     res.totalpage = 0;
                     resul = res;
+
+
                 }
                 else if (opcion == 5)
                 {

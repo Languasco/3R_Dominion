@@ -5,7 +5,6 @@ E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Datos\bin\Debug\EntityFr
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Datos\bin\Debug\EntityFramework.SqlServer.dll
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Datos\bin\Debug\EntityFramework.xml
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Datos\bin\Debug\EntityFramework.SqlServer.xml
-E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Datos\obj\Debug\Datos.csprojAssemblyReference.cache
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Datos\obj\Debug\Datos.csproj.CoreCompileInputs.cache
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Datos\obj\Debug\Datos.csproj.CopyComplete
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Datos\obj\Debug\Datos.dll

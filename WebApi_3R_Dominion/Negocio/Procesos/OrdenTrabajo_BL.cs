@@ -462,7 +462,7 @@ namespace Negocio.Procesos
         //-----------------------------------
 
 
-        public object get_aprobacionOTCab(int idServicio, int idTipoOT, int idDistrito, int idProveedor, int idEstado, int idUsuario)
+        public object get_aprobacionOTCab(int idServicio, int idTipoOT, int idDistrito, int idProveedor, int idEstado, int idUsuario, string fechaIni, string fechaFin)
         {
             Resultado res = new Resultado();
             List<AprobarOT_E> obj_List = new List<AprobarOT_E>();
@@ -472,7 +472,7 @@ namespace Negocio.Procesos
                 using (SqlConnection cn = new SqlConnection(Conexion.bdConexion.cadenaBDcx()))
                 {
                     cn.Open();
-                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_APROBACION_OT_LISTAR_CAB", cn))
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_APROBACION_OT_LISTAR_CAB_NEW", cn))
                     {
                         cmd.CommandTimeout = 0;
                         cmd.CommandType = CommandType.StoredProcedure;
@@ -482,6 +482,8 @@ namespace Negocio.Procesos
                         cmd.Parameters.Add("@idProveedor", SqlDbType.Int).Value = idProveedor;
                         cmd.Parameters.Add("@idEstado", SqlDbType.Int).Value = idEstado;
                         cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+                        cmd.Parameters.Add("@fechaIni", SqlDbType.VarChar).Value = fechaIni;
+                        cmd.Parameters.Add("@fechaFin", SqlDbType.VarChar).Value = fechaFin;
 
                         using (SqlDataReader dr = cmd.ExecuteReader())
                         {

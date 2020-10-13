@@ -57,7 +57,7 @@ import { EstadosComponent } from './pages/Mantenimientos/estados/estados.compone
 
  
    //const config: SocketIoConfig = { url: 'http://173.248.174.85:5000', options: {} }; 
-   const config: SocketIoConfig = { url: 'http://192.168.20.249:5001', options: {} }; 
+   const config: SocketIoConfig = { url: 'http://190.223.38.245:5000', options: {} }; 
  
 
 @NgModule({

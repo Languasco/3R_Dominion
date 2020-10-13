@@ -104,10 +104,10 @@ export class UsuariosComponent implements OnInit {
       //   this.alertasService.Swal_alert('error','Por favor seleccione una Area');
       //   return 
       // }
-      if (this.formParamsFiltro.value.idEstado == '' || this.formParamsFiltro.value.idEstado == 0) {
-        this.alertasService.Swal_alert('error','Por favor seleccione un estado');
-        return 
-      }
+      // if (this.formParamsFiltro.value.idEstado == '' || this.formParamsFiltro.value.idEstado == 0) {
+      //   this.alertasService.Swal_alert('error','Por favor seleccione un estado');
+      //   return 
+      // }
   
       this.spinner.show();
       this.usuariosService.get_mostrarUsuario_general(this.formParamsFiltro.value.idEmpresa,this.formParamsFiltro.value.idArea, this.formParamsFiltro.value.idEstado)

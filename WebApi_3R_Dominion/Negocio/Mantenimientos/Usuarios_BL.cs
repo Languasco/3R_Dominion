@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Negocio.Conexion;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -177,6 +178,37 @@ namespace Negocio.Mantenimientos
                 throw;
             }
             return res;
+        }
+
+
+        public DataTable get_usuariosMantenimiento(int idEmpresa, int idArea, int idEstado)
+        {
+            DataTable dt_detalle = new DataTable();
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(bdConexion.cadenaBDcx()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_MANT_USUARIO_CAB", cn))
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@idEmpresa", SqlDbType.Int).Value = idEmpresa;
+                        cmd.Parameters.Add("@idArea", SqlDbType.Int).Value = idArea;
+                        cmd.Parameters.Add("@idEstado", SqlDbType.Int).Value = idEstado;
+
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt_detalle);
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return dt_detalle;
         }
 
     }

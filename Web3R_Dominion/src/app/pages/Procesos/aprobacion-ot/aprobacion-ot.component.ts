@@ -43,6 +43,8 @@ export class AprobacionOTComponent implements OnInit,AfterViewInit {
   filtrarMantenimiento = "";
   opcionModal = "";
   tituloModal = "";
+  objFotoAgrandar = {};
+  urlFotoAgrandar = '';
 
   checkeadoAll=false; 
   datepiekerConfig:Partial<BsDatepickerConfig>;
@@ -87,12 +89,21 @@ export class AprobacionOTComponent implements OnInit,AfterViewInit {
 } 
 
  inicializarFormularioFiltro(){ 
+
+  let fechaIni = new Date();
+  let fechaFin = new Date();
+
+  fechaIni.setDate(fechaIni.getDate() - 2);
+  fechaFin.setDate(fechaFin.getDate() - 1);
+
     this.formParamsFiltro= new FormGroup({
       idServicio : new FormControl('0'),
       idTipoOT : new FormControl('0'),
       idDistrito : new FormControl('0'),
       idProveedor : new FormControl('0'),
-      idEstado : new FormControl('0')
+      idEstado : new FormControl('6'),
+      fecha_ini : new FormControl(fechaIni),
+      fecha_fin : new FormControl(fechaFin)
      }) 
  }
 
@@ -160,13 +171,27 @@ export class AprobacionOTComponent implements OnInit,AfterViewInit {
       //   return 
       // }
 
+      if (this.formParamsFiltro.value.fecha_ini == '' || this.formParamsFiltro.value.fecha_ini == null) {
+        this.alertasService.Swal_alert('error','Por favor seleccione la fecha inicial');
+        return 
+      }
+      if (this.formParamsFiltro.value.fecha_fin == '' || this.formParamsFiltro.value.fecha_fin == null) {
+        this.alertasService.Swal_alert('error','Por favor seleccione la fecha final');
+        return 
+      }
+
+
       if (this.formParamsFiltro.value.idEstado == '' || this.formParamsFiltro.value.idEstado == 0) {
         this.alertasService.Swal_alert('error','Por favor seleccione un Estado');
         return 
       }
+
+
+      const fechaIni = this.funcionGlobalServices.formatoFecha(this.formParamsFiltro.value.fecha_ini);
+      const fechaFin = this.funcionGlobalServices.formatoFecha(this.formParamsFiltro.value.fecha_fin);
   
       this.spinner.show();
-      this.aprobacionOTService.get_mostrarAprobarOTCab_general(this.formParamsFiltro.value, this.idUserGlobal)
+      this.aprobacionOTService.get_mostrarAprobarOTCab_general(this.formParamsFiltro.value, fechaIni, fechaFin, this.idUserGlobal)
           .subscribe((res:RespuestaServer)=>{            
               this.spinner.hide();
               if (res.ok==true) {        
@@ -469,6 +494,23 @@ descargarGrilla(){
           }
   })
 }  
+
+
+cerrarModal_agrandarFoto(){
+  $('#modal_agrandarFoto').modal('hide');    
+}
+
+open_modalAgrandarFoto(objFoto:any){
+ 
+
+  this.urlFotoAgrandar = objFoto.urlFoto;
+  this.objFotoAgrandar = objFoto;
+
+  setTimeout(()=>{ // 
+    $('#modal_agrandarFoto').modal('show');
+  },0);
+  
+}
 
   
  
