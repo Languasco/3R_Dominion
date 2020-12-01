@@ -12,7 +12,8 @@
 }
 
 .dropdown-toggle {
-    color: #0d3baf !important;
+    /* color: #0d3baf !important; */
+    color: white !important;
     border-color: white;
 }
 
@@ -67,4 +68,8 @@
 .dropdown-item:hover {
     background-color: #007bff !important;
     color: white !important;
+}
+
+.bg-primary {
+    background-color: #002f77 !important;
 }

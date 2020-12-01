@@ -54,10 +54,11 @@ import { UbicacionOtComponent } from './pages/Reportes/ubicacion-ot/ubicacion-ot
 import { TreeviewModule } from 'ngx-treeview';
 import { CargoPersonalComponent } from './pages/Mantenimientos/cargo-personal/cargo-personal.component';
 import { EstadosComponent } from './pages/Mantenimientos/estados/estados.component';
+import { ReporteAnalisisComponent } from './pages/Reportes/reporte-analisis/reporte-analisis.component';
 
  
-   //const config: SocketIoConfig = { url: 'http://173.248.174.85:5000', options: {} }; 
-   const config: SocketIoConfig = { url: 'http://190.223.38.245:5000', options: {} }; 
+const config: SocketIoConfig = { url: 'http://190.223.38.245:5000', options: {} }; 
+ 
  
 
 @NgModule({
@@ -82,7 +83,8 @@ import { EstadosComponent } from './pages/Mantenimientos/estados/estados.compone
     ConfiguracionZonasComponent,
     UbicacionOtComponent,
     CargoPersonalComponent,
-    EstadosComponent
+    EstadosComponent,
+    ReporteAnalisisComponent
   ],
   imports: [
     BrowserModule,

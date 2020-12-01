@@ -109,7 +109,12 @@ namespace WebApi_3R_Dominion.Controllers.Proceso
                     int idEstado = Convert.ToInt32(parametros[4].ToString());
                     int idUsuario = Convert.ToInt32(parametros[5].ToString());
 
-                    resul = obj_negocio.get_descargar_aprobacionOTCab(idServicio, idTipoOT, idDistrito, idProveedor, idEstado, idUsuario);
+                    string fechaIni = parametros[6].ToString();
+                    string fechaFin = parametros[7].ToString();
+
+                    resul = obj_negocio.get_descargar_aprobacionOTCab(idServicio, idTipoOT, idDistrito, idProveedor, idEstado, idUsuario, fechaIni, fechaFin);
+
+
                 }
                 else if (opcion == 9)
                 {
@@ -132,6 +137,18 @@ namespace WebApi_3R_Dominion.Controllers.Proceso
 
                     res.ok = true;
                     res.data = obj_negocio.get_descargar_fotosOT_visor(idOt_foto, idTipoOT, idUsuario);
+                    res.totalpage = 0;
+                    resul = res;
+                }
+                else if (opcion == 11)
+                {
+                    string[] parametros = filtro.Split('|');
+                    string codigosOT = parametros[0].ToString();
+                    int idUsuario = Convert.ToInt32(parametros[1].ToString());
+                    int idServicio = Convert.ToInt32(parametros[2].ToString());
+
+                    res.ok = true;
+                    res.data = obj_negocio.set_aprobarOT_masivo(codigosOT, idUsuario, idServicio);
                     res.totalpage = 0;
                     resul = res;
                 }

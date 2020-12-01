@@ -691,5 +691,467 @@ namespace Negocio.Reportes
         }
 
 
+        public void funcionGlobal_centrarNegrita_Fila(Excel.ExcelWorksheet oWs, int[] fil)
+        {
+            for (int i = 0; i < fil.Length; i++)
+            {
+                oWs.Row(fil[i]).Style.Font.Bold = true;
+                oWs.Row(fil[i]).Style.HorizontalAlignment = Style.ExcelHorizontalAlignment.Center;
+                oWs.Row(fil[i]).Style.VerticalAlignment = Style.ExcelVerticalAlignment.Center;
+            }
+        }
+
+
+        public void funcionGlobal_bordes_fila_columna(Excel.ExcelWorksheet oWs, int[] fil, int[] col)
+        {
+            for (int x = 0; x < fil.Length; x++)
+            {
+                for (int y = 0; y < col.Length; y++)
+                {
+                    oWs.Cells[fil[x], col[y]].Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                }
+            }
+        }
+
+
+        public void funcionGlobal_ajustarAnchoAutomatica_columna(Excel.ExcelWorksheet oWs, int[] col)
+        {
+            for (int y = 0; y < col.Length; y++)
+            {
+                oWs.Column(col[y]).AutoFit();
+            }
+        }
+
+        public object get_descargar_roturaVereda(int idServicio, int idTipoOT, int idProveedor, string fechaIni,string  fechaFin, int idEstado, int  idUsuario)
+        {
+            Resultado res = new Resultado();
+            DataTable listaDetallado = new DataTable();
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conexion.bdConexion.cadenaBDcx()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_REPORTE_ANALISIS_ROTURA_VEREDA", cn))
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@idServicio", SqlDbType.Int).Value = idServicio;
+                        cmd.Parameters.Add("@idTipoOT", SqlDbType.Int).Value = idTipoOT;
+                        cmd.Parameters.Add("@idProveedor", SqlDbType.Int).Value = idProveedor;
+
+                        cmd.Parameters.Add("@fechaIni", SqlDbType.VarChar).Value = fechaIni;
+                        cmd.Parameters.Add("@fechaFin", SqlDbType.VarChar).Value = fechaFin;
+                        cmd.Parameters.Add("@idEstado", SqlDbType.Int).Value = idEstado;
+                        cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(listaDetallado);
+                        }
+
+                    }
+                }
+
+                if (listaDetallado.Rows.Count <= 0)
+                {
+                    res.ok = false;
+                    res.data = "0|No hay informacion disponible";
+                }
+                else
+                {
+                    res.ok = true;
+                    res.data = generarArchivoExcel_roturaVereda(listaDetallado, idUsuario);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                res.ok = false;
+                res.data = ex.Message;
+            }
+            return res;
+        }
+
+        public string generarArchivoExcel_roturaVereda(DataTable listDetalle, int id_usuario)
+        {
+            string Res = "";
+            int _fila = 4;
+            string FileRuta = "";
+            string FileExcel = "";
+
+            try
+            {
+
+                FileRuta = System.Web.Hosting.HostingEnvironment.MapPath("~/Archivos/Excel/" + id_usuario + "_roturaVereda.xlsx");
+                string rutaServer = ConfigurationManager.AppSettings["ServerFilesReporte"];
+
+                FileExcel = rutaServer + id_usuario + "_roturaVereda.xlsx";
+
+                FileInfo _file = new FileInfo(FileRuta);
+                if (_file.Exists)
+                {
+                    _file.Delete();
+                    _file = new FileInfo(FileRuta);
+                }
+
+                Thread.Sleep(1);
+
+                using (Excel.ExcelPackage oEx = new Excel.ExcelPackage(_file))
+                {
+                    Excel.ExcelWorksheet oWs = oEx.Workbook.Worksheets.Add("roturaVereda");
+                    oWs.Cells.Style.Font.SetFromFont(new Font("Tahoma", 8));
+
+
+                    oWs.Cells[1, 1].Style.Font.Size = 15; //letra tamaño  2
+                    oWs.Cells[1, 1].Value = listDetalle.Rows[0]["tituloReporte"].ToString();
+                    oWs.Cells[1, 1, 1, 13].Merge = true;  // combinar celdaS
+                    oWs.Cells[1, 1].Style.HorizontalAlignment = Style.ExcelHorizontalAlignment.Center;
+                    oWs.Cells[1, 1].Style.VerticalAlignment = Style.ExcelVerticalAlignment.Center;
+
+                    oWs.Cells[3, 1].Value = "TIPO DE TRABAJO";
+                    oWs.Cells[3, 2].Value = "N° DE ORDEN";
+                    oWs.Cells[3, 3].Value = "SUMINISTRO";
+                    oWs.Cells[3, 4].Value = "SED";
+                    oWs.Cells[3, 5].Value = "FECHA EJECUSION ELECTRICA";
+
+                    oWs.Cells[3, 6].Value = " TECNICO RESPONSABLE";
+                    oWs.Cells[3, 7].Value = "DIRECCION ";
+                    oWs.Cells[3, 8].Value = "DISTRITO";
+                    oWs.Cells[3, 9].Value = "ZONA";
+                    oWs.Cells[3, 10].Value = "VEREDAS m2";
+
+                    oWs.Cells[3, 11].Value = "PROVEEDOR ASIGNADO ";
+                    oWs.Cells[3, 12].Value = "M3 - REPORTADO - DESMONTE";
+                    oWs.Cells[3, 13].Value = "OBSERVACIONES  ";
+ 
+
+                    int ac = 0;
+                    foreach (DataRow item in listDetalle.Rows)
+                    {
+                        ac += 1;
+
+                        oWs.Cells[_fila, 1].Value = item["tipoTrabajo"].ToString();
+                        oWs.Cells[_fila, 2].Value = item["nroOrden"].ToString();
+                        oWs.Cells[_fila, 3].Value = item["suministro"].ToString();
+
+                        oWs.Cells[_fila, 4].Value = item["sed"].ToString();
+                        oWs.Cells[_fila, 5].Value = item["fechaEjecucion"].ToString();
+                        oWs.Cells[_fila, 6].Value = item["tecnicoResponsable"].ToString();
+                        oWs.Cells[_fila, 7].Value = item["direccion"].ToString();
+
+                        oWs.Cells[_fila, 8].Value = item["distrito"].ToString();
+                        oWs.Cells[_fila, 9].Value = item["zona"].ToString();
+                        oWs.Cells[_fila, 10].Value = item["veredas"].ToString();
+                        oWs.Cells[_fila, 11].Value = item["proveedorAsignado"].ToString();
+                        oWs.Cells[_fila, 12].Value = item["m3reportado"].ToString();
+                        oWs.Cells[_fila, 13].Value = item["observaciones"].ToString();
+
+                        _fila++;
+                    }
+
+                    oWs.Row(3).Style.Font.Bold = true;
+                    oWs.Row(3).Style.HorizontalAlignment = Style.ExcelHorizontalAlignment.Center;
+                    oWs.Row(3).Style.VerticalAlignment = Style.ExcelVerticalAlignment.Center;
+
+                    for (int k = 1; k <= 13; k++)
+                    {
+                        oWs.Column(k).AutoFit();
+                    }
+                    oEx.Save();
+                }
+
+                Res = FileExcel;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return Res;
+        }
+        
+        public object get_descargar_reparacionVereda(int idServicio, int idTipoOT, int idProveedor, string fechaIni, string fechaFin, int idEstado, int idUsuario)
+        {
+            Resultado res = new Resultado();
+            DataTable listaDetallado = new DataTable();
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conexion.bdConexion.cadenaBDcx()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_REPORTE_ANALISIS_REPARACION_VEREDA", cn))
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@idServicio", SqlDbType.Int).Value = idServicio;
+                        cmd.Parameters.Add("@idTipoOT", SqlDbType.Int).Value = idTipoOT;
+                        cmd.Parameters.Add("@idProveedor", SqlDbType.Int).Value = idProveedor;
+
+                        cmd.Parameters.Add("@fechaIni", SqlDbType.VarChar).Value = fechaIni;
+                        cmd.Parameters.Add("@fechaFin", SqlDbType.VarChar).Value = fechaFin;
+                        cmd.Parameters.Add("@idEstado", SqlDbType.Int).Value = idEstado;
+                        cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(listaDetallado);
+                        }
+
+                    }
+                }
+
+                if (listaDetallado.Rows.Count <= 0)
+                {
+                    res.ok = false;
+                    res.data = "0|No hay informacion disponible";
+                }
+                else
+                {
+                    res.ok = true;
+                    res.data = generarArchivoExcel_reparacionVereda(listaDetallado, idUsuario);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                res.ok = false;
+                res.data = ex.Message;
+            }
+            return res;
+        }
+
+        public string generarArchivoExcel_reparacionVereda(DataTable listDetalle, int id_usuario)
+        {
+            string Res = "";
+            int _fila = 4;
+            string FileRuta = "";
+            string FileExcel = "";
+
+            try
+            {
+
+                FileRuta = System.Web.Hosting.HostingEnvironment.MapPath("~/Archivos/Excel/" + id_usuario + "_reparacionVereda.xlsx");
+                string rutaServer = ConfigurationManager.AppSettings["ServerFilesReporte"];
+
+                FileExcel = rutaServer + id_usuario + "_reparacionVereda.xlsx";
+
+                FileInfo _file = new FileInfo(FileRuta);
+                if (_file.Exists)
+                {
+                    _file.Delete();
+                    _file = new FileInfo(FileRuta);
+                }
+
+                Thread.Sleep(1);
+
+                using (Excel.ExcelPackage oEx = new Excel.ExcelPackage(_file))
+                {
+                    Excel.ExcelWorksheet oWs = oEx.Workbook.Worksheets.Add("reparacionVereda");
+                    oWs.Cells.Style.Font.SetFromFont(new Font("Tahoma", 8));
+
+
+                    oWs.Cells[1, 1].Style.Font.Size = 15; //letra tamaño  2
+                    oWs.Cells[1, 1].Value = listDetalle.Rows[0]["tituloReporte"].ToString();
+                    oWs.Cells[1, 1, 1, 13].Merge = true;  // combinar celdaS
+                    oWs.Cells[1, 1].Style.HorizontalAlignment = Style.ExcelHorizontalAlignment.Center;
+                    oWs.Cells[1, 1].Style.VerticalAlignment = Style.ExcelVerticalAlignment.Center;
+
+                    oWs.Cells[3, 1].Value = "NRO ORDEN ";
+                    oWs.Cells[3, 2].Value = "PROVEEDOR ";
+                    oWs.Cells[3, 3].Value = "FECHA ASIGNACION PROVEEDOR)";
+                    oWs.Cells[3, 4].Value = "ESTADO DE VEREDA";
+                    oWs.Cells[3, 5].Value = "FECHA EJECUCION VEREDA";
+                    oWs.Cells[3, 6].Value = "VEREDAS M2";
+
+                    oWs.Cells[3, 7].Value = "ADOQUIN  ";
+                    oWs.Cells[3, 8].Value = "GRASS";
+                    oWs.Cells[3, 9].Value = "ASFALTO";
+                    oWs.Cells[3, 10].Value = "MAYOLICA";
+                    oWs.Cells[3, 11].Value = "PISTA CONCRETO";
+                    oWs.Cells[3, 12].Value = "PISO ESPECIAL ";
+                    oWs.Cells[3, 13].Value = "M3 - REPORTADO - DESMONTE";
+ 
+
+
+                    int ac = 0;
+                    foreach (DataRow item in listDetalle.Rows)
+                    {
+
+                        oWs.Cells[_fila, 1].Value = item["nroOrden"].ToString();
+                        oWs.Cells[_fila, 2].Value = item["proveedor"].ToString();
+                        oWs.Cells[_fila, 3].Value = item["fechaAsignacion"].ToString();
+                        oWs.Cells[_fila, 4].Value = item["estadoVereda"].ToString();
+                        oWs.Cells[_fila, 5].Value = item["fechaEjecucion"].ToString();
+                        oWs.Cells[_fila, 6].Value = item["veredasm2"].ToString();
+                        oWs.Cells[_fila, 7].Value = item["adoquin"].ToString();
+
+                        oWs.Cells[_fila, 8].Value = item["grass"].ToString();
+                        oWs.Cells[_fila, 9].Value = item["asfalto"].ToString();
+                        oWs.Cells[_fila, 10].Value = item["mayolica"].ToString();
+                        oWs.Cells[_fila, 11].Value = item["pistaConcreto"].ToString();
+                        oWs.Cells[_fila, 12].Value = item["pisoEspecial"].ToString();
+                        oWs.Cells[_fila, 13].Value = item["m3reportado"].ToString();
+
+                        _fila++;
+                    }
+
+
+                    oWs.Row(3).Style.Font.Bold = true;
+                    oWs.Row(3).Style.HorizontalAlignment = Style.ExcelHorizontalAlignment.Center;
+                    oWs.Row(3).Style.VerticalAlignment = Style.ExcelVerticalAlignment.Center;
+
+                    for (int k = 1; k <= 13; k++)
+                    {
+                        oWs.Column(k).AutoFit();
+                    }
+                    oEx.Save();
+                }
+
+                Res = FileExcel;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return Res;
+        }
+        
+
+
+        public object get_descargar_reparacionDesmonte(int idServicio, int idTipoOT, int idProveedor, string fechaIni, string fechaFin, int idEstado, int idUsuario)
+        {
+            Resultado res = new Resultado();
+            DataTable listaDetallado = new DataTable();
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conexion.bdConexion.cadenaBDcx()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_REPORTE_ANALISIS_DESMONTE", cn))
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@idServicio", SqlDbType.Int).Value = idServicio;
+                        cmd.Parameters.Add("@idTipoOT", SqlDbType.Int).Value = idTipoOT;
+                        cmd.Parameters.Add("@idProveedor", SqlDbType.Int).Value = idProveedor;
+
+                        cmd.Parameters.Add("@fechaIni", SqlDbType.VarChar).Value = fechaIni;
+                        cmd.Parameters.Add("@fechaFin", SqlDbType.VarChar).Value = fechaFin;
+                        cmd.Parameters.Add("@idEstado", SqlDbType.Int).Value = idEstado;
+                        cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(listaDetallado);
+                        }
+
+                    }
+                }
+
+                if (listaDetallado.Rows.Count <= 0)
+                {
+                    res.ok = false;
+                    res.data = "0|No hay informacion disponible";
+                }
+                else
+                {
+                    res.ok = true;
+                    res.data = generarArchivoExcel_reparacionDesmonte(listaDetallado, idUsuario);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                res.ok = false;
+                res.data = ex.Message;
+            }
+            return res;
+        }
+
+        public string generarArchivoExcel_reparacionDesmonte(DataTable listDetalle, int id_usuario)
+        {
+            string Res = "";
+            int _fila = 4;
+            string FileRuta = "";
+            string FileExcel = "";
+
+            try
+            {
+
+                FileRuta = System.Web.Hosting.HostingEnvironment.MapPath("~/Archivos/Excel/" + id_usuario + "_reparacionDesmonte.xlsx");
+                string rutaServer = ConfigurationManager.AppSettings["ServerFilesReporte"];
+
+                FileExcel = rutaServer + id_usuario + "_reparacionDesmonte.xlsx";
+
+                FileInfo _file = new FileInfo(FileRuta);
+                if (_file.Exists)
+                {
+                    _file.Delete();
+                    _file = new FileInfo(FileRuta);
+                }
+
+                Thread.Sleep(1);
+
+                using (Excel.ExcelPackage oEx = new Excel.ExcelPackage(_file))
+                {
+                    Excel.ExcelWorksheet oWs = oEx.Workbook.Worksheets.Add("reparacionDesmonte");
+                    oWs.Cells.Style.Font.SetFromFont(new Font("Tahoma", 8));
+                    
+                    oWs.Cells[1, 1].Style.Font.Size = 15; //letra tamaño  2
+                    oWs.Cells[1, 1].Value = listDetalle.Rows[0]["tituloReporte"].ToString();
+                    oWs.Cells[1, 1, 1, 6].Merge = true;  // combinar celdaS
+                    oWs.Cells[1, 1].Style.HorizontalAlignment = Style.ExcelHorizontalAlignment.Center;
+                    oWs.Cells[1, 1].Style.VerticalAlignment = Style.ExcelVerticalAlignment.Center;
+
+                    oWs.Cells[3, 1].Value = "NRO ORDEN";
+                    oWs.Cells[3, 2].Value = "PROVEEDOR";
+                    oWs.Cells[3, 3].Value = "F. ASIGNACION";
+                    oWs.Cells[3, 4].Value = "M3 - ENCONTRADO PARTE ELEC.";
+                    oWs.Cells[3, 5].Value = "M3 - ENCONTRADO REPARACION DE VEREDA";
+                    oWs.Cells[3, 6].Value = "F.RECOJO";
+
+                    int ac = 0;
+                    foreach (DataRow item in listDetalle.Rows)
+                    {
+                        ac += 1;
+
+                        oWs.Cells[_fila, 1].Value = item["nroOrden"].ToString();
+                        oWs.Cells[_fila, 2].Value = item["proveedor"].ToString();
+                        oWs.Cells[_fila, 3].Value = item["fechaAsignacion"].ToString();
+                        oWs.Cells[_fila, 4].Value = item["m3EncontradoElectrico"].ToString();
+                        oWs.Cells[_fila, 5].Value = item["m3EncontradoReparacionVereda"].ToString();
+                        oWs.Cells[_fila, 6].Value = item["fechaRecojo"].ToString();
+
+                        _fila++;
+                    }
+
+
+                    oWs.Row(1).Style.Font.Bold = true;
+                    oWs.Row(1).Style.HorizontalAlignment = Style.ExcelHorizontalAlignment.Center;
+                    oWs.Row(1).Style.VerticalAlignment = Style.ExcelVerticalAlignment.Center;
+
+                    oWs.Row(3).Style.Font.Bold = true;
+                    oWs.Row(3).Style.HorizontalAlignment = Style.ExcelHorizontalAlignment.Center;
+                    oWs.Row(3).Style.VerticalAlignment = Style.ExcelVerticalAlignment.Center;
+
+                    for (int k = 1; k <= 6; k++)
+                    {
+                        oWs.Column(k).AutoFit();
+                    }
+                    oEx.Save();
+                }
+
+                Res = FileExcel;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return Res;
+        }
+
+
     }
 }

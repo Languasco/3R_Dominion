@@ -117,8 +117,39 @@ namespace WebApi_3R_Dominion.Controllers.Reporte
                     res.totalpage = 0;
 
                     resul = res;
+                }
+                else if (opcion == 8)
+                {
+                    string[] parametros = filtro.Split('|');
+
+                    int idServicio = Convert.ToInt32(parametros[0].ToString());
+                    int idTipoOT = Convert.ToInt32(parametros[1].ToString());
+                    int idProveedor = Convert.ToInt32(parametros[2].ToString());
+                    string fechaIni = parametros[3].ToString();
+                    string fechaFin = parametros[4].ToString();
+                    int idEstado = Convert.ToInt32(parametros[5].ToString());
+                    int tipoReporte = Convert.ToInt32(parametros[6].ToString());
+                    int idUsuario = Convert.ToInt32(parametros[7].ToString());
+
+ 
+
+
+                    if (tipoReporte == 1)
+                    {
+                        resul = obj_negocio.get_descargar_roturaVereda(idServicio, idTipoOT, idProveedor, fechaIni, fechaFin, idEstado, idUsuario);
+                    }
+                    if (tipoReporte == 2)
+                    {
+                        resul = obj_negocio.get_descargar_reparacionVereda(idServicio, idTipoOT, idProveedor, fechaIni, fechaFin, idEstado, idUsuario);
+                    }
+                    if (tipoReporte == 3)
+                    {
+                        resul = obj_negocio.get_descargar_reparacionDesmonte(idServicio, idTipoOT, idProveedor, fechaIni, fechaFin, idEstado, idUsuario);
+                    }
+
 
                 }
+
                 else
                 {
                     res.ok = false;

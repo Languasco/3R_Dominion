@@ -37,4 +37,12 @@ export class DetalleOTService {
     return this.http.get( this.URL + 'Reportes' , {params: parametros});
   }
 
+  get_descargarReporteAnalisis({idServicio, idTipoOT, idProveedor, idEstado, tipoReporte },fecha_ini, fecha_fin, idUsuario:number){ 
+    let parametros = new HttpParams();
+    parametros = parametros.append('opcion', '8');
+    parametros = parametros.append('filtro', idServicio + '|' +  idTipoOT + '|' +  idProveedor + '|' +  fecha_ini + '|' +  fecha_fin + '|' +  idEstado + '|' +  tipoReporte + '|' +  idUsuario  );
+
+    return this.http.get( this.URL + 'Reportes' , {params: parametros});
+  }
+
 }

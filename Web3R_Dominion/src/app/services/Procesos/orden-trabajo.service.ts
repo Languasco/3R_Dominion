@@ -79,6 +79,25 @@ export class OrdenTrabajoService {
                   }) );
     }
   }
+
+  get_Proveedor_usuario(idusuario:number ){
+    if (this.proveedor.length > 0) {
+      return of( this.proveedor )
+    }else{
+      let parametros = new HttpParams();
+      parametros = parametros.append('opcion', '8');
+      parametros = parametros.append('filtro', String(idusuario));
+  
+      return this.http.get( this.URL + 'tblEmpresas' , {params: parametros})
+                 .pipe(map((res:any)=>{
+                       this.proveedor = res.data;
+                       return res.data;
+                  }) );
+    }
+  }
+
+
+
   get_estados(){
     if (this.estados.length > 0) {
       return of( this.estados )
@@ -126,10 +145,10 @@ export class OrdenTrabajoService {
   }
 
 
-  get_mostrarOrdenTrabajoCab_general({idServicio, idTipoOT, idDistrito,idProveedor,idEstado }, idUsuario:number){ 
+  get_mostrarOrdenTrabajoCab_general({idServicio, idTipoOT, idDistrito,idProveedor,idEstado, nroOt }, idUsuario:number){ 
     let parametros = new HttpParams();
     parametros = parametros.append('opcion', '1');
-    parametros = parametros.append('filtro', idServicio + '|' +  idTipoOT + '|' +  idDistrito + '|' +  idProveedor + '|' +  idEstado + '|' +  idUsuario  );
+    parametros = parametros.append('filtro', idServicio + '|' +  idTipoOT + '|' +  idDistrito + '|' +  idProveedor + '|' +  idEstado + '|' +  idUsuario   + '|' +  nroOt  );
     return this.http.get( this.URL + 'OrdenTrabajo' , {params: parametros});
   }
 
@@ -197,10 +216,10 @@ export class OrdenTrabajoService {
     return this.http.get( this.URL + 'OrdenTrabajo' , {params: parametros});
   }
   
-  get_descargarOT_general({idServicio, idTipoOT, idDistrito,idProveedor,idEstado }, idUsuario:number){ 
+  get_descargarOT_general({idServicio, idTipoOT, idDistrito,idProveedor,idEstado, nroOt }, idUsuario:number){ 
     let parametros = new HttpParams();
     parametros = parametros.append('opcion', '15');
-    parametros = parametros.append('filtro', idServicio + '|' +  idTipoOT + '|' +  idDistrito + '|' +  idProveedor + '|' +  idEstado + '|' +  idUsuario  );
+    parametros = parametros.append('filtro', idServicio + '|' +  idTipoOT + '|' +  idDistrito + '|' +  idProveedor + '|' +  idEstado + '|' +  idUsuario  + '|' +  nroOt   );
     return this.http.get( this.URL + 'OrdenTrabajo' , {params: parametros});
   }
 
@@ -210,6 +229,13 @@ export class OrdenTrabajoService {
     parametros = parametros.append('filtro', otMasivo + '|' +   idPrioridad  + '|' +   observacionPrioridad + '|' +   idusario );
     return this.http.get( this.URL + 'OrdenTrabajo' , {params: parametros});
  }
+
+ set_aprobarOT_masivo(otMasivo, idUsuario:number , idServicio : number ){ 
+  let parametros = new HttpParams();
+  parametros = parametros.append('opcion', '11');
+  parametros = parametros.append('filtro', otMasivo + '|' +   idUsuario + '|' +   idServicio   );
+  return this.http.get( this.URL + 'AprobarOT' , {params: parametros});
+}
 
 
 

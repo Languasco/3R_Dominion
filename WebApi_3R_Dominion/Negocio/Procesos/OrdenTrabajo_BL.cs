@@ -17,7 +17,7 @@ namespace Negocio.Procesos
 {
     public class OrdenTrabajo_BL
     {
-        public object get_ordenTrabajoCab(int idServicio, int idTipoOT, int idDistrito, int idProveedor, int idEstado, int idUsuario)
+        public object get_ordenTrabajoCab(int idServicio, int idTipoOT, int idDistrito, int idProveedor, int idEstado, int idUsuario, string nroOT)
         {
             Resultado res = new Resultado();
             List<OrdenTrabajo_E> obj_List = new List<OrdenTrabajo_E>();
@@ -26,7 +26,7 @@ namespace Negocio.Procesos
                 using (SqlConnection cn = new SqlConnection(Conexion.bdConexion.cadenaBDcx()))
                 {
                     cn.Open();
-                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_ORDENES_TRABAJO_LISTAR_CAB", cn))
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_ORDENES_TRABAJO_LISTAR_CAB_NEW", cn))
                     {
                         cmd.CommandTimeout = 0;
                         cmd.CommandType = CommandType.StoredProcedure;
@@ -36,6 +36,7 @@ namespace Negocio.Procesos
                         cmd.Parameters.Add("@idProveedor", SqlDbType.Int).Value = idProveedor;
                         cmd.Parameters.Add("@idEstado", SqlDbType.Int).Value = idEstado;
                         cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+                        cmd.Parameters.Add("@nroOT", SqlDbType.VarChar).Value = nroOT;
 
                         using (SqlDataReader dr = cmd.ExecuteReader())
                         {
@@ -729,7 +730,8 @@ namespace Negocio.Procesos
             return res;
         }
         
-        public object get_descargar_aprobacionOTCab(int idServicio, int idTipoOT, int idDistrito, int idProveedor, int idEstado, int idUsuario)
+ 
+       public object get_descargar_aprobacionOTCab(int idServicio, int idTipoOT, int idDistrito, int idProveedor, int idEstado, int idUsuario, string fechaIni, string fechaFin)
         {
             Resultado res = new Resultado();
             List<AprobarOT_E> obj_List = new List<AprobarOT_E>();
@@ -738,16 +740,26 @@ namespace Negocio.Procesos
                 using (SqlConnection cn = new SqlConnection(Conexion.bdConexion.cadenaBDcx()))
                 {
                     cn.Open();
-                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_APROBACION_OT_LISTAR_CAB", cn))
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_APROBACION_OT_LISTAR_CAB_NEW", cn))
                     {
                         cmd.CommandTimeout = 0;
                         cmd.CommandType = CommandType.StoredProcedure;
+                        //cmd.Parameters.Add("@idServicio", SqlDbType.Int).Value = idServicio;
+                        //cmd.Parameters.Add("@idTipoOT", SqlDbType.Int).Value = idTipoOT;
+                        //cmd.Parameters.Add("@idDistrito", SqlDbType.Int).Value = idDistrito;
+                        //cmd.Parameters.Add("@idProveedor", SqlDbType.Int).Value = idProveedor;
+                        //cmd.Parameters.Add("@idEstado", SqlDbType.Int).Value = idEstado;
+                        //cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+
                         cmd.Parameters.Add("@idServicio", SqlDbType.Int).Value = idServicio;
                         cmd.Parameters.Add("@idTipoOT", SqlDbType.Int).Value = idTipoOT;
                         cmd.Parameters.Add("@idDistrito", SqlDbType.Int).Value = idDistrito;
                         cmd.Parameters.Add("@idProveedor", SqlDbType.Int).Value = idProveedor;
                         cmd.Parameters.Add("@idEstado", SqlDbType.Int).Value = idEstado;
                         cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+                        cmd.Parameters.Add("@fechaIni", SqlDbType.VarChar).Value = fechaIni;
+                        cmd.Parameters.Add("@fechaFin", SqlDbType.VarChar).Value = fechaFin;
+
 
                         using (SqlDataReader dr = cmd.ExecuteReader())
                         {
@@ -1348,7 +1360,7 @@ namespace Negocio.Procesos
             return resultado;
         }
         
-        public object get_descargar_OT(int idServicio, int idTipoOT, int idDistrito, int idProveedor, int idEstado, int idUsuario)
+        public object get_descargar_OT(int idServicio, int idTipoOT, int idDistrito, int idProveedor, int idEstado, int idUsuario, string nroOT)
         {
             Resultado res = new Resultado();
             List<OrdenTrabajo_E> obj_List = new List<OrdenTrabajo_E>();
@@ -1357,7 +1369,7 @@ namespace Negocio.Procesos
                 using (SqlConnection cn = new SqlConnection(Conexion.bdConexion.cadenaBDcx()))
                 {
                     cn.Open();
-                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_ORDENES_TRABAJO_LISTAR_CAB", cn))
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_ORDENES_TRABAJO_LISTAR_CAB_NEW", cn))
                     {
                         cmd.CommandTimeout = 0;
                         cmd.CommandType = CommandType.StoredProcedure;
@@ -1367,6 +1379,7 @@ namespace Negocio.Procesos
                         cmd.Parameters.Add("@idProveedor", SqlDbType.Int).Value = idProveedor;
                         cmd.Parameters.Add("@idEstado", SqlDbType.Int).Value = idEstado;
                         cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+                        cmd.Parameters.Add("@nroOT", SqlDbType.VarChar).Value = nroOT;
 
                         using (SqlDataReader dr = cmd.ExecuteReader())
                         {
@@ -1594,6 +1607,37 @@ namespace Negocio.Procesos
             }
             return res;
         }
+        
+        public string set_aprobarOT_masivo(string codigosOT, int idUsuario, int idServicio)
+        {
+            string resultado = "";
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(bdConexion.cadenaBDcx()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_APROBACION_OT_GRABAR_OT_MASIVO", cn))
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@codigosOT", SqlDbType.VarChar).Value = codigosOT;
+                        cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+                        cmd.Parameters.Add("@idServicio", SqlDbType.Int).Value = idServicio;
+
+                        cmd.ExecuteNonQuery();
+                        resultado = "OK";
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                resultado = e.Message;
+            }
+            return resultado;
+        }
+
+
+
 
     }
 }

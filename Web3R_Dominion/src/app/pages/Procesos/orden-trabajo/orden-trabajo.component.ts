@@ -133,7 +133,7 @@ export class OrdenTrabajoComponent implements OnInit  {
     idDistrito : new FormControl('0'),
     referencia : new FormControl(''),
     descripcionTrabajo : new FormControl(''),
-    idEstado : new FormControl('0'), 
+    idEstado : new FormControl(''), 
    }) 
 } 
 
@@ -498,7 +498,8 @@ export class OrdenTrabajoComponent implements OnInit  {
       idTipoOT : new FormControl('0'),
       idDistrito : new FormControl('0'),
       idProveedor : new FormControl('0'),
-      idEstado : new FormControl('0')
+      idEstado : new FormControl('8'),
+      nroOt : new FormControl(''),
      }) 
  }
 
@@ -524,7 +525,7 @@ export class OrdenTrabajoComponent implements OnInit  {
 
  getCargarCombos(){ 
     this.spinner.show();
-    combineLatest([this.ordenTrabajoService.get_servicio(this.idUserGlobal), this.listaPreciosService.get_tipoOrdenTrabajo(), this.ordenTrabajoService.get_Distritos(), this.ordenTrabajoService.get_Proveedor(), this.ordenTrabajoService.get_estados(), this.listaPreciosService.get_prioridades() ]).subscribe( ([ _servicios, _tipoOrdenTrabajo, _distritos, _proveedor,_estados, _prioridades ])=>{
+    combineLatest([this.ordenTrabajoService.get_servicio(this.idUserGlobal), this.listaPreciosService.get_tipoOrdenTrabajo(), this.ordenTrabajoService.get_Distritos(), this.ordenTrabajoService.get_Proveedor_usuario(this.idUserGlobal), this.ordenTrabajoService.get_estados(), this.listaPreciosService.get_prioridades() ]).subscribe( ([ _servicios, _tipoOrdenTrabajo, _distritos, _proveedor,_estados, _prioridades ])=>{
         this.servicios = _servicios;
         this.tipoOrdenTrabajo = _tipoOrdenTrabajo; 
         this.distritos = _distritos; 

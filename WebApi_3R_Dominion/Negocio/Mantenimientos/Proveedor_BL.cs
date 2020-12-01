@@ -181,7 +181,33 @@ namespace Negocio.Mantenimientos
             return ms.ToArray();
         }
 
+        public DataTable get_proveedorUsuario(int idUsuario)
+        {
+            DataTable dt_detalle = new DataTable();
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(bdConexion.cadenaBDcx()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_ORDENES_TRABAJO_COMBO_PROVEEDOR_USUARIO", cn))
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
 
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt_detalle);
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return dt_detalle;
+        }
 
 
     }

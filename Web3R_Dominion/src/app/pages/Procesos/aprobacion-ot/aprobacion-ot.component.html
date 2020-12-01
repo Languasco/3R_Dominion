@@ -75,19 +75,20 @@
 
                 <div class="d-flex justify-content-between " *ngIf="this.ordenTrabajoCab.length > 0">
                     <div class="">
-                        <!-- <div class="custom-control custom-checkbox custom-control-inline" style="margin-left: 5px;">
+                        <div class="custom-control custom-checkbox custom-control-inline" style="margin-left: 5px;">
                             <input type="checkbox" [id]="99" [(ngModel)]="checkeadoAll" (click)="marcarTodos()" class="custom-control-input">
                             <label class="custom-control-label" [for]="99"> Marcar Todo </label>
-                        </div> -->
+                        </div>
                     </div>
-                    <div class="">
+                    <div class="" style="width: 60%;">
                         <div class="p-2 bd-highlight">
                             <input type="text" class="form-control form-control-sm " placeholder="Auto Busquedas" maxlength="50" [(ngModel)]="filtrarMantenimiento">
                         </div>
                     </div>
                     <div class="">
                         <div class="p-2">
-                            <button class="btn btn-warning btn-block " style="font-size: 13px;" (click)="descargarGrilla()">  <i class="fa fa-download"> Exportar</i> </button>
+                            <button class="btn btn-success " style="font-size: 13px;" (click)="aprobarMasivo()">  <i class="fas fa-vote-yea"> </i> Aprobar </button>
+                            <button class="btn btn-warning ml-2" style="font-size: 13px;" (click)="descargarGrilla()">  <i class="fa fa-download"> </i> Exportar</button>
                         </div>
                     </div>
                 </div>
@@ -98,12 +99,12 @@
 
                             <tr style="height: 40px !important;">
 
-                                <!-- <th scope="col">check</th> -->
+                                <th scope="col">check</th>
                                 <th scope="col">#</th>
                                 <th class="text-center">Estado</th>
                                 <th class="text-center">Tipo OT</th>
                                 <th class="text-center">Nro Obra_TD</th>
-                                <th class="text-center">Prioridad</th>
+                                <th class="text-center">Informe</th>
 
                                 <th class="text-center">Direccion</th>
                                 <th class="text-center">Distrito</th>
@@ -115,25 +116,25 @@
                                 <th class="text-center">Volumen en Desmonte</th>
                                 <th class="text-center">Volumen Desmonte Recoger</th>
                                 <th class="text-center">Fecha Hora Registro</th>
-                                <th class="text-center">Informe</th>
+
 
                                 <th class="text-center">Total Volumen</th>
                                 <th class="text-center">Total Desmonte</th>
                                 <th class="text-center">Total Desmonte Recoger</th>
                                 <th class="text-center">Fecha Aprobacion</th>
                                 <th class="text-center">Dias Vencimiento</th>
-
+                                <th class="text-center">Prioridad</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of ordenTrabajoCab |  filter: filtrarMantenimiento  ; index as j" [ngStyle]="item.estado == 0 && {'color': 'red'}">
 
-                                <!-- <td>
-                                     <div class="custom-control custom-checkbox custom-control-inline ">
+                                <td>
+                                    <div class="custom-control custom-checkbox custom-control-inline ">
                                         <input type="checkbox" [id]="item.id_OT" [(ngModel)]="item.checkeado" class="custom-control-input">
                                         <label class="custom-control-label" [for]="item.id_OT"> </label>
-                                    </div>  
-                                </td> -->
+                                    </div>
+                                </td>
                                 <td scope="row"> {{j + 1}} </td>
                                 <td>
                                     <div style="width: 200px; text-align: center;">
@@ -146,8 +147,9 @@
                                         {{item.nroObra}}
                                     </div>
                                 </td>
-                                <td>{{item.prioridad}}</td>
-
+                                <td>
+                                    <span class="badge badge-primary puntero" style="padding: 5px;" (click)="abrirModal_OT(item)">  Ver Informe </span>
+                                </td>
                                 <td>
                                     <div style="width: 300px;">
                                         {{item.direccion}}
@@ -181,15 +183,12 @@
                                         {{item.fechaHora}}
                                     </div>
                                 </td>
-                                <td>
-                                    <span class="badge badge-primary puntero" style="padding: 5px;" (click)="abrirModal_OT(item)">  Ver Informe </span>
-                                </td>
-
                                 <td class="text-right">{{item.totalVolumen | number}}</td>
                                 <td class="text-right">{{item.totalDesmonte | number}}</td>
                                 <td class="text-right">{{item.totalDesmonteRecoger | number}}</td>
                                 <td>{{item.fechaAprobacion}}</td>
                                 <td class="text-right">{{item.diasVencimiento }}</td>
+                                <td>{{item.prioridad}}</td>
                             </tr>
                         </tbody>
                     </table>

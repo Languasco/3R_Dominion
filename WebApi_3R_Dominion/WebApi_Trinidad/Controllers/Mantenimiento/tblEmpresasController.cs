@@ -149,6 +149,17 @@ namespace WebApi_3R_Dominion.Controllers.Mantenimiento
                     res.totalpage = 0;
                     resul = res;
                 }
+                else if (opcion == 8)
+                {
+                    string[] parametros = filtro.Split('|');
+                    int idUsuario = Convert.ToInt32(parametros[0].ToString());
+
+                    res.ok = true;
+                    res.data = obj_negocio.get_proveedorUsuario(idUsuario);
+                    res.totalpage = 0;
+                    resul = res;
+                }
+
                 else
                 {
                     res.ok = false;

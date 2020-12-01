@@ -6,43 +6,53 @@
 
         <form [formGroup]="formParamsFiltro">
             <div class="row" style=" margin-top: -15px;">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <label for=""> Servicio</label>
                     <select class="form-control comboBox" formControlName="idServicio">
                         <option value="0"> [ --SELECCIONE-- ]</option>
                         <option [value]="tipo.id_servicio" *ngFor="let tipo of servicios">{{tipo.nombreServicio}}</option>
                     </select>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <label for=""> Tipo OT</label>
                     <select class="form-control comboBox" formControlName="idTipoOT">
                         <option value="0"> [ --SELECCIONE-- ]</option>
                         <option [value]="tipo.id_detalleTabla" *ngFor="let tipo of tipoOrdenTrabajo">{{tipo.descripcion_grupoTabla}}</option>
                     </select>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <label for=""> Distrito</label>
                     <select class="form-control comboBox" formControlName="idDistrito">
                         <option value="0"> [ --TODOS-- ]</option>
                         <option [value]="dist.id_Distrito" *ngFor="let dist of distritos">{{dist.nombreDistrito}}</option>
                     </select>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <label for=""> Sub Contrata</label>
                     <select class="form-control comboBox" formControlName="idProveedor">
                         <option value="0"> [ --TODOS-- ]</option>
                         <option [value]="item.id_Empresa" *ngFor="let item of proveedor">{{item.razonSocial_Empresa}}</option>
                     </select>
                 </div>
-                <div class="col-md-2 ">
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-3 ">
                     <label for=""> Estado</label>
-                    <select class="form-control comboBox" formControlName="idEstado">
+                    <select class="form-control comboBox" formControlName="idEstado"> 
                         <option value="0"> [ --SELECCIONE-- ]</option>
                         <option [value]="estado.id_Estado" *ngFor="let estado of estados">{{estado.descripcion_estado}}</option>
                     </select>
                 </div>
-                <div class="col-md-2">
 
+                <div class="col-md-3 ">
+                    <label for=""> NroOT</label>
+                    <input type="text" class="form-control form-control-sm " maxlength="50" formControlName="nroOt">
+                </div>
+
+                <div class="col-md-3">
                     <div class="mt-4">
                         <button class="btn btn-primary  btn-block " (click)="mostrarInformacion()" style="font-size: 13px;">  <i class="fas fa-search"> Actualizar</i> </button>
                     </div>
@@ -73,10 +83,10 @@
                                                 <label class="custom-control-label" [for]="99"> Marcar Todo </label>
                                             </div>
                                         </div>
-                                        <div class="">
-                                            <div class="p-2 bd-highlight">
+                                        <div class="" style="width: 60%;">
+                                            <!-- <div class="p-2 bd-highlight">
                                                 <input type="text" class="form-control form-control-sm " placeholder="Auto Busquedas" maxlength="50" [(ngModel)]="filtrarMantenimiento">
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="">
                                             <div class="btn-group  ">
@@ -116,6 +126,8 @@
                                                     <th scope="col">check</th>
                                                     <th scope="col">#</th>
                                                     <th class="text-center">Estado</th>
+                                                    <th class="text-center">Informe</th>
+
                                                     <th class="text-center">Tipo OT</th>
                                                     <th class="text-center">Nro Obra/TD</th>
 
@@ -126,7 +138,7 @@
                                                     <th class="text-center">Sub Contrata</th>
 
                                                     <th class="text-center">Fecha Hora Registro</th>
-                                                    <th class="text-center">Informe</th>
+
                                                     <th class="text-center">Dias vencimiento</th>
                                                 </tr>
                                             </thead>
@@ -140,7 +152,12 @@
                                                     </td>
                                                     <td scope="row"> {{j + 1}} </td>
                                                     <td>
-                                                        <div style="width: 250px;"> {{item.descripcionEstado}} </div>
+                                                        <div style="width: 120px; text-align: center;">
+                                                            {{item.descripcionEstado}}
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge badge-primary puntero" style="padding: 5px;" (click)="abrirModal_OT(item)">  Ver Informe </span>
                                                     </td>
                                                     <td>{{item.tipoOT}}</td>
                                                     <td>{{item.nroObra}}</td>
@@ -152,7 +169,9 @@
                                                         <div style="width: 250px;"> {{item.distrito}} </div>
                                                     </td>
                                                     <td>{{item.volumen}}</td>
-                                                    <td>{{item.jefeCuadrilla}}</td>
+                                                    <td>
+                                                        <div style="width: 200px;"> {{item.jefeCuadrilla}} </div>
+                                                    </td>
                                                     <td>
                                                         <div style="width: 300px;"> {{item.empresaContratista}} </div>
                                                     </td>
@@ -160,9 +179,7 @@
                                                     <td>
                                                         <div style="width: 120px;"> {{item.fechaHora}} </div>
                                                     </td>
-                                                    <td>
-                                                        <span class="badge badge-primary puntero" style="padding: 5px;" (click)="abrirModal_OT(item)">  Ver Informe </span>
-                                                    </td>
+
                                                     <td>{{item.diasVencimiento}}</td>
                                                 </tr>
                                             </tbody>
@@ -338,6 +355,9 @@
                             <label> fecha Asignacion </label>
                             <input class="form-control" #datepickerYMD="bsDatepicker" bsDatepicker [bsConfig]="datepiekerConfig" formControlName="fechaAsignacion">
                         </div>
+                        <div class="col-md-4 mt-3">
+                            <button class="btn btn-success" title="Guardar la informacion" (click)="guardar_AsignacionReasignacion_Ot()"> <i class="fas fa-save"> Guardar</i></button>
+                        </div>
                     </div>
 
                     <fieldset class="shadow" *ngIf="opcionModal =='Asignar'">
@@ -388,7 +408,7 @@
                         </div>
                     </fieldset>
 
-                    <fieldset class="shadow">
+                    <fieldset class="shadow" style="display: none;">
 
                         <div class="panel panel-default ">
                             <div class="panel-body">
@@ -415,7 +435,7 @@
                     </fieldset>
 
 
-                    <div class="row">
+                    <div class="row" style="display: none;">
                         <div class="col-md-12">
                             <label> Observaciones </label>
                             <input type="text" class="form-control " maxlength="200" formControlName="observaciones">
@@ -426,11 +446,11 @@
 
 
                 </form>
-                <div class="d-flex justify-content-center">
+                <!-- <div class="d-flex justify-content-center">
                     <div class="p-2 bd-highlight">
                         <button class="btn btn-success" title="Guardar la informacion" (click)="guardar_AsignacionReasignacion_Ot()"> <i class="fas fa-save"> Guardar</i></button>
                     </div>
-                </div>
+                </div> -->
 
                 <hr>
 

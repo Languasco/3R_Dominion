@@ -41,6 +41,7 @@ E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Entidades\bin\Debug\Enti
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Entidades\bin\Debug\EntityFramework.SqlServer.dll
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Entidades\bin\Debug\EntityFramework.xml
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Entidades\bin\Debug\EntityFramework.SqlServer.xml
+E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Entidades\obj\Debug\Entidades.csprojAssemblyReference.cache
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Entidades\obj\Debug\Entidades.csproj.CoreCompileInputs.cache
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Entidades\obj\Debug\Entidades.csproj.CopyComplete
 E:\Julio\Trabajo\Sistema_3R_Dominion\WebApi_3R_Dominion\Entidades\obj\Debug\Entidades.dll

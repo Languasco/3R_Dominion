@@ -186,7 +186,6 @@ export class AprobacionOTComponent implements OnInit,AfterViewInit {
         return 
       }
 
-
       const fechaIni = this.funcionGlobalServices.formatoFecha(this.formParamsFiltro.value.fecha_ini);
       const fechaFin = this.funcionGlobalServices.formatoFecha(this.formParamsFiltro.value.fecha_fin);
   
@@ -194,7 +193,8 @@ export class AprobacionOTComponent implements OnInit,AfterViewInit {
       this.aprobacionOTService.get_mostrarAprobarOTCab_general(this.formParamsFiltro.value, fechaIni, fechaFin, this.idUserGlobal)
           .subscribe((res:RespuestaServer)=>{            
               this.spinner.hide();
-              if (res.ok==true) {        
+              if (res.ok==true) {    
+                this.checkeadoAll =false ;
                   this.ordenTrabajoCab = res.data; 
               }else{
                 this.alertasService.Swal_alert('error', JSON.stringify(res.data));
@@ -452,65 +452,140 @@ abrirModal_OT( {id_OT,nroObra,fechaHora,direccion, id_Distrito, referencia, desc
       
     }
   }) 
-} 
+ } 
 
  
-descargarGrilla(){
-  if (this.formParamsFiltro.value.idServicio == '' || this.formParamsFiltro.value.idServicio == 0) {
-    this.alertasService.Swal_alert('error','Por favor seleccione el servicio');
-    return 
+  descargarGrilla(){
+    // if (this.formParamsFiltro.value.idServicio == '' || this.formParamsFiltro.value.idServicio == 0) {
+    //   this.alertasService.Swal_alert('error','Por favor seleccione el servicio');
+    //   return 
+    // }
+    
+    // if (this.formParamsFiltro.value.idTipoOT == '' || this.formParamsFiltro.value.idTipoOT == 0) {
+    //   this.alertasService.Swal_alert('error','Por favor seleccione el Tipo de Orden Trabajo');
+    //   return 
+    // }  
+  
+    // if (this.formParamsFiltro.value.idDistrito == '' || this.formParamsFiltro.value.idDistrito == 0) {
+    //   this.alertasService.Swal_alert('error','Por favor seleccione un Distrito');
+    //   return 
+    // }
+  
+    // if (this.formParamsFiltro.value.idProveedor == '' || this.formParamsFiltro.value.idProveedor == 0) {
+    //   this.alertasService.Swal_alert('error','Por favor seleccione un Proveedor');
+    //   return 
+    // }
+  
+    // if (this.formParamsFiltro.value.idEstado == '' || this.formParamsFiltro.value.idEstado == 0) {
+    //   this.alertasService.Swal_alert('error','Por favor seleccione un Estado');
+    //   return 
+    // }
+  
+    if (this.formParamsFiltro.value.idServicio == '' || this.formParamsFiltro.value.idServicio == 0) {
+      this.alertasService.Swal_alert('error','Por favor seleccione el servicio');
+      return 
+    }
+    
+    if (this.formParamsFiltro.value.idTipoOT == '' || this.formParamsFiltro.value.idTipoOT == 0) {
+      this.alertasService.Swal_alert('error','Por favor seleccione el Tipo de Orden Trabajo');
+      return 
+    }  
+  
+    // if (this.formParamsFiltro.value.idDistrito == '' || this.formParamsFiltro.value.idDistrito == 0) {
+    //   this.alertasService.Swal_alert('error','Por favor seleccione un Distrito');
+    //   return 
+    // }
+  
+    // if (this.formParamsFiltro.value.idProveedor == '' || this.formParamsFiltro.value.idProveedor == 0) {
+    //   this.alertasService.Swal_alert('error','Por favor seleccione un Proveedor');
+    //   return 
+    // }
+  
+    if (this.formParamsFiltro.value.fecha_ini == '' || this.formParamsFiltro.value.fecha_ini == null) {
+      this.alertasService.Swal_alert('error','Por favor seleccione la fecha inicial');
+      return 
+    }
+    if (this.formParamsFiltro.value.fecha_fin == '' || this.formParamsFiltro.value.fecha_fin == null) {
+      this.alertasService.Swal_alert('error','Por favor seleccione la fecha final');
+      return 
+    }
+  
+  
+    if (this.formParamsFiltro.value.idEstado == '' || this.formParamsFiltro.value.idEstado == 0) {
+      this.alertasService.Swal_alert('error','Por favor seleccione un Estado');
+      return 
+    }
+  
+  
+    const fechaIni = this.funcionGlobalServices.formatoFecha(this.formParamsFiltro.value.fecha_ini);
+    const fechaFin = this.funcionGlobalServices.formatoFecha(this.formParamsFiltro.value.fecha_fin);
+  
+   
+    this.spinner.show();
+    this.aprobacionOTService.get_descargarAprobarOTCab_general(this.formParamsFiltro.value, fechaIni, fechaFin, this.idUserGlobal)
+        .subscribe((res:RespuestaServer)=>{            
+            this.spinner.hide();
+            console.log(res.data);
+            if (res.ok==true) {        
+              window.open(String(res.data),'_blank');
+            }else{
+              this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+              alert(JSON.stringify(res.data));
+            }
+    })
+  }  
+  
+
+  cerrarModal_agrandarFoto(){
+    $('#modal_agrandarFoto').modal('hide');    
   }
   
-  if (this.formParamsFiltro.value.idTipoOT == '' || this.formParamsFiltro.value.idTipoOT == 0) {
-    this.alertasService.Swal_alert('error','Por favor seleccione el Tipo de Orden Trabajo');
-    return 
-  }  
-
-  if (this.formParamsFiltro.value.idDistrito == '' || this.formParamsFiltro.value.idDistrito == 0) {
-    this.alertasService.Swal_alert('error','Por favor seleccione un Distrito');
-    return 
+  open_modalAgrandarFoto(objFoto:any){  
+  
+    this.urlFotoAgrandar = objFoto.urlFoto;
+    this.objFotoAgrandar = objFoto;
+  
+    setTimeout(()=>{ // 
+      $('#modal_agrandarFoto').modal('show');
+    },0);
+    
   }
 
-  if (this.formParamsFiltro.value.idProveedor == '' || this.formParamsFiltro.value.idProveedor == 0) {
-    this.alertasService.Swal_alert('error','Por favor seleccione un Proveedor');
-    return 
-  }
+  aprobarMasivo(){
 
-  if (this.formParamsFiltro.value.idEstado == '' || this.formParamsFiltro.value.idEstado == 0) {
-    this.alertasService.Swal_alert('error','Por favor seleccione un Estado');
-    return 
-  }
+    if (this.formParamsFiltro.value.idServicio == '' || this.formParamsFiltro.value.idServicio == 0) {
+      this.alertasService.Swal_alert('error','Por favor seleccione el servicio');
+      return 
+    }
 
-  this.spinner.show();
-  this.aprobacionOTService.get_descargarAprobarOTCab_general(this.formParamsFiltro.value, this.idUserGlobal)
-      .subscribe((res:RespuestaServer)=>{            
-          this.spinner.hide();
-          console.log(res.data);
-          if (res.ok==true) {        
-            window.open(String(res.data),'_blank');
+    if (this.validacionCheckMarcado()==false){
+      return;
+    } 
+    const codigosIdOT = this.funcionGlobalServices.obtenerCheck_IdPrincipal(this.ordenTrabajoCab,'id_OT'); 
+
+    this.alertasService.Swal_Question('Sistemas', 'Esta seguro de aprobar los registros marcados. ?')
+    .then((result)=>{
+      if(result.value){
+ 
+        Swal.fire({  icon: 'info', allowOutsideClick: false, allowEscapeKey: false, text: 'Espere por favor'  })
+        Swal.showLoading();
+        this.ordenTrabajoService.set_aprobarOT_masivo(codigosIdOT.join() , this.idUserGlobal, this.formParamsFiltro.value.idServicio ).subscribe((res:RespuestaServer)=>{
+          Swal.close();        
+          if (res.ok ==true) {               
+            //-----listando la informacion  
+            this.mostrarInformacion();  
+            this.alertasService.Swal_Success('Proceso de Aprobación realizado correctamente..');   
           }else{
             this.alertasService.Swal_alert('error', JSON.stringify(res.data));
             alert(JSON.stringify(res.data));
           }
-  })
-}  
+        })
+         
+      }
+    }) 
 
 
-cerrarModal_agrandarFoto(){
-  $('#modal_agrandarFoto').modal('hide');    
-}
-
-open_modalAgrandarFoto(objFoto:any){
- 
-
-  this.urlFotoAgrandar = objFoto.urlFoto;
-  this.objFotoAgrandar = objFoto;
-
-  setTimeout(()=>{ // 
-    $('#modal_agrandarFoto').modal('show');
-  },0);
-  
-}
+  }
 
   
  

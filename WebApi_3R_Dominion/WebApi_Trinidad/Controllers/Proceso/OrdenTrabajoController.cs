@@ -34,8 +34,9 @@ namespace WebApi_3R_Dominion.Controllers.Proceso
                     int idProveedor = Convert.ToInt32(parametros[3].ToString());
                     int idEstado = Convert.ToInt32(parametros[4].ToString());
                     int idUsuario = Convert.ToInt32(parametros[5].ToString());
+                    string nroOT = parametros[6].ToString();
 
-                    resul = obj_negocio.get_ordenTrabajoCab(idServicio, idTipoOT, idDistrito, idProveedor, idEstado, idUsuario);
+                    resul = obj_negocio.get_ordenTrabajoCab(idServicio, idTipoOT, idDistrito, idProveedor, idEstado, idUsuario, nroOT);
 
                 }
                 else if (opcion == 2)
@@ -226,10 +227,10 @@ namespace WebApi_3R_Dominion.Controllers.Proceso
                     int idProveedor = Convert.ToInt32(parametros[3].ToString());
                     int idEstado = Convert.ToInt32(parametros[4].ToString());
                     int idUsuario = Convert.ToInt32(parametros[5].ToString());
+                    string nroOT = parametros[6].ToString();
+ 
 
-                    //resul = obj_negocio.get_ordenTrabajoCab(idServicio, idTipoOT, idDistrito, idProveedor, idEstado, idUsuario);
-
-                    resul = obj_negocio.get_descargar_OT(idServicio, idTipoOT, idDistrito, idProveedor, idEstado, idUsuario);
+                    resul = obj_negocio.get_descargar_OT(idServicio, idTipoOT, idDistrito, idProveedor, idEstado, idUsuario, nroOT);
                 }
                 else if (opcion == 16)
                 {

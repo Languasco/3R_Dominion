@@ -91,10 +91,10 @@ export class AprobacionOTService {
     return this.http.get( this.URL + 'AprobarOT' , {params: parametros})
   }
 
-  get_descargarAprobarOTCab_general({idServicio, idTipoOT, idDistrito,idProveedor,idEstado }, idUsuario:number){ 
+  get_descargarAprobarOTCab_general({idServicio, idTipoOT, idDistrito,idProveedor,idEstado },fechaIni:string, fechaFin : string, idUsuario:number){ 
     let parametros = new HttpParams();
     parametros = parametros.append('opcion', '8');
-    parametros = parametros.append('filtro', idServicio + '|' +  idTipoOT + '|' +  idDistrito + '|' +  idProveedor + '|' +  idEstado + '|' +  idUsuario  );
+    parametros = parametros.append('filtro', idServicio + '|' +  idTipoOT + '|' +  idDistrito + '|' +  idProveedor + '|' +  idEstado + '|' +  idUsuario  + '|' +  fechaIni  + '|' +  fechaFin  );
     return this.http.get( this.URL + 'AprobarOT' , {params: parametros});
   }
 
