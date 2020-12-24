@@ -69,7 +69,7 @@ namespace Negocio.Procesos
                                 Entidad.referencia = dr["referencia"].ToString();
                                 Entidad.descripcion_OT = dr["descripcion_OT"].ToString();
                                 Entidad.id_estado = Convert.ToInt32(dr["id_estado"]);
- 
+                                Entidad.tipoTrabajo_OTOrigen = dr["tipoTrabajo_OTOrigen"].ToString();
 
 
                                 obj_List.Add(Entidad);
@@ -524,6 +524,7 @@ namespace Negocio.Procesos
                                 Entidad.referencia = dr["referencia"].ToString();
                                 Entidad.descripcion_OT = dr["descripcion_OT"].ToString();
                                 Entidad.id_estado = Convert.ToInt32(dr["id_estado"]);
+                                Entidad.tipoTrabajo_OTOrigen = dr["tipoTrabajo_OTOrigen"].ToString();
 
                                 obj_List.Add(Entidad);
                             }
@@ -584,7 +585,7 @@ namespace Negocio.Procesos
             return resultado;
         }
 
-        public object get_medidasOt(int idOt, int idTipoOt, int idUsuario)
+        public object get_medidasOt(int idOt, int idTipoOt, int idUsuario, string tipo)
         {
             Resultado res = new Resultado();
             //List<AprobarOT_E> obj_List = new List<AprobarOT_E>();
@@ -594,13 +595,14 @@ namespace Negocio.Procesos
                 using (SqlConnection cn = new SqlConnection(Conexion.bdConexion.cadenaBDcx()))
                 {
                     cn.Open();
-                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_APROBACION_OT_MEDIDAS_LISTAR", cn))
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_APROBACION_OT_MEDIDAS_LISTAR_New", cn))
                     {
                         cmd.CommandTimeout = 0;
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add("@idOT", SqlDbType.Int).Value = idOt;
                         cmd.Parameters.Add("@idTipoOT", SqlDbType.Int).Value = idTipoOt;
                         cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+                        cmd.Parameters.Add("@Tipo", SqlDbType.VarChar).Value = tipo;
 
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
@@ -693,7 +695,7 @@ namespace Negocio.Procesos
 
         ///-----DESMONTE
         //
-        public object get_desmonteOt(int idOt, int idTipoOt, int idUsuario)
+        public object get_desmonteOt(int idOt, int idTipoOt, int idUsuario, string tipo)
         {
             Resultado res = new Resultado();
             DataTable dt_detalle = new DataTable();
@@ -702,13 +704,14 @@ namespace Negocio.Procesos
                 using (SqlConnection cn = new SqlConnection(Conexion.bdConexion.cadenaBDcx()))
                 {
                     cn.Open();
-                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_APROBACION_OT_DESMONTE_LISTAR", cn))
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_APROBACION_OT_DESMONTE_LISTAR_new", cn))
                     {
                         cmd.CommandTimeout = 0;
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add("@idOT", SqlDbType.Int).Value = idOt;
                         cmd.Parameters.Add("@idTipoOT", SqlDbType.Int).Value = idTipoOt;
                         cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+                        cmd.Parameters.Add("@Tipo", SqlDbType.VarChar).Value = tipo;
 
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
@@ -1623,6 +1626,89 @@ namespace Negocio.Procesos
                         cmd.Parameters.Add("@codigosOT", SqlDbType.VarChar).Value = codigosOT;
                         cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
                         cmd.Parameters.Add("@idServicio", SqlDbType.Int).Value = idServicio;
+
+                        cmd.ExecuteNonQuery();
+                        resultado = "OK";
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                resultado = e.Message;
+            }
+            return resultado;
+        }
+
+        public string set_anularAprobacion(int idOT, int idUsuario)
+        {
+            string resultado = "";
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(bdConexion.cadenaBDcx()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_APROBACION_OT_ANULAR", cn))
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@idOT", SqlDbType.VarChar).Value = idOT;
+                        cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+
+                        cmd.ExecuteNonQuery();
+                        resultado = "OK";
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                resultado = e.Message;
+            }
+            return resultado;
+        }
+
+
+        public DataTable get_estadosAsignacion_ot(int idUsuario)
+        {
+            DataTable dt_detalle = new DataTable();
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(bdConexion.cadenaBDcx()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_ORDENES_TRABAJO_COMBO_ESTADO", cn))
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@Usuario", SqlDbType.Int).Value = idUsuario;
+
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt_detalle);
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return dt_detalle;
+        }
+
+        public string set_anularOT_masivo( string idOTMasivo, int idUsuario)
+        {
+            string resultado = "";
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(bdConexion.cadenaBDcx()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_ORDENES_TRABAJO_ANULAR_MASIVAMENTE", cn))
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@codigosOT", SqlDbType.VarChar).Value = idOTMasivo;
+                        cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
 
                         cmd.ExecuteNonQuery();
                         resultado = "OK";

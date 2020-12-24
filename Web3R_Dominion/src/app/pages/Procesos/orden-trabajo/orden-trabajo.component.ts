@@ -92,6 +92,7 @@ export class OrdenTrabajoComponent implements OnInit  {
    id_OTGlobal = 0;
    id_tipoOTGlobal = 0;
    id_estadoOTGlobal = 0;
+   tipoTrabajo_OTOrigenGlobal = '';
    id_FotoOTGlobal = 0;
  
    nroObraParteDiario_Global = '';
@@ -525,7 +526,7 @@ export class OrdenTrabajoComponent implements OnInit  {
 
  getCargarCombos(){ 
     this.spinner.show();
-    combineLatest([this.ordenTrabajoService.get_servicio(this.idUserGlobal), this.listaPreciosService.get_tipoOrdenTrabajo(), this.ordenTrabajoService.get_Distritos(), this.ordenTrabajoService.get_Proveedor_usuario(this.idUserGlobal), this.ordenTrabajoService.get_estados(), this.listaPreciosService.get_prioridades() ]).subscribe( ([ _servicios, _tipoOrdenTrabajo, _distritos, _proveedor,_estados, _prioridades ])=>{
+    combineLatest([this.ordenTrabajoService.get_servicio(this.idUserGlobal), this.listaPreciosService.get_tipoOrdenTrabajo(), this.ordenTrabajoService.get_Distritos(), this.ordenTrabajoService.get_Proveedor_usuario(this.idUserGlobal), this.ordenTrabajoService.get_estados(this.idUserGlobal), this.listaPreciosService.get_prioridades() ]).subscribe( ([ _servicios, _tipoOrdenTrabajo, _distritos, _proveedor,_estados, _prioridades ])=>{
         this.servicios = _servicios;
         this.tipoOrdenTrabajo = _tipoOrdenTrabajo; 
         this.distritos = _distritos; 
@@ -606,7 +607,7 @@ export class OrdenTrabajoComponent implements OnInit  {
       if (document.getElementById('btn' + item.id_OT)) { 
           google.maps.event.addDomListener(document.getElementById('btn' + item.id_OT), 'click', ()=> {  
 
-          this.abrirModal_OT({id_OT : item.id_OT,nroObra: item.nroOT ,fechaHora : item.fechaHora ,direccion: item.direccion , id_Distrito: item.id_Distrito , referencia : item.referencia, descripcion_OT : item.descripcion_OT, id_tipoTrabajo : item.id_tipoTrabajo ,id_estado: item.estado })
+          this.abrirModal_OT({id_OT : item.id_OT,nroObra: item.nroOT ,fechaHora : item.fechaHora ,direccion: item.direccion , id_Distrito: item.id_Distrito , referencia : item.referencia, descripcion_OT : item.descripcion_OT, id_tipoTrabajo : item.id_tipoTrabajo ,id_estado: item.estado , tipoTrabajo_OTOrigen : item.tipoTrabajo_OTOrigen  })
        
           });
           return
@@ -816,6 +817,39 @@ export class OrdenTrabajoComponent implements OnInit  {
       this.CalculototalGlobal();
    }
 
+
+   anularOT(){
+    if (this.validacionCheckMarcado()==false){
+      return;
+    } 
+
+    const codigosIdOT = this.funcionGlobalServices.obtenerCheck_IdPrincipal(this.ordenTrabajoCab,'id_OT');   
+      
+     this.alertasService.Swal_Question('Sistemas', 'Esta seguro de anular ?')
+     .then((result)=>{
+       if(result.value){
+  
+         Swal.fire({  icon: 'info', allowOutsideClick: false, allowEscapeKey: false, text: 'Espere por favor'  })
+         Swal.showLoading();
+         this.ordenTrabajoService.set_anular_ordenTrabajoMasivo( codigosIdOT.join(), this.idUserGlobal ).subscribe((res:RespuestaServer)=>{
+           Swal.close();        
+           if (res.ok ==true) { 
+             
+           //-----listando la informacion  
+             this.mostrarInformacion();  
+             this.alertasService.Swal_Success('Se anulo correctamente..')  
+  
+           }else{
+             this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+             alert(JSON.stringify(res.data));
+           }
+         })
+          
+       }
+     }) 
+
+  }
+
   verificarProveedor(idProveedor:number){
     let flagProveedor=0;
     for (const prove of this.proveedor) {
@@ -875,7 +909,7 @@ export class OrdenTrabajoComponent implements OnInit  {
       if (res.ok) { 
          this.alertasService.Swal_Success("Proceso realizado correctamente..")
            //-----listando la informacion  
-         this.mostrarInformacion();  
+           this.mostrarInformacion();  
       }else{
         this.alertasService.Swal_alert('error', JSON.stringify(res.data));
         alert(JSON.stringify(res.data));
@@ -1243,7 +1277,7 @@ export class OrdenTrabajoComponent implements OnInit  {
   }
 
   get_medidasOT(){
-    this.aprobacionOTService.get_medidasOT(this.id_OTGlobal, this.id_tipoOTGlobal, this.idUserGlobal).subscribe((res:RespuestaServer)=>{
+    this.aprobacionOTService.get_medidasOT(this.id_OTGlobal, this.id_tipoOTGlobal, this.idUserGlobal, 'A').subscribe((res:RespuestaServer)=>{
      if (res.ok) {            
        this.medidasDetalle = res.data; 
        
@@ -1262,7 +1296,7 @@ export class OrdenTrabajoComponent implements OnInit  {
   }
 
   get_desmonteOT(){
-    this.aprobacionOTService.get_mesmonteOT(this.id_OTGlobal, this.id_tipoOTGlobal, this.idUserGlobal).subscribe((res:RespuestaServer)=>{
+    this.aprobacionOTService.get_mesmonteOT(this.id_OTGlobal, this.id_tipoOTGlobal, this.idUserGlobal, 'A').subscribe((res:RespuestaServer)=>{
      if (res.ok) {            
        this.desmonteDetalle = res.data; 
        
@@ -1291,7 +1325,7 @@ export class OrdenTrabajoComponent implements OnInit  {
     })        
   }
 
-  abrirModal_OT( {id_OT,nroObra,fechaHora,direccion, id_Distrito, referencia, descripcion_OT, id_tipoTrabajo,id_estado  }){ 
+  abrirModal_OT( {id_OT,nroObra,fechaHora,direccion, id_Distrito, referencia, descripcion_OT, id_tipoTrabajo,id_estado , tipoTrabajo_OTOrigen }){ 
 
     // //----- Datos Generales  -----  
     this.id_OTGlobal = id_OT;
@@ -1299,6 +1333,7 @@ export class OrdenTrabajoComponent implements OnInit  {
     this.nroObraParteDiario_Global = nroObra;
     this.fechaHora_Global = fechaHora;
     this.id_estadoOTGlobal = id_estado;
+    this.tipoTrabajo_OTOrigenGlobal = tipoTrabajo_OTOrigen;
   
     this.totalGlobal =0;
     this.totalGlobal14 =0;

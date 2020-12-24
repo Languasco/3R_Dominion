@@ -59,19 +59,22 @@ export class AprobacionOTService {
   }
 
   
-  get_medidasOT( idOT:number, idTipoOT:number, idUsuario :number){ 
+  get_medidasOT( idOT:number, idTipoOT:number, idUsuario :number, tipo = '' ){ 
     let parametros = new HttpParams();
     parametros = parametros.append('opcion', '3');
-    parametros = parametros.append('filtro', idOT + '|' + idTipoOT + '|' + idUsuario);
+    parametros = parametros.append('filtro', idOT + '|' + idTipoOT + '|' + idUsuario + '|' + tipo );
+    
+    console.log(parametros)
     return this.http.get( this.URL + 'AprobarOT' , {params: parametros})
+
   }
 
   get_fotosOT( id_OTDet:number, idTipoOT:number, idUsuario :number){ 
     let parametros = new HttpParams();
     parametros = parametros.append('opcion', '4');
-    parametros = parametros.append('filtro', id_OTDet + '|' + idTipoOT + '|' + idUsuario);
+    parametros = parametros.append('filtro', id_OTDet + '|' + idTipoOT + '|' + idUsuario );
 
-    console.log(parametros);
+ 
     return this.http.get( this.URL + 'AprobarOT' , {params: parametros})
   }
 
@@ -84,10 +87,10 @@ export class AprobacionOTService {
   }
 
 
-  get_mesmonteOT( idOT:number, idTipoOT:number, idUsuario :number){ 
+  get_mesmonteOT( idOT:number, idTipoOT:number, idUsuario :number, tipo = '' ){ 
     let parametros = new HttpParams();
     parametros = parametros.append('opcion', '6');
-    parametros = parametros.append('filtro', idOT + '|' + idTipoOT + '|' + idUsuario);
+    parametros = parametros.append('filtro', idOT + '|' + idTipoOT + '|' + idUsuario + '|' + tipo );
     return this.http.get( this.URL + 'AprobarOT' , {params: parametros})
   }
 

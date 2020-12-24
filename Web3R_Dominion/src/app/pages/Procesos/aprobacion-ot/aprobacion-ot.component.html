@@ -40,28 +40,21 @@
             </div>
 
             <div class="row" style=" margin-top: 0px;">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <label for=""> Distrito</label>
                     <select class="form-control comboBox" formControlName="idDistrito">
                         <option value="0"> [ --TODOS-- ]</option>
                         <option [value]="dist.id_Distrito" *ngFor="let dist of distritos">{{dist.nombreDistrito}}</option>
                     </select>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <label for=""> Sub Contrata</label>
                     <select class="form-control comboBox" formControlName="idProveedor">
                         <option value="0"> [ -- TODOS -- ]</option>
                         <option [value]="item.id_Empresa" *ngFor="let item of proveedor">{{item.razonSocial_Empresa}}</option>
                     </select>
                 </div>
-                <div class="col-md-2 ">
-                    <label for=""> Estado</label>
-                    <select class="form-control comboBox" formControlName="idEstado">
-                        <option value="0"> [ --SELECCIONE-- ]</option>
-                        <option [value]="estado.id_Estado" *ngFor="let estado of estados">{{estado.descripcion_estado}}</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="mt-4">
                         <button class="btn btn-primary  btn-block " (click)="mostrarInformacion()" style="font-size: 13px;">  <i class="fas fa-search"> Actualizar</i> </button>
                     </div>
@@ -124,6 +117,7 @@
                                 <th class="text-center">Fecha Aprobacion</th>
                                 <th class="text-center">Dias Vencimiento</th>
                                 <th class="text-center">Prioridad</th>
+                                <th class="text-center" *ngIf="idPerfil_global == 1 || idPerfil_global == 2 || idPerfil_global == 5">Anular</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -189,6 +183,9 @@
                                 <td>{{item.fechaAprobacion}}</td>
                                 <td class="text-right">{{item.diasVencimiento }}</td>
                                 <td>{{item.prioridad}}</td>
+                                <td *ngIf="idPerfil_global == 1 || idPerfil_global == 2 || idPerfil_global == 5">
+                                    <span class="badge badge-danger puntero" style="font-size: 11px;" (click)=" anular(item) " title="quitar el registro"> Anular</span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -252,6 +249,10 @@
                     <div class="col-md-3">
                         <label> Fecha y Hora de Registro</label>
                         <input type="text" class="form-control disabledForm" [(ngModel)]="fechaHora_Global">
+                    </div>
+                    <div class="col-md-3" *ngIf="id_tipoOTGlobal == 5">
+                        <label> Trabajo Origen</label>
+                        <input type="text" class="form-control disabledForm" [(ngModel)]="tipoTrabajo_OTOrigenGlobal">
                     </div>
 
                 </div>
@@ -480,12 +481,8 @@
             </div>
             <div class="modal-body">
 
-                <!-- <div class="row" *ngIf="this.detalleOT">
-                    <div class=" col-md-12">
-                        <label for=""> Tipo de Material : {{this.detalleOT.tipoMaterial}} </label>
-                    </div>
-                </div> -->
-                <div class="d-flex justify-content-start" *ngIf="this.detalleOT">
+
+                <!-- <div class="d-flex justify-content-start" *ngIf="this.detalleOT">
                     <div class="bd-highlight">
                         <label> 
                             {{ (this.id_tipoOTGlobal == 3 || this.id_tipoOTGlobal == 4 )? 'TIPO MATERIAL ' : 'TIPO DESMONTE '  }}
@@ -493,6 +490,27 @@
                     </div>
                     <div class="bd-highlight ml-2">
                         <label> {{this.detalleOT.tipoMaterial}} </label>
+                    </div>
+                </div> -->
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row" *ngIf="this.detalleOT">
+                            <div class="col-xs-6 col-md-3">
+                                <label> 
+                                    {{ (this.id_tipoOTGlobal == 3 || this.id_tipoOTGlobal == 4 )? 'TIPO MATERIAL :  ' : 'TIPO DESMONTE : '  }} {{this.detalleOT.tipoMaterial}}
+                                </label>
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+                                <label for=""> Cant Paños :  {{this.detalleOT.cantPanios}} </label>
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+                                <label for=""> Med. Horizontal :  {{this.detalleOT.medHorizontal}}  </label>
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+                                <label for="">  Med. Vertical :  {{this.detalleOT.medVertical}}  </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -510,6 +528,8 @@
                         <label for=""> Total :  {{this.detalleOT.total}}  </label>
                     </div>
                 </div>
+
+
                 <br>
                 <div class="row">
                     <div class="col-md-12">

@@ -32,6 +32,7 @@ namespace Entidades.Procesos
         public string descripcion_OT { get; set; }
         public int id_estado { get; set; }
         public string descripcionServicio { get; set; }
+        public string tipoTrabajo_OTOrigen { get; set; }
 
     }
     public class Resumen_OrdenTrabajo_E
@@ -75,6 +76,9 @@ namespace Entidades.Procesos
         public string  referencia  { get; set; }
         public string  descripcion_OT  { get; set; }
         public int id_estado  { get; set; }
+        public string tipoTrabajo_OTOrigen { get; set; }
+
+        
 
 
     }

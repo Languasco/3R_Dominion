@@ -16,6 +16,10 @@ namespace Entidades.Reportes
         public bool checkeado { get; set; }
         public string descripcionEstado { get; set; }
         public string tipoOT { get; set; }
+
+        public string nroSed { get; set; }
+        public string nroSuministro { get; set; }
+
         public string nroObra { get; set; }
  
         public string direccion { get; set; }
@@ -23,6 +27,7 @@ namespace Entidades.Reportes
         public string latitud { get; set; }
         public string longitud { get; set; }
 
+        public string FechaOrigen { get; set; }
         public string FechaAsignacion { get; set; }
         public string FechaMovil { get; set; }
 
@@ -51,6 +56,9 @@ namespace Entidades.Reportes
         public int id_estado { get; set; }
         public string descripcionServicio { get; set; }
         public string color { get; set; }
+        public string viajeIndebido { get; set; }
+        public string tipoTrabajo_OTOrigen { get; set; }
+
     }
 
 

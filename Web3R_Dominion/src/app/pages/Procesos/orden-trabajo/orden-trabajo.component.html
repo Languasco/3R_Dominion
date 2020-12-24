@@ -94,9 +94,9 @@
                                                   ACCIONES
                                                 </button>
                                                 <div class="dropdown-menu text-center">
-                                                    <div class="p-2">
+                                                    <!-- <div class="p-2">
                                                         <button class="btn btn-danger btn-block  " style="font-size: 13px;" (click)="asignacionAutomatica()">  <i class="fa fa-plus-circle"> Asignacion Automatica</i> </button>
-                                                    </div>
+                                                    </div> -->
 
                                                     <div class="p-2">
                                                         <button class="btn btn-dark btn-block  " style="font-size: 13px;" (click)="OpenModal_Prioridad()">  <i class="far fa-share-square"> Envio Prioridad</i> </button>
@@ -107,6 +107,9 @@
                                                     </div>
                                                     <div class="p-2">
                                                         <button class="btn btn-info btn-block  " (click)="abrir_modalOT('Reasignar')" style="font-size: 13px;">  <i class="fa fa-edit"> Reasignar OT</i> </button>
+                                                    </div>
+                                                    <div class="p-2">
+                                                        <button class="btn btn-danger btn-block  " (click)="anularOT()" style="font-size: 13px;">  <i class="fas fa-ban"> Anular OT</i> </button>
                                                     </div>
 
                                                     <div class="dropdown-divider"></div>
@@ -655,6 +658,10 @@
                         <label> Fecha y Hora de Registro</label>
                         <input type="text" class="form-control disabledForm" [(ngModel)]="fechaHora_Global">
                     </div>
+                    <div class="col-md-3" *ngIf="id_tipoOTGlobal == 5">
+                        <label> Trabajo Origen</label>
+                        <input type="text" class="form-control disabledForm" [(ngModel)]="tipoTrabajo_OTOrigenGlobal">
+                    </div>
 
                 </div>
 
@@ -887,23 +894,34 @@
                 </div>
             </div>
             <div class="modal-body">
-                <div class="d-flex justify-content-between">
-                    <div class="p-2 bd-highlight" *ngIf="this.detalleOT">
-                        <label> 
-                            {{ (this.id_tipoOTGlobal == 3 || this.id_tipoOTGlobal == 4 )? 'TIPO MATERIAL :  ' : 'TIPO DESMONTE : '  }}
-                        </label>
 
-                        <label style="margin-left: 5px;">  {{this.detalleOT.tipoMaterial}} </label>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="row" *ngIf="this.detalleOT">
+                            <div class="col-xs-6 col-md-3">
+                                <label> 
+                                    {{ (this.id_tipoOTGlobal == 3 || this.id_tipoOTGlobal == 4 )? 'TIPO MATERIAL :  ' : 'TIPO DESMONTE : '  }} {{this.detalleOT.tipoMaterial}}
+                                </label>
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+                                <label for=""> Cant Paños :  {{this.detalleOT.cantPanios}} </label>
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+                                <label for=""> Med. Horizontal :  {{this.detalleOT.medHorizontal}}  </label>
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+                                <label for="">  Med. Vertical :  {{this.detalleOT.medVertical}}  </label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="p-2 bd-highlight">
-
-                    </div>
-                    <div class="p-2 bd-highlight">
-                        <button style="margin-top: -22px !important; font-size: 11px;" class="btn  btn-sm  btn-warning " (click)="descargarFotosOT_visor('V')" title="Descargar">
+                    <div class="col-md-3">
+                        <button style="margin-top: -5px !important; font-size: 11px;" class="btn  btn-sm  btn-warning " (click)="descargarFotosOT_visor('V')" title="Descargar">
                             <i class="fas fa-file-download"> Descargar</i> 
                         </button>
                     </div>
                 </div>
+
+
                 <div class="row" *ngIf="this.detalleOT">
                     <div class=" col-md-3 col-6">
                         <label for=""> Largo : {{this.detalleOT.largo}} </label>

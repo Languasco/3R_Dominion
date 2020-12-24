@@ -55,6 +55,7 @@ import { TreeviewModule } from 'ngx-treeview';
 import { CargoPersonalComponent } from './pages/Mantenimientos/cargo-personal/cargo-personal.component';
 import { EstadosComponent } from './pages/Mantenimientos/estados/estados.component';
 import { ReporteAnalisisComponent } from './pages/Reportes/reporte-analisis/reporte-analisis.component';
+import { DetalladoContratistaComponent } from './pages/Reportes/detallado-contratista/detallado-contratista.component';
 
  
 const config: SocketIoConfig = { url: 'http://190.223.38.245:5000', options: {} }; 
@@ -84,7 +85,8 @@ const config: SocketIoConfig = { url: 'http://190.223.38.245:5000', options: {} 
     UbicacionOtComponent,
     CargoPersonalComponent,
     EstadosComponent,
-    ReporteAnalisisComponent
+    ReporteAnalisisComponent,
+    DetalladoContratistaComponent
   ],
   imports: [
     BrowserModule,

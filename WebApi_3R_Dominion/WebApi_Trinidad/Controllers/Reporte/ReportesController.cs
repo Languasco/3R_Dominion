@@ -131,8 +131,6 @@ namespace WebApi_3R_Dominion.Controllers.Reporte
                     int tipoReporte = Convert.ToInt32(parametros[6].ToString());
                     int idUsuario = Convert.ToInt32(parametros[7].ToString());
 
- 
-
 
                     if (tipoReporte == 1)
                     {
@@ -146,7 +144,14 @@ namespace WebApi_3R_Dominion.Controllers.Reporte
                     {
                         resul = obj_negocio.get_descargar_reparacionDesmonte(idServicio, idTipoOT, idProveedor, fechaIni, fechaFin, idEstado, idUsuario);
                     }
-
+                    if (tipoReporte == 4)
+                    {
+                        resul = obj_negocio.get_descargar_detalleOT(idServicio, idTipoOT, idProveedor, fechaIni, fechaFin, idEstado, idUsuario);
+                    }
+                    if (tipoReporte == 5)
+                    {
+                        resul = obj_negocio.get_descargar_detalleContratista(idServicio, idTipoOT, idProveedor, fechaIni, fechaFin, idEstado, idUsuario);
+                    }
 
                 }
 

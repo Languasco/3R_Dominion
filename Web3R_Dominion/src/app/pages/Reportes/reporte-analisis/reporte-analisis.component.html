@@ -30,9 +30,9 @@
                 <div class="col-md-2">
                     <label class="control-label"> Rango Fechas </label>
                     <div class="input-group">
-                        <input class="form-control" #datepickerYMD="bsDatepicker" bsDatepicker formControlName="fecha_ini" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'  }">
+                        <input class="form-control" #datepickerYMD="bsDatepicker" bsDatepicker formControlName="fecha_ini" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' , containerClass: 'theme-dark-blue'}">
                         <span class="input-group-addon">-</span>
-                        <input class="form-control" #datepickerYMD="bsDatepicker" bsDatepicker formControlName="fecha_fin" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }">
+                        <input class="form-control" #datepickerYMD="bsDatepicker" bsDatepicker formControlName="fecha_fin" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-dark-blue'}">
                     </div>
                 </div>
                 <div class="col-md-2 ">
@@ -59,6 +59,10 @@
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" id="inlineRadio3" formControlName="tipoReporte" name="tipoReporte" value="3">
                         <label class="form-check-label" style="font-size: 11px;" for="inlineRadio3">  CONTRATA REPARACION DE DESMONTE  </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="inlineRadio4" formControlName="tipoReporte" name="tipoReporte" value="4">
+                        <label class="form-check-label" style="font-size: 11px;" for="inlineRadio4">  DETALLADO  </label>
                     </div>
                 </div>
                 <div class="col-md-2"> </div>

@@ -30,9 +30,9 @@
                 <div class="col-md-2">
                     <label class="control-label"> Rango Fechas </label>
                     <div class="input-group">
-                        <input class="form-control" #datepickerYMD="bsDatepicker" bsDatepicker formControlName="fecha_ini" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'  }">
+                        <input class="form-control" #datepickerYMD="bsDatepicker" bsDatepicker formControlName="fecha_ini" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-dark-blue'}">
                         <span class="input-group-addon">-</span>
-                        <input class="form-control" #datepickerYMD="bsDatepicker" bsDatepicker formControlName="fecha_fin" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }">
+                        <input class="form-control" #datepickerYMD="bsDatepicker" bsDatepicker formControlName="fecha_fin" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-dark-blue'}">
                     </div>
                 </div>
                 <div class="col-md-2 ">
@@ -83,11 +83,17 @@
                                 <th class="text-center">Servicio</th>
                                 <th class="text-center">Estado</th>
                                 <th class="text-center">Tipo OT</th>
+
+                                <th class="text-center">Sed</th>
+                                <th class="text-center">Nro Suministro</th>
+
+
                                 <th class="text-center">Nro Obra/TD</th>
                                 <th class="text-center">Direccion</th>
                                 <th class="text-center">Distrito</th>
                                 <th class="text-center">Ubicacion</th>
-
+                                <th class="text-center">Viaje Indebido</th>
+                                <th class="text-center">Fecha Origen</th>
                                 <th class="text-center">Fecha Asignacion</th>
                                 <th class="text-center">Fecha Envio Movil</th>
                                 <th class="text-center">Emp. Contratista</th>
@@ -126,7 +132,12 @@
                                     <div style="width: 300px;"> {{item.descripcionEstado}} </div>
                                 </td>
                                 <td>{{item.tipoOT}}</td>
-                                <td>{{item.nroObra}}</td>
+                                <td>{{item.nroSed}}</td>
+                                <td>{{item.nroSuministro}}</td>
+
+                                <td>
+                                    <div style="width: 120px;"> {{item.nroObra}} </div>
+                                </td>
                                 <td>
                                     <div style="width: 300px;"> {{item.direccion}} </div>
                                 </td>
@@ -137,6 +148,12 @@
                                 <td *ngIf="item.latitud.length ==0 " class="text-center puntero"> </td>
                                 <td *ngIf="item.latitud.length > 0 " class="text-center puntero" (click)="abrirModalMapa(item.latitud, item.longitud )"> <i title="ver mapa" style="color: red;" class="fas fa-map-marker-alt fa-2x">  </i> </td>
 
+                                <td class="text-center">
+                                    <div style="width: 160px;"> {{item.viajeIndebido}}</div>
+                                </td>
+                                <td class="text-center">
+                                    <div style="width: 160px;"> {{item.FechaOrigen}}</div>
+                                </td>
                                 <td>
                                     <div style="width: 160px;"> {{item.FechaAsignacion}}</div>
                                 </td>
@@ -236,6 +253,10 @@
                     <div class="col-md-3">
                         <label> Fecha y Hora de Registro</label>
                         <input type="text" class="form-control disabledForm" [(ngModel)]="fechaHora_Global">
+                    </div>
+                    <div class="col-md-3" *ngIf="id_tipoOTGlobal == 5">
+                        <label> Trabajo Origen</label>
+                        <input type="text" class="form-control disabledForm" [(ngModel)]="tipoTrabajo_OTOrigenGlobal">
                     </div>
 
                 </div>
@@ -471,32 +492,9 @@
                 </div>
             </div>
             <div class="modal-body">
-                <!-- <div class="d-flex justify-content-start" *ngIf="this.detalleOT">
-                    <div class="bd-highlight">
-                        <label> 
-                            {{ (this.id_tipoOTGlobal == 3 || this.id_tipoOTGlobal == 4 )? 'TIPO MATERIAL ' : 'TIPO DESMONTE '  }}
-                        </label>
-                    </div>
-                    <div class="bd-highlight ml-2">
-                        <label> {{this.detalleOT.tipoMaterial}} </label>
-                    </div>
-
-                     <div class="bd-highlight ml-2">
-                        <label> {{this.detalleOT.tipoMaterial}} </label>
-                    </div> 
-
-                    <div class="row">
-                        <div class="col-md-12 text-right">
-                            <button style="margin-top: -22px !important;" class="btn  btn-sm  btn-warning " (click)="descargarFotosOT('P')" title="Descargar">
-                                    <i class="fas fa-file-download"> Descargar</i> 
-                            </button>
-                        </div>
-                    </div>
-                </div> -->
 
 
-
-                <div class="d-flex justify-content-between">
+                <!-- <div class="d-flex justify-content-between">
                     <div class="p-2 bd-highlight" *ngIf="this.detalleOT">
                         <label> 
                             {{ (this.id_tipoOTGlobal == 3 || this.id_tipoOTGlobal == 4 )? 'TIPO MATERIAL :  ' : 'TIPO DESMONTE : '  }}
@@ -509,6 +507,33 @@
                     </div>
                     <div class="p-2 bd-highlight">
                         <button style="margin-top: -22px !important; font-size: 11px;" class="btn  btn-sm  btn-warning " (click)="descargarFotosOT_visor('V')" title="Descargar">
+                            <i class="fas fa-file-download"> Descargar</i> 
+                        </button>
+                    </div>
+                </div> -->
+
+
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="row" *ngIf="this.detalleOT">
+                            <div class="col-xs-6 col-md-3">
+                                <label> 
+                                    {{ (this.id_tipoOTGlobal == 3 || this.id_tipoOTGlobal == 4 )? 'TIPO MATERIAL :  ' : 'TIPO DESMONTE : '  }} {{this.detalleOT.tipoMaterial}}
+                                </label>
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+                                <label for=""> Cant Paños :  {{this.detalleOT.cantPanios}} </label>
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+                                <label for=""> Med. Horizontal :  {{this.detalleOT.medHorizontal}}  </label>
+                            </div>
+                            <div class="col-xs-6 col-md-3">
+                                <label for="">  Med. Vertical :  {{this.detalleOT.medVertical}}  </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <button style="margin-top: -5px !important; font-size: 11px;" class="btn  btn-sm  btn-warning " (click)="descargarFotosOT_visor('V')" title="Descargar">
                             <i class="fas fa-file-download"> Descargar</i> 
                         </button>
                     </div>

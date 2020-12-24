@@ -51,18 +51,27 @@ namespace WebApi_3R_Dominion.Controllers.Proceso
                 }
                 else if (opcion == 3)
                 {
-                    //var IDestados = new string[] { "5","6" };                
+
+                    //res.ok = true;
+                    //res.data = (from a in db.tbl_Estados
+                    //             where a.tipoproceso_estado == "OTW"
+                    //            select new
+                    //            {
+                    //                a.id_Estado,
+                    //                a.descripcion_estado
+                    //            }).ToList();
+                    //res.totalpage = 0;
+                    //resul = res;
+
+
+                    string[] parametros = filtro.Split('|');
+                    int idUsuario = Convert.ToInt32(parametros[0].ToString());
+
                     res.ok = true;
-                    res.data = (from a in db.tbl_Estados
-                                    //where IDestados.Contains(a.id_Estado.ToString())
-                                where a.tipoproceso_estado == "OTW"
-                                select new
-                                {
-                                    a.id_Estado,
-                                    a.descripcion_estado
-                                }).ToList();
+                    res.data = obj_negocio.get_estadosAsignacion_ot(idUsuario);
                     res.totalpage = 0;
                     resul = res;
+
                 }
                 else if (opcion == 4)
                 {
@@ -251,6 +260,28 @@ namespace WebApi_3R_Dominion.Controllers.Proceso
                     int idUsuario = Convert.ToInt32(parametros[0].ToString());
 
                     resul = obj_negocio.get_notificacionVencimientoOT(idUsuario); ;
+                }
+                else if (opcion == 18)
+                {
+                    string[] parametros = filtro.Split('|');
+                    int idOT = Convert.ToInt32(parametros[0].ToString());
+                    int idUsuario = Convert.ToInt32(parametros[1].ToString());
+
+                    res.ok = true;
+                    res.data = obj_negocio.set_anularAprobacion(idOT, idUsuario);
+                    res.totalpage = 0;
+                    resul = res;
+                }
+                else if (opcion == 19)
+                {
+                    string[] parametros = filtro.Split('|');
+                    string idOTMasivo =  parametros[0].ToString();
+                    int idUsuario = Convert.ToInt32(parametros[1].ToString());
+
+                    res.ok = true;
+                    res.data = obj_negocio.set_anularOT_masivo(idOTMasivo, idUsuario);
+                    res.totalpage = 0;
+                    resul = res;
                 }
                 else
                 {

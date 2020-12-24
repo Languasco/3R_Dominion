@@ -57,8 +57,9 @@ namespace WebApi_3R_Dominion.Controllers.Proceso
                     int idOt = Convert.ToInt32(parametros[0].ToString());
                     int idTipoOT = Convert.ToInt32(parametros[1].ToString());
                     int idUsuario = Convert.ToInt32(parametros[2].ToString());
+                    string tipo = parametros[3].ToString();
 
-                    resul = obj_negocio.get_medidasOt(idOt, idTipoOT,  idUsuario);
+                    resul = obj_negocio.get_medidasOt(idOt, idTipoOT,  idUsuario, tipo);
                 }
                 else if (opcion == 4)
                 {
@@ -82,8 +83,9 @@ namespace WebApi_3R_Dominion.Controllers.Proceso
                     int idOt = Convert.ToInt32(parametros[0].ToString());
                     int idTipoOT = Convert.ToInt32(parametros[1].ToString());
                     int idUsuario = Convert.ToInt32(parametros[2].ToString());
+                    string tipo = parametros[3].ToString();
 
-                    resul = obj_negocio.get_desmonteOt(idOt, idTipoOT, idUsuario);
+                    resul = obj_negocio.get_desmonteOt(idOt, idTipoOT, idUsuario, tipo);
                 }
                 else if (opcion == 7)
                 { 

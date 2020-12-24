@@ -69,6 +69,7 @@ export class DetalleOTComponent implements OnInit,AfterViewInit {
 
   nroObraParteDiario_Global = '';
   fechaHora_Global = '';
+  tipoTrabajo_OTOrigenGlobal= '';
 
   totalGlobal =0;
   totalGlobal14 =0;
@@ -181,6 +182,7 @@ export class DetalleOTComponent implements OnInit,AfterViewInit {
               this.spinner.hide();
               if (res.ok==true) {        
                   this.ordenTrabajoCab = res.data;  
+                  console.log(  this.ordenTrabajoCab)
                }else{
                 this.alertasService.Swal_alert('error', JSON.stringify(res.data));
                 alert(JSON.stringify(res.data));
@@ -247,7 +249,7 @@ cerrarModal_OT(){
   },0); 
 }
 
-abrirModal_OT( {id_OT,nroObra,FechaAsignacion,direccion, id_Distrito, referencia, descripcion_OT, id_tipoTrabajo,id_estado  }){ 
+abrirModal_OT( {id_OT,nroObra,FechaAsignacion,direccion, id_Distrito, referencia, descripcion_OT, id_tipoTrabajo,id_estado ,tipoTrabajo_OTOrigen }){ 
 
   // //----- Datos Generales  -----  
   this.id_OTGlobal = id_OT;
@@ -255,6 +257,7 @@ abrirModal_OT( {id_OT,nroObra,FechaAsignacion,direccion, id_Distrito, referencia
   this.nroObraParteDiario_Global = nroObra;
   this.fechaHora_Global = FechaAsignacion;
   this.id_estadoOTGlobal = id_estado;
+  this.tipoTrabajo_OTOrigenGlobal = tipoTrabajo_OTOrigen;
 
   this.totalGlobal =0;
   this.totalGlobal14 =0;
@@ -460,10 +463,10 @@ descargarGrilla(){
     return 
   }
 
-  if (this.formParamsFiltro.value.idEstado == '' || this.formParamsFiltro.value.idEstado == 0) {
-    this.alertasService.Swal_alert('error','Por favor seleccione un Estado');
-    return 
-  }
+  // if (this.formParamsFiltro.value.idEstado == '' || this.formParamsFiltro.value.idEstado == 0) {
+  //   this.alertasService.Swal_alert('error','Por favor seleccione un Estado');
+  //   return 
+  // }
 
   const fechaIni = this.funcionGlobalServices.formatoFecha(this.formParamsFiltro.value.fecha_ini);
   const fechaFin = this.funcionGlobalServices.formatoFecha(this.formParamsFiltro.value.fecha_fin);

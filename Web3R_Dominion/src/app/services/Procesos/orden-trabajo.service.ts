@@ -98,13 +98,13 @@ export class OrdenTrabajoService {
 
 
 
-  get_estados(){
+  get_estados(idusuario:number){
     if (this.estados.length > 0) {
       return of( this.estados )
     }else{
       let parametros = new HttpParams();
       parametros = parametros.append('opcion', '3');
-      parametros = parametros.append('filtro', '');
+      parametros = parametros.append('filtro', String(idusuario));
  
       
       return this.http.get( this.URL + 'OrdenTrabajo' , {params: parametros})
@@ -158,6 +158,8 @@ export class OrdenTrabajoService {
     parametros = parametros.append('opcion', '4');
     parametros = parametros.append('filtro', codigoOT + '|' +  opcionModal + '|' +  empresa1 + '|' +  jefeCuadrilla1 + '|' +  empresa2 + '|' +  jefeCuadrilla2  + '|' +  observaciones+ '|' +  fechaAsigna + '|' +  idUsuario );
 
+    console.log(parametros);
+ 
  
     return this.http.get( this.URL + 'OrdenTrabajo' , {params: parametros});
   }
@@ -235,7 +237,23 @@ export class OrdenTrabajoService {
   parametros = parametros.append('opcion', '11');
   parametros = parametros.append('filtro', otMasivo + '|' +   idUsuario + '|' +   idServicio   );
   return this.http.get( this.URL + 'AprobarOT' , {params: parametros});
-}
+  }
+  
+  set_anular_aprobacionOT (idOT:number, idUsuario:number){ 
+    let parametros = new HttpParams();
+    parametros = parametros.append('opcion', '18');
+    parametros = parametros.append('filtro', idOT + '|' +   idUsuario  );
+    return this.http.get( this.URL + 'OrdenTrabajo' , {params: parametros});
+  }
+    
+  set_anular_ordenTrabajoMasivo (idOTMasivo:string, idUsuario:number){ 
+    let parametros = new HttpParams();
+    parametros = parametros.append('opcion', '19');
+    parametros = parametros.append('filtro', idOTMasivo + '|' +   idUsuario  );
+    return this.http.get( this.URL + 'OrdenTrabajo' , {params: parametros});
+  }
+
+
 
 
 

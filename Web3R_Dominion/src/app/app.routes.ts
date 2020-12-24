@@ -18,6 +18,7 @@ import { CargoPersonalComponent } from './pages/Mantenimientos/cargo-personal/ca
 import { AreasComponent } from './pages/Mantenimientos/areas/areas.component';
 import { EstadosComponent } from './pages/Mantenimientos/estados/estados.component';
 import { ReporteAnalisisComponent } from './pages/Reportes/reporte-analisis/reporte-analisis.component';
+import { DetalladoContratistaComponent } from './pages/Reportes/detallado-contratista/detallado-contratista.component';
  
  
 const APP_ROUTERS: Routes = [
@@ -46,6 +47,7 @@ const APP_ROUTERS: Routes = [
     { path: 'mantenimiento-estados', component: EstadosComponent},  
 
     { path: 'reporte-analisis', component: ReporteAnalisisComponent},  
+    { path: 'reporte-detallado-contratista', component: DetalladoContratistaComponent},  
 
     { path: '', pathMatch:'full', redirectTo:'inicio' },
     { path: '**', pathMatch:'full', redirectTo:'inicio' },

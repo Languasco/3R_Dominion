@@ -45,6 +45,7 @@ export class AprobacionOTComponent implements OnInit,AfterViewInit {
   tituloModal = "";
   objFotoAgrandar = {};
   urlFotoAgrandar = '';
+  tipoTrabajo_OTOrigenGlobal = '';
 
   checkeadoAll=false; 
   datepiekerConfig:Partial<BsDatepickerConfig>;
@@ -72,9 +73,12 @@ export class AprobacionOTComponent implements OnInit,AfterViewInit {
   totalGlobal14 =0;
   totalGlobal15 =0;
 
+  idPerfil_global =0;
+
   
   constructor(private alertasService : AlertasService, private spinner: NgxSpinnerService, private loginService: LoginService, private listaPreciosService : ListaPreciosService, private ordenTrabajoService : OrdenTrabajoService, private aprobacionOTService : AprobacionOTService , private funcionGlobalServices : FuncionesglobalesService ) {         
       this.idUserGlobal = this.loginService.get_idUsuario();
+      this.idPerfil_global = this.loginService.get_idPerfil(); 
   }
  
  ngOnInit(): void {
@@ -262,7 +266,7 @@ cerrarModal_OT(){
   },0); 
 }
 
-abrirModal_OT( {id_OT,nroObra,fechaHora,direccion, id_Distrito, referencia, descripcion_OT, id_tipoTrabajo,id_estado  }){ 
+abrirModal_OT( {id_OT,nroObra,fechaHora,direccion, id_Distrito, referencia, descripcion_OT, id_tipoTrabajo,id_estado, tipoTrabajo_OTOrigen  }){ 
 
   // //----- Datos Generales  -----  
   this.id_OTGlobal = id_OT;
@@ -270,6 +274,7 @@ abrirModal_OT( {id_OT,nroObra,fechaHora,direccion, id_Distrito, referencia, desc
   this.nroObraParteDiario_Global = nroObra;
   this.fechaHora_Global = fechaHora;
   this.id_estadoOTGlobal = id_estado;
+  this.tipoTrabajo_OTOrigenGlobal = tipoTrabajo_OTOrigen;
 
   this.totalGlobal =0;
   this.totalGlobal14 =0;
@@ -586,6 +591,37 @@ abrirModal_OT( {id_OT,nroObra,fechaHora,direccion, id_Distrito, referencia, desc
 
 
   }
+
+  
+ anular(objBD:any){
+
+  if (objBD.id_estado === 13  || objBD.id_estado =='13') {      
+    return;      
+  }
+
+  this.alertasService.Swal_Question('Sistemas', 'Esta seguro de anular ?')
+  .then((result)=>{
+    if(result.value){
+
+      Swal.fire({  icon: 'info', allowOutsideClick: false, allowEscapeKey: false, text: 'Espere por favor'  })
+      Swal.showLoading();
+      this.ordenTrabajoService.set_anular_aprobacionOT(objBD.id_OT , this.idUserGlobal  ).subscribe((res:RespuestaServer)=>{
+        Swal.close();        
+        if (res.ok ==true) { 
+          
+          this.mostrarInformacion();
+          this.alertasService.Swal_Success('Se anulo correctamente..')  
+
+        }else{
+          this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+          alert(JSON.stringify(res.data));
+        }
+      })
+       
+    }
+  }) 
+ }
+
 
   
  
