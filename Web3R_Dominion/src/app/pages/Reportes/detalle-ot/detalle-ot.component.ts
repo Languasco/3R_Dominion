@@ -81,15 +81,30 @@ export class DetalleOTComponent implements OnInit,AfterViewInit {
   }
  
  ngOnInit(): void {
+  this.inicializarDom();
   this.selectedTabControlDetalle = this.tabControlDetalle[0]; 
   this.getCargarCombos();
   this.inicializarFormularioFiltro();
   this.inicializarFormularioDatosG();
+
+  setTimeout(()=>{ // 
+    $('select[name=eventsFilter]').find('option').attr('selected', true);
+    $('select[name=eventsFilter]').select2();
+  },0);  
  }
 
  ngAfterViewInit() {
   this.InicializarMapa()
 } 
+
+inicializarDom(){
+  setTimeout(()=>{ //
+   //------- utilizando el combo buscador --
+   $('.select2Filtro').select2({
+    multiple: true,
+  });
+ },0); 
+}
 
  inicializarFormularioFiltro(){ 
     this.formParamsFiltro= new FormGroup({
@@ -109,6 +124,7 @@ export class DetalleOTComponent implements OnInit,AfterViewInit {
     referencia : new FormControl(''),
     descripcionTrabajo : new FormControl(''),
     idEstado : new FormControl('0'), 
+    observacion : new FormControl(''), 
    }) 
 } 
 
@@ -116,7 +132,7 @@ export class DetalleOTComponent implements OnInit,AfterViewInit {
  getCargarCombos(){ 
     this.spinner.show();
     combineLatest([this.ordenTrabajoService.get_servicio(this.idUserGlobal), this.listaPreciosService.get_tipoOrdenTrabajo(), this.ordenTrabajoService.get_Distritos(), this.ordenTrabajoService.get_Proveedor(), this.aprobacionOTService.get_estados() ]).subscribe( ([ _servicios, _tipoOrdenTrabajo, _distritos, _proveedor,_estados ])=>{
-        this.servicios = _servicios;
+       this.servicios = _servicios;
         this.tipoOrdenTrabajo = _tipoOrdenTrabajo; 
         this.distritos = _distritos; 
         this.proveedor = _proveedor; 
@@ -143,21 +159,43 @@ export class DetalleOTComponent implements OnInit,AfterViewInit {
   this.marker.setMap(this.map);
  };
 
- mostrarInformacion(){
-      // if (this.formParamsFiltro.value.idServicio == '' || this.formParamsFiltro.value.idServicio == 0) {
-      //   this.alertasService.Swal_alert('error','Por favor seleccione el servicio');
-      //   return 
-      // }
-      
+
+ obtenerValorComboMultiple(listDatos:any[]){
+  let listaMultiple =[];
+  console.log('listDatos')
+  const todos = (listDatos.length > 1) ? true:false;
+
+  for (const iterator of listDatos) { 
+        const res = iterator.split(":");
+        if (todos) {
+          if (res[0] != '0') {
+            listaMultiple.push(res[0]);
+          }  
+        }else{
+          listaMultiple.push(res[0]);
+        }
+  }
+  return listaMultiple;
+ }
+
+ mostrarInformacion(){ 
+    const serviciosMultiple = $("#cboServicio").val(); 
+    const subContrataMultiple = $("#cboSubContrara").val(); 
+    const estadosMultiple = $("#cboEstado").val(); 
+
+      if (!serviciosMultiple) {
+         this.alertasService.Swal_alert('error','Por favor seleccione el servicio');
+         return ;
+      }      
       if (this.formParamsFiltro.value.idTipoOT == '' || this.formParamsFiltro.value.idTipoOT == 0) {
         this.alertasService.Swal_alert('error','Por favor seleccione el Tipo de Orden Trabajo');
         return 
-      }  
- 
-      // if (this.formParamsFiltro.value.idProveedor == '' || this.formParamsFiltro.value.idProveedor == 0) {
-      //   this.alertasService.Swal_alert('error','Por favor seleccione un Proveedor');
-      //   return 
-      // }
+      } 
+
+      if (!subContrataMultiple) {
+        this.alertasService.Swal_alert('error','Por favor seleccione una SubContrata');
+        return ;
+     }  
 
       if (this.formParamsFiltro.value.fecha_ini == '' || this.formParamsFiltro.value.fecha_ini == null) {
         this.alertasService.Swal_alert('error','Por favor seleccione la fecha inicial');
@@ -168,21 +206,25 @@ export class DetalleOTComponent implements OnInit,AfterViewInit {
         return 
       }
 
-      // if (this.formParamsFiltro.value.idEstado == '' || this.formParamsFiltro.value.idEstado == 0) {
-      //   this.alertasService.Swal_alert('error','Por favor seleccione un Estado');
-      //   return 
-      // }
+      if (!estadosMultiple) {
+        this.alertasService.Swal_alert('error','Por favor seleccione un Estado');
+        return ;
+     }
 
+     const idServiciosMasivos = this.obtenerValorComboMultiple(serviciosMultiple);    
+     const idSubContratoMasivos = this.obtenerValorComboMultiple(subContrataMultiple); 
+     const idEstadosMasivos = this.obtenerValorComboMultiple(estadosMultiple);
+   
       const fechaIni = this.funcionGlobalServices.formatoFecha(this.formParamsFiltro.value.fecha_ini);
       const fechaFin = this.funcionGlobalServices.formatoFecha(this.formParamsFiltro.value.fecha_fin);
   
       this.spinner.show();
-      this.detalleOTService.get_mostrarDetalleOt(this.formParamsFiltro.value,fechaIni, fechaFin, this.idUserGlobal)
+      this.detalleOTService.get_mostrarDetalleOt(this.formParamsFiltro.value,fechaIni, fechaFin, this.idUserGlobal, idServiciosMasivos.join(), idSubContratoMasivos.join() , idEstadosMasivos.join())
           .subscribe((res:RespuestaServer)=>{            
               this.spinner.hide();
               if (res.ok==true) {        
                   this.ordenTrabajoCab = res.data;  
-                  console.log(  this.ordenTrabajoCab)
+ 
                }else{
                 this.alertasService.Swal_alert('error', JSON.stringify(res.data));
                 alert(JSON.stringify(res.data));
@@ -249,8 +291,7 @@ cerrarModal_OT(){
   },0); 
 }
 
-abrirModal_OT( {id_OT,nroObra,FechaAsignacion,direccion, id_Distrito, referencia, descripcion_OT, id_tipoTrabajo,id_estado ,tipoTrabajo_OTOrigen }){ 
-
+abrirModal_OT( {id_OT,nroObra,FechaAsignacion,direccion, id_Distrito, referencia, descripcion_OT, id_tipoTrabajo,id_estado ,tipoTrabajo_OTOrigen, observacion }){ 
   // //----- Datos Generales  -----  
   this.id_OTGlobal = id_OT;
   this.id_tipoOTGlobal = id_tipoTrabajo;
@@ -285,9 +326,8 @@ abrirModal_OT( {id_OT,nroObra,FechaAsignacion,direccion, id_Distrito, referencia
     this.medidasDetalle = [];
     this.desmonteDetalle = [];
   }
-  
-  
-  this.formParamsDatosG.patchValue({"direccion": direccion , "idDistrito": id_Distrito, "referencia": referencia, "descripcionTrabajo": descripcion_OT , "idEstado": id_estado });
+    
+  this.formParamsDatosG.patchValue({"direccion": direccion , "idDistrito": id_Distrito, "referencia": referencia, "descripcionTrabajo": descripcion_OT , "idEstado": id_estado , "observacion" : observacion });
   this.selectedTabControlDetalle = this.tabControlDetalle[0];
 
   setTimeout(()=>{ // 
@@ -439,40 +479,49 @@ abrirModal_OT( {id_OT,nroObra,FechaAsignacion,direccion, id_Distrito, referencia
 
  
 descargarGrilla(){
-  if (this.formParamsFiltro.value.idServicio == '' || this.formParamsFiltro.value.idServicio == 0) {
-    this.alertasService.Swal_alert('error','Por favor seleccione el servicio');
-    return 
-  }
-  
-  if (this.formParamsFiltro.value.idTipoOT == '' || this.formParamsFiltro.value.idTipoOT == 0) {
-    this.alertasService.Swal_alert('error','Por favor seleccione el Tipo de Orden Trabajo');
-    return 
-  }  
 
-  if (this.formParamsFiltro.value.idProveedor == '' || this.formParamsFiltro.value.idProveedor == 0) {
-    this.alertasService.Swal_alert('error','Por favor seleccione un Proveedor');
-    return 
-  }
+  const serviciosMultiple = $("#cboServicio").val(); 
+  const subContrataMultiple = $("#cboSubContrara").val(); 
+  const estadosMultiple = $("#cboEstado").val(); 
 
-  if (this.formParamsFiltro.value.fecha_ini == '' || this.formParamsFiltro.value.fecha_ini == null) {
-    this.alertasService.Swal_alert('error','Por favor seleccione la fecha inicial');
-    return 
-  }
-  if (this.formParamsFiltro.value.fecha_fin == '' || this.formParamsFiltro.value.fecha_fin == null) {
-    this.alertasService.Swal_alert('error','Por favor seleccione la fecha final');
-    return 
-  }
 
-  // if (this.formParamsFiltro.value.idEstado == '' || this.formParamsFiltro.value.idEstado == 0) {
-  //   this.alertasService.Swal_alert('error','Por favor seleccione un Estado');
-  //   return 
-  // }
+    if (!serviciosMultiple) {
+       this.alertasService.Swal_alert('error','Por favor seleccione el servicio');
+       return ;
+    }      
+    if (this.formParamsFiltro.value.idTipoOT == '' || this.formParamsFiltro.value.idTipoOT == 0) {
+      this.alertasService.Swal_alert('error','Por favor seleccione el Tipo de Orden Trabajo');
+      return 
+    } 
 
+    if (!subContrataMultiple) {
+      this.alertasService.Swal_alert('error','Por favor seleccione una SubContrata');
+      return ;
+   }  
+
+    if (this.formParamsFiltro.value.fecha_ini == '' || this.formParamsFiltro.value.fecha_ini == null) {
+      this.alertasService.Swal_alert('error','Por favor seleccione la fecha inicial');
+      return 
+    }
+    if (this.formParamsFiltro.value.fecha_fin == '' || this.formParamsFiltro.value.fecha_fin == null) {
+      this.alertasService.Swal_alert('error','Por favor seleccione la fecha final');
+      return 
+    }
+
+    if (!estadosMultiple) {
+      this.alertasService.Swal_alert('error','Por favor seleccione un Estado');
+      return ;
+   }
+
+   const idServiciosMasivos = this.obtenerValorComboMultiple(serviciosMultiple);    
+   const idSubContratoMasivos = this.obtenerValorComboMultiple(subContrataMultiple); 
+   const idEstadosMasivos = this.obtenerValorComboMultiple(estadosMultiple);
+ 
   const fechaIni = this.funcionGlobalServices.formatoFecha(this.formParamsFiltro.value.fecha_ini);
   const fechaFin = this.funcionGlobalServices.formatoFecha(this.formParamsFiltro.value.fecha_fin);
 
-  this.spinner.show();
-  this.detalleOTService.get_descargarDetalleOt(this.formParamsFiltro.value,fechaIni, fechaFin, this.idUserGlobal)
+  this.spinner.show(); 
+  this.detalleOTService.get_descargarDetalleOt(this.formParamsFiltro.value,fechaIni, fechaFin, this.idUserGlobal, idServiciosMasivos.join(), idSubContratoMasivos.join() , idEstadosMasivos.join())
       .subscribe((res:RespuestaServer)=>{            
         this.spinner.hide();
  

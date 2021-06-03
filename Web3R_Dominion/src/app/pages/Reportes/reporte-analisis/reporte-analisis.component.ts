@@ -30,8 +30,7 @@ export class ReporteAnalisisComponent implements OnInit {
   formParamsFiltro : FormGroup;
   filtrarProyectista = '';
   idUserGlobal = 0;
-  tituloCabera ='';
-  
+  tituloCabera =''; 
 
   servicios :any[]=[];   
   distritos :any[]=[];
@@ -40,6 +39,7 @@ export class ReporteAnalisisComponent implements OnInit {
   tipoOrdenTrabajo :any[]=[];  
  
   datepiekerConfig:Partial<BsDatepickerConfig> 
+  showReporteDetallado = false;
 
   constructor(private alertasService : AlertasService, private spinner: NgxSpinnerService, private loginService: LoginService, private listaPreciosService : ListaPreciosService, private ordenTrabajoService : OrdenTrabajoService, private aprobacionOTService : AprobacionOTService , private funcionGlobalServices : FuncionesglobalesService, private detalleOTService:DetalleOTService ) {         
     this.idUserGlobal = this.loginService.get_idUsuario();
@@ -82,7 +82,7 @@ export class ReporteAnalisisComponent implements OnInit {
 
 }
 
-  mostrarInformacion_reporte(){ 
+ mostrarInformacion_reporte(){ 
  
       if (this.formParamsFiltro.value.idTipoOT == '' || this.formParamsFiltro.value.idTipoOT == 0) {
         this.alertasService.Swal_alert('error','Por favor seleccione el Tipo de Orden Trabajo');
@@ -99,7 +99,7 @@ export class ReporteAnalisisComponent implements OnInit {
 
       const fechaIni = this.funcionGlobalServices.formatoFecha(this.formParamsFiltro.value.fecha_ini);
       const fechaFin = this.funcionGlobalServices.formatoFecha(this.formParamsFiltro.value.fecha_fin);
-
+ 
  
    this.spinner.show();
    this.detalleOTService.get_descargarReporteAnalisis(this.formParamsFiltro.value, fechaIni, fechaFin, this.idUserGlobal ).subscribe((res:RespuestaServer)=>{            
@@ -115,6 +115,21 @@ export class ReporteAnalisisComponent implements OnInit {
      }
    })
 
+ }
+
+ changeDetallado(opcionReporte:any){
+   if (opcionReporte ==4) {
+    this.showReporteDetallado = true;
+    setTimeout(() => {
+      $("#inlineRadio6").attr('checked', true);
+      this.formParamsFiltro.patchValue({ "tipoReporte": '6' });
+    }, 0);
+
+   }
+  else {
+    this.showReporteDetallado = false;
+   }
+ 
  }
 
 

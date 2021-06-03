@@ -77,8 +77,7 @@ namespace Entidades.Procesos
         public string  descripcion_OT  { get; set; }
         public int id_estado  { get; set; }
         public string tipoTrabajo_OTOrigen { get; set; }
-
-        
+        public string observacion { get; set; }
 
 
     }

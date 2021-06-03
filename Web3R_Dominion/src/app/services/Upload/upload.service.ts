@@ -21,8 +21,7 @@ export class UploadService {
   constructor(private http:HttpClient) { }
 
   //-----carga  carta Enel de excel ------ 
-  upload_Excel_personal(file:any, idEmpresa:number, idusuario : any) { 
- 
+  upload_Excel_personal(file:any, idEmpresa:number, idusuario : any) {  
     const formData = new FormData();   
     formData.append('file', file);
     const filtro =  idEmpresa + '|' + idusuario;

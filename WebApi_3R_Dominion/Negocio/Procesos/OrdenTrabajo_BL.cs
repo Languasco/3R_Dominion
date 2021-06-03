@@ -525,6 +525,8 @@ namespace Negocio.Procesos
                                 Entidad.descripcion_OT = dr["descripcion_OT"].ToString();
                                 Entidad.id_estado = Convert.ToInt32(dr["id_estado"]);
                                 Entidad.tipoTrabajo_OTOrigen = dr["tipoTrabajo_OTOrigen"].ToString();
+                                Entidad.observacion = dr["observacion"].ToString();
+                                
 
                                 obj_List.Add(Entidad);
                             }
@@ -557,7 +559,7 @@ namespace Negocio.Procesos
             return res;
         }
 
-        public string set_grabar_aprobarOT(int idOT, int idEstado, int idUsuario)
+        public string set_grabar_aprobarOT(int idOT, int idEstado, int idUsuario, string observacion)
         {
             string resultado = "";
             try
@@ -572,6 +574,7 @@ namespace Negocio.Procesos
                         cmd.Parameters.Add("@idOT", SqlDbType.Int).Value = idOT;
                         cmd.Parameters.Add("@idEstado", SqlDbType.Int).Value = idEstado;
                         cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+                        cmd.Parameters.Add("@observacion", SqlDbType.VarChar).Value = observacion;
 
                         cmd.ExecuteNonQuery();
                         resultado = "OK";
@@ -874,15 +877,18 @@ namespace Negocio.Procesos
 
                     oWs.Cells[3, 7].Value = "EMPRESA CONTRATISTA";
                     oWs.Cells[3, 8].Value = "JEFE CUADRILLA";
-                    oWs.Cells[3, 9].Value = "GENERO UN VOLUMEN";
-                    oWs.Cells[3, 10].Value = "VOLUMEN DE DESMONTE";
 
-                    oWs.Cells[3, 11].Value = "VOLUMEN DE DESMONTE POR RECOGER";
+
+                    oWs.Cells[3, 9].Value = "VEREDA M2";
+                    oWs.Cells[3, 10].Value = "DESMONTE RECOGIDO M3";
+                    oWs.Cells[3, 11].Value = "DESMONTE GENERADO M3";
+
+
                     oWs.Cells[3, 12].Value = "FECHA Y HORA DE REGISTRO";
                     oWs.Cells[3, 13].Value = "TOTAL EN VOLUMEN ";
                     oWs.Cells[3, 14].Value = "TOTAL EN DESMONTE ";
-
                     oWs.Cells[3, 15].Value = "TOTAL EN DESMONTE POR RECOGER";
+
                     oWs.Cells[3, 16].Value = "FECHA APROBACION";
                     oWs.Cells[3, 17].Value = "DIAS DE VENCIMIENTO";
 
@@ -898,10 +904,11 @@ namespace Negocio.Procesos
 
                         oWs.Cells[_fila, 7].Value = item.empresaContratista.ToString();
                         oWs.Cells[_fila, 8].Value = item.jefeCuadrilla.ToString();
+
                         oWs.Cells[_fila, 9].Value = item.generaVolumen.ToString();
                         oWs.Cells[_fila, 10].Value = item.volumenDesmonte.ToString();
-
                         oWs.Cells[_fila, 11].Value = item.volumenDesmonteRecoger.ToString();
+
                         oWs.Cells[_fila, 12].Value = item.fechaHora.ToString();
 
                         oWs.Cells[_fila, 13].Value = item.totalVolumen.ToString();
@@ -1722,7 +1729,136 @@ namespace Negocio.Procesos
             return resultado;
         }
 
+        public string set_cambiarNroObra(int idOT, string nroObra, int idUsuario)
+        {
+            string resultado = "";
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(bdConexion.cadenaBDcx()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_ORDENES_TRABAJO_UPDATE_NRO_OBRA", cn))
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@idOT", SqlDbType.Int).Value = idOT;
+                        cmd.Parameters.Add("@nroObra", SqlDbType.VarChar).Value = nroObra;
+                        cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
 
+                        cmd.ExecuteNonQuery();
+                        resultado = "OK";
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                resultado = e.Message;
+            }
+            return resultado;
+        }
+
+        public object set_actualizandoDetalleOT(int idOtDet, string largo,  string ancho, string altura, string total, int idUsuario)
+        {
+            Resultado res = new Resultado();
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conexion.bdConexion.cadenaBDcx()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_APROBACION_OT_ACTUALIZAR_DETALLE", cn))
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@idOtDet", SqlDbType.Int).Value = idOtDet;
+
+                        cmd.Parameters.Add("@largo", SqlDbType.VarChar).Value = largo;
+                        cmd.Parameters.Add("@ancho", SqlDbType.VarChar).Value = ancho;
+                        cmd.Parameters.Add("@altura", SqlDbType.VarChar).Value = altura;
+                        cmd.Parameters.Add("@total", SqlDbType.VarChar).Value = total;
+                        cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+
+                        cmd.ExecuteNonQuery();
+
+                        res.ok = true;
+                        res.data = "OK";
+                        res.totalpage = 0;
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                res.ok = false;
+                res.data = ex.Message;
+            }
+            return res;
+        }
+
+
+        public object set_eliminar_medidas_DetalleOT(int idOtDet, int idUsuario)
+        {
+            Resultado res = new Resultado();
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conexion.bdConexion.cadenaBDcx()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_APROBACION_OT_ELIMINAR_MEDIDAS", cn))
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@idOtDet", SqlDbType.Int).Value = idOtDet;
+                        cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+
+                        cmd.ExecuteNonQuery();
+
+                        res.ok = true;
+                        res.data = "OK";
+                        res.totalpage = 0;
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                res.ok = false;
+                res.data = ex.Message;
+            }
+            return res;
+        }
+
+
+        public object set_eliminar_desmonte_DetalleOT(int idOtDet, int idUsuario)
+        {
+            Resultado res = new Resultado();
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conexion.bdConexion.cadenaBDcx()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_APROBACION_OT_ELIMINAR_DESMONTE", cn))
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@idOtDet", SqlDbType.Int).Value = idOtDet;
+                        cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+
+                        cmd.ExecuteNonQuery();
+
+                        res.ok = true;
+                        res.data = "OK";
+                        res.totalpage = 0;
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                res.ok = false;
+                res.data = ex.Message;
+            }
+            return res;
+        }
 
 
     }

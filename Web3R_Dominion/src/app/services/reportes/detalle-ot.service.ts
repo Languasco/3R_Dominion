@@ -23,17 +23,17 @@ export class DetalleOTService {
 
   constructor(private http:HttpClient) { }
 
-  get_mostrarDetalleOt({idServicio, idTipoOT, idProveedor, idEstado },fecha_ini, fecha_fin, idUsuario:number){ 
+  get_mostrarDetalleOt({idServicio, idTipoOT, idProveedor, idEstado },fecha_ini, fecha_fin, idUsuario:number, idServicioMasivo:string,  idSubContrataMasivo :string, idEstadoMasivo :string   ){ 
     let parametros = new HttpParams();
     parametros = parametros.append('opcion', '3');
-    parametros = parametros.append('filtro', idServicio + '|' +  idTipoOT + '|' +  idProveedor + '|' +  fecha_ini + '|' +  fecha_fin + '|' +  idEstado + '|' +  idUsuario  );
+    parametros = parametros.append('filtro', idServicio + '|' +  idTipoOT + '|' +  idProveedor + '|' +  fecha_ini + '|' +  fecha_fin + '|' +  idEstado + '|' +  idUsuario  + '|' +  idServicioMasivo   + '|' +  idSubContrataMasivo   + '|' +  idEstadoMasivo   );
     return this.http.get( this.URL + 'Reportes' , {params: parametros});
   }
 
-  get_descargarDetalleOt({idServicio, idTipoOT, idProveedor, idEstado },fecha_ini, fecha_fin, idUsuario:number){ 
+  get_descargarDetalleOt({idServicio, idTipoOT, idProveedor, idEstado },fecha_ini, fecha_fin, idUsuario:number, idServicioMasivo:string,  idSubContrataMasivo :string, idEstadoMasivo :string){ 
     let parametros = new HttpParams();
     parametros = parametros.append('opcion', '4');
-    parametros = parametros.append('filtro', idServicio + '|' +  idTipoOT + '|' +  idProveedor + '|' +  fecha_ini + '|' +  fecha_fin + '|' +  idEstado + '|' +  idUsuario  );
+    parametros = parametros.append('filtro', idServicio + '|' +  idTipoOT + '|' +  idProveedor + '|' +  fecha_ini + '|' +  fecha_fin + '|' +  idEstado + '|' +  idUsuario  + '|' +  idServicioMasivo   + '|' +  idSubContrataMasivo   + '|' +  idEstadoMasivo   );
     return this.http.get( this.URL + 'Reportes' , {params: parametros});
   }
 
@@ -41,6 +41,8 @@ export class DetalleOTService {
     let parametros = new HttpParams();
     parametros = parametros.append('opcion', '8');
     parametros = parametros.append('filtro', idServicio + '|' +  idTipoOT + '|' +  idProveedor + '|' +  fecha_ini + '|' +  fecha_fin + '|' +  idEstado + '|'+ tipoReporte + '|' +  idUsuario  );
+
+    console.log(parametros)
 
     return this.http.get( this.URL + 'Reportes' , {params: parametros});
   }

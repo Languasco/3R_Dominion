@@ -87,7 +87,7 @@
                 </div>
 
                 <div class="search-results tableFixHead">
-                    <table class="table  table-hover table-sm">
+                    <table class="table  table-hover table-bordered table-sm">
                         <thead class="theadTable">
 
                             <tr style="height: 40px !important;">
@@ -105,9 +105,10 @@
                                 <th class="text-center">Sub Contrata</th>
                                 <th class="text-center">Jefe Cuadrilla</th>
 
-                                <th class="text-center">Genero Volumen</th>
-                                <th class="text-center">Volumen en Desmonte</th>
-                                <th class="text-center">Volumen Desmonte Recoger</th>
+                                <th class="text-center">Veredas M2</th>
+                                <th class="text-center">Desmonte Recogido M3</th>
+                                <th class="text-center">Desmonte Generado M3</th>
+
                                 <th class="text-center">Fecha Hora Registro</th>
 
 
@@ -244,7 +245,7 @@
                 <div class="row p-3 " style=" margin-top: -15px;">
                     <div class="col-md-3">
                         <label> Nro Orden</label>
-                        <input type="text" class="form-control disabledForm" [(ngModel)]="nroObraParteDiario_Global">
+                        <input type="text" class="form-control " style="background-color: beige; color:red; font-weight: 600;" maxlength="30" [(ngModel)]="nroObraParteDiario_Global" (keyup.enter)="modificarNroOrden()">
                     </div>
                     <div class="col-md-3">
                         <label> Fecha y Hora de Registro</label>
@@ -324,6 +325,14 @@
                                                     </div>
                                                 </div>
 
+
+                                                <div class="row" *ngIf=" formParamsDatosG.value.idEstado == 10 ">
+                                                    <div class="col-md-12">
+                                                        <label> Observacion</label>
+                                                        <input type="text" class="form-control " maxlength="200" formControlName="observacion">
+                                                    </div>
+                                                </div>
+
                                             </form>
 
                                             <br>
@@ -354,9 +363,9 @@
                                                             <th scope="col" class="text-center">Tipo Material</th>
                                                             <th scope="col" class="text-center">Largo</th>
                                                             <th scope="col" class="text-center">Ancho</th>
-                                                            <th scope="col" class="text-center">Espesor</th>
+                                                            <th scope="col" class="text-center">Altura</th>
                                                             <th scope="col" class="text-center">Total</th>
-                                                            <th colspan="2" class="text-center">Acciones</th>
+                                                            <th colspan="3" class="text-center">Acciones</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -368,7 +377,13 @@
                                                             <td class="text-right">{{item.espesor | number}}</td>
                                                             <td class="text-right">{{item.total | number }}</td>
                                                             <td class="text-center">
-                                                                <span class="badge badge-primary puntero" style="padding: 5px;" (click)="abrirModal_visorFotos(item)">  Ver Fotos </span>
+                                                                <span class="badge badge-success puntero" style="padding: 5px;" (click)="abrirModal_visorFotos(item)">  Ver Fotos </span>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <span class="badge badge-primary puntero" *ngIf="idPerfil_global == 2 " style="padding: 5px;" (click)="abrirModal_editar(item, 'M')">  Editar </span>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <span class="badge badge-danger puntero" *ngIf="idPerfil_global == 2 " style="padding: 5px;" (click)="eliminarMedidas(item, 'M' )">  Eliminar </span>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -377,6 +392,8 @@
                                                             <td colspan="4"></td>
                                                             <td style="font-size: 12px; font-weight: 600;" class="text-right">Total:</td>
                                                             <td scope="col" style=" font-size: 12px; font-weight: 800;" class="text-right" style="color:yellowgreen">{{totalGlobal | number }}</td>
+                                                            <td scope="col"></td>
+                                                            <td scope="col"></td>
                                                             <td scope="col"></td>
                                                         </tr>
                                                     </tfoot>
@@ -401,9 +418,9 @@
                                                             <th scope="col" class="text-center">Tipo </th>
                                                             <th scope="col" class="text-center">Largo</th>
                                                             <th scope="col" class="text-center">Ancho</th>
-                                                            <th scope="col" class="text-center">Espesor</th>
+                                                            <th scope="col" class="text-center">Altura</th>
                                                             <th scope="col" class="text-center">Total</th>
-                                                            <th colspan="2" class="text-center">Acciones</th>
+                                                            <th colspan="3" class="text-center">Acciones</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -415,7 +432,13 @@
                                                             <td class="text-right">{{item.espesor | number}}</td>
                                                             <td class="text-right">{{item.total | number }}</td>
                                                             <td class="text-center">
-                                                                <span class="badge badge-primary puntero" style="padding: 5px;" (click)="abrirModal_visorFotos(item)">  Ver Fotos </span>
+                                                                <span class="badge badge-success puntero" style="padding: 5px;" (click)="abrirModal_visorFotos(item)">  Ver Fotos </span>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <span class="badge badge-primary puntero" *ngIf="idPerfil_global == 2 " style="padding: 5px;" (click)="abrirModal_editar(item, 'D')">  Editar </span>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <span class="badge badge-danger puntero" *ngIf="idPerfil_global == 2 " style="padding: 5px;" (click)="eliminarDesmonte(item, 'D')">  Eliminar </span>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -522,7 +545,7 @@
                         <label for=""> Ancho :  {{this.detalleOT.ancho}} </label>
                     </div>
                     <div class="col-xs-6 col-md-3">
-                        <label for=""> Espesor :  {{this.detalleOT.espesor}}  </label>
+                        <label for=""> Altura :  {{this.detalleOT.espesor}}  </label>
                     </div>
                     <div class="col-xs-6 col-md-3">
                         <label for=""> Total :  {{this.detalleOT.total}}  </label>
@@ -591,6 +614,72 @@
 
                     </div>
                 </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal" id="modal_edicion" tabindex="-1">
+    <div class="modal-dialog ">
+        <div class="modal-content" style="border: 3px solid #ffc107;">
+            <div class="p-3 card ">
+                <div class="d-flex justify-content-between flotante">
+                    <div class=" bd-highlight">
+
+                    </div>
+                    <div class=" bd-highlight">
+                        <h1> MODIFICAR </h1>
+                    </div>
+                    <div class=" bd-highlight">
+                        <i class="far fa-times-circle fa-2x puntero" style="color:black !important" title="Retornar" (click)="cerrarModal_editar()">  </i>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+
+                <form [formGroup]="formParamsDet">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <label for=""> Largo</label>
+                            <input type="number" #_cant class="form-control text-right" (input)="onBlurMethod($event)" formControlName="largo">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <label for=""> Ancho</label>
+                            <input type="number" #_cant class="form-control text-right" (input)="onBlurMethod($event)" formControlName="ancho">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <label for=""> Altura</label>
+                            <input type="number" #_cant class="form-control text-right" (input)="onBlurMethod($event)" formControlName="altura">
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-8">
+                            <label for=""> Total</label>
+                            <input type="number" #_cant class="form-control text-right disabledForm" formControlName="total">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-center mt-3">
+                                <button class="btn btn-sm btn-success" (click)="set_actualizandoDetalleOt()">  <i class="fas fa-save"> Grabar</i> </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
 
 
             </div>

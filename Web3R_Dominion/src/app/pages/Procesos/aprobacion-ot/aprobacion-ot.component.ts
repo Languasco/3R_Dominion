@@ -13,6 +13,7 @@ import { ListaPreciosService } from '../../../services/Mantenimientos/lista-prec
 import { OrdenTrabajoService } from '../../../services/Procesos/orden-trabajo.service';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { AprobacionOTService } from '../../../services/Procesos/aprobacion-ot.service';
+ 
 
 declare var $:any;
 @Component({
@@ -25,6 +26,7 @@ export class AprobacionOTComponent implements OnInit,AfterViewInit {
 
   formParamsFiltro : FormGroup;
   formParamsDatosG : FormGroup;  
+  formParamsDet : FormGroup;
 
   idUserGlobal :number = 0;
   flag_modoEdicion :boolean =false
@@ -75,6 +77,8 @@ export class AprobacionOTComponent implements OnInit,AfterViewInit {
 
   idPerfil_global =0;
 
+  id_OTDet_Global  = 0;
+  opcionEditar_Global = '';
   
   constructor(private alertasService : AlertasService, private spinner: NgxSpinnerService, private loginService: LoginService, private listaPreciosService : ListaPreciosService, private ordenTrabajoService : OrdenTrabajoService, private aprobacionOTService : AprobacionOTService , private funcionGlobalServices : FuncionesglobalesService ) {         
       this.idUserGlobal = this.loginService.get_idUsuario();
@@ -86,6 +90,7 @@ export class AprobacionOTComponent implements OnInit,AfterViewInit {
   this.getCargarCombos();
   this.inicializarFormularioFiltro();
   this.inicializarFormularioDatosG();
+  this.inicializarFormularioDet();
  }
 
  ngAfterViewInit() {
@@ -120,8 +125,19 @@ export class AprobacionOTComponent implements OnInit,AfterViewInit {
     referencia : new FormControl(''),
     descripcionTrabajo : new FormControl(''),
     idEstado : new FormControl('0'), 
+    observacion  : new FormControl(''),
    }) 
 } 
+
+  inicializarFormularioDet(){
+    this.formParamsDet= new FormGroup({
+        largo  : new FormControl('0'),   
+        ancho  : new FormControl('0'),   
+        altura  : new FormControl('0'),   
+        total  : new FormControl('0')
+     });
+   }
+  
 
 
  getCargarCombos(){ 
@@ -266,7 +282,7 @@ cerrarModal_OT(){
   },0); 
 }
 
-abrirModal_OT( {id_OT,nroObra,fechaHora,direccion, id_Distrito, referencia, descripcion_OT, id_tipoTrabajo,id_estado, tipoTrabajo_OTOrigen  }){ 
+abrirModal_OT( {id_OT,nroObra,fechaHora,direccion, id_Distrito, referencia, descripcion_OT, id_tipoTrabajo,id_estado, tipoTrabajo_OTOrigen,observacion  }){ 
 
   // //----- Datos Generales  -----  
   this.id_OTGlobal = id_OT;
@@ -279,8 +295,9 @@ abrirModal_OT( {id_OT,nroObra,fechaHora,direccion, id_Distrito, referencia, desc
   this.totalGlobal =0;
   this.totalGlobal14 =0;
   this.totalGlobal15 =0;
+  this.tituloModal = 'Tipo Trabajo No-Definido';
+  
 
-  this.tituloModal = 'Tipo Trabajo No-Definido'
 
   if (id_tipoTrabajo == 3 ||  id_tipoTrabajo == 4 ) {  // rotura
     
@@ -304,7 +321,7 @@ abrirModal_OT( {id_OT,nroObra,fechaHora,direccion, id_Distrito, referencia, desc
   }
   
   
-  this.formParamsDatosG.patchValue({"direccion": direccion , "idDistrito": id_Distrito, "referencia": referencia, "descripcionTrabajo": descripcion_OT , "idEstado": id_estado });
+  this.formParamsDatosG.patchValue({"direccion": direccion , "idDistrito": id_Distrito, "referencia": referencia, "descripcionTrabajo": descripcion_OT , "idEstado": id_estado , "observacion" : observacion });
   this.selectedTabControlDetalle = this.tabControlDetalle[0];
 
   setTimeout(()=>{ // 
@@ -320,16 +337,24 @@ abrirModal_OT( {id_OT,nroObra,fechaHora,direccion, id_Distrito, referencia, desc
     }
   
     if ( this.formParamsDatosG.value.idEstado == 0 || this.formParamsDatosG.value.idEstado == null)  {
-      this.alertasService.Swal_alert('error', 'Por favor seleccine un Estado, actualize su pagina.');
+      this.alertasService.Swal_alert('error', 'Por favor seleccione un Estado.');
       return 
     }
+
+    if ( this.formParamsDatosG.value.idEstado == 10 || this.formParamsDatosG.value.idEstado == '10')  { 
+      if ( this.formParamsDatosG.value.observacion == null || this.formParamsDatosG.value.observacion == '')  {
+        this.alertasService.Swal_alert('error', 'Por favor ingrese  la observacion.');
+        return 
+      }
+    } 
    
+    const observacion = (this.formParamsDatosG.value.idEstado ==  10) ?  this.formParamsDatosG.value.observacion : '';
   
     Swal.fire({
       icon: 'info', allowOutsideClick: false, allowEscapeKey: false, text: 'Espere por favor'
     })
     Swal.showLoading();
-    this.aprobacionOTService.set_aprobarOT( this.id_OTGlobal, this.formParamsDatosG.value.idEstado  , this.idUserGlobal).subscribe((res:RespuestaServer)=>{  
+    this.aprobacionOTService.set_aprobarOT( this.id_OTGlobal, this.formParamsDatosG.value.idEstado  , this.idUserGlobal,  observacion ).subscribe((res:RespuestaServer)=>{  
       Swal.close();
       if (res.ok) {   
           this.alertasService.Swal_Success('OT aprobada correctamente');
@@ -346,13 +371,33 @@ abrirModal_OT( {id_OT,nroObra,fechaHora,direccion, id_Distrito, referencia, desc
     this.aprobacionOTService.get_medidasOT(this.id_OTGlobal, this.id_tipoOTGlobal, this.idUserGlobal).subscribe((res:RespuestaServer)=>{
      if (res.ok) {            
        this.medidasDetalle = res.data; 
-       
-       let importeTotal =0;
-       for (const iterator of  this.medidasDetalle) {
-        importeTotal += iterator.total;
-       }
-       
-       this.totalGlobal = importeTotal;
+       this.calculoTotalMedidas();
+     }else{
+       this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+       alert(JSON.stringify(res.data));
+     }      
+    })        
+  }
+
+  calculoTotalMedidas(){
+    let importeTotal =0;
+    for (const iterator of  this.medidasDetalle) {
+     importeTotal += iterator.total;
+    }
+    this.totalGlobal = importeTotal;
+
+    // if (this.id_tipoOTGlobal == 3 ) {
+    //   this.totalGlobal = (importeTotal * 10 );
+    // }else{
+    //   this.totalGlobal = importeTotal;
+    // }
+  }
+
+  get_desmonteOT(){
+    this.aprobacionOTService.get_mesmonteOT(this.id_OTGlobal, this.id_tipoOTGlobal, this.idUserGlobal).subscribe((res:RespuestaServer)=>{
+     if (res.ok) {            
+       this.desmonteDetalle = res.data; 
+       this.calculoTotalDesmonte();
   
      }else{
        this.alertasService.Swal_alert('error', JSON.stringify(res.data));
@@ -361,38 +406,25 @@ abrirModal_OT( {id_OT,nroObra,fechaHora,direccion, id_Distrito, referencia, desc
     })        
   }
 
-  get_desmonteOT(){
-    this.aprobacionOTService.get_mesmonteOT(this.id_OTGlobal, this.id_tipoOTGlobal, this.idUserGlobal).subscribe((res:RespuestaServer)=>{
-     if (res.ok) {            
-       this.desmonteDetalle = res.data; 
-       
-       let importeTotal14 =0;
-       let importeTotal15 =0;
+  calculoTotalDesmonte(){
+    let importeTotal14 =0;
+    let importeTotal15 =0;
 
-       console.log(this.desmonteDetalle)
-
-       for (const iterator of  this.desmonteDetalle) {
-         
-          if (iterator.id_TipoMaterial == '14' ) {
-            console.log('entroo 14')
-            importeTotal14 += iterator.total;
-          }
-          if (iterator.id_TipoMaterial == '15' ) {
-            console.log('entroo 15')
-            importeTotal15 += iterator.total;
-          }
-
+    for (const iterator of  this.desmonteDetalle) {
+      
+       if (iterator.id_TipoMaterial == '14' ) {
+         console.log('entroo 14')
+         importeTotal14 += iterator.total;
        }
-       
-       this.totalGlobal14 = importeTotal14;
-       this.totalGlobal15 = importeTotal15;
+       if (iterator.id_TipoMaterial == '15' ) {
+         console.log('entroo 15')
+         importeTotal15 += iterator.total;
+       }
 
-  
-     }else{
-       this.alertasService.Swal_alert('error', JSON.stringify(res.data));
-       alert(JSON.stringify(res.data));
-     }      
-    })        
+    }
+    
+    this.totalGlobal14 = importeTotal14;
+    this.totalGlobal15 = importeTotal15;
   }
 
   cerrarModal_visor(){
@@ -623,7 +655,214 @@ abrirModal_OT( {id_OT,nroObra,fechaHora,direccion, id_Distrito, referencia, desc
  }
 
 
+ modificarNroOrden(){
+
+  // validando solo por perfil Coordinador de Servicios
+  if (this.idPerfil_global != 2) { 
+    return 
+  }
+
+  if (this.nroObraParteDiario_Global == '' || this.nroObraParteDiario_Global == null ) {
+    this.alertasService.Swal_alert('error','Por favor ingrese el Nro Orden');
+    return 
+  }
+
+   this.alertasService.Swal_Question('Sistemas', 'Esta seguro de modificar ?')
+   .then((result)=>{
+     if(result.value){
+
+       Swal.fire({  icon: 'info', allowOutsideClick: false, allowEscapeKey: false, text: 'Espere por favor'  })
+       Swal.showLoading();
+       this.ordenTrabajoService.set_modificar_nroObra( this.id_OTGlobal, this.nroObraParteDiario_Global, this.idUserGlobal  ).subscribe((res:RespuestaServer)=>{
+         Swal.close();        
+         if (res.ok ==true) { 
+           
+           for (const user of this.ordenTrabajoCab) {
+             if (user.id_OT == this.id_OTGlobal ) {           
+                 user.nroObra = this.nroObraParteDiario_Global;
+                 break;
+             }
+           }
+           this.alertasService.Swal_Success('Modificacion realizada correctamente..')  
+
+         }else{
+           this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+           alert(JSON.stringify(res.data));
+         }
+       })
+        
+     }
+   }) 
+
+
+ }
+
+  eliminarMedidas(item:any, opcion : string){  
+    this.opcionEditar_Global = opcion; 
+
+
+    this.alertasService.Swal_Question('Sistemas', 'Esta seguro de eliminar ?')
+    .then((result)=>{
+      if(result.value){
+ 
+         Swal.fire({
+          icon: 'info', allowOutsideClick: false, allowEscapeKey: false,
+          text: 'Espere por favor'
+        })
+        Swal.showLoading();
+        this.aprobacionOTService.get_eliminarMedidas(item.id_OTDet, this.idUserGlobal ).subscribe((res:RespuestaServer)=>{
+          Swal.close();
+          if (res.ok) { 
+              var index = this.medidasDetalle.indexOf( item );
+              this.medidasDetalle.splice( index, 1 ); 
+
+              this.calculoTotalMedidas();
+
+          }else{
+            this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+            alert(JSON.stringify(res.data));
+          } 
+        })
+         
+      }
+    }) 
+ 
+
+
+
+  }
+
+  eliminarDesmonte(item:any, opcion :string){  
+    this.opcionEditar_Global = opcion;  
+
+
+    this.alertasService.Swal_Question('Sistemas', 'Esta seguro de anular ?')
+    .then((result)=>{
+      if(result.value){
+ 
+        Swal.fire({
+          icon: 'info', allowOutsideClick: false, allowEscapeKey: false,
+          text: 'Espere por favor'
+        })
+        Swal.showLoading();
+        this.aprobacionOTService.get_eliminarDesmonte(item.id_OTDet , this.idUserGlobal ).subscribe((res:RespuestaServer)=>{
+          Swal.close();
+          if (res.ok) { 
+              var index = this.desmonteDetalle.indexOf( item );
+              this.desmonteDetalle.splice( index, 1 ); 
+              this.calculoTotalDesmonte();
+
+          }else{
+            this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+            alert(JSON.stringify(res.data));
+          } 
+        }) 
+         
+      }
+    }) 
+
+
+
+  }
+
+  cerrarModal_editar(){
+    $('#modal_edicion').modal('hide');    
+  }  
+
+  abrirModal_editar(objData:any, opcion){ 
+
+    this.opcionEditar_Global = opcion; 
+    this.id_OTDet_Global = objData.id_OTDet;
+
+    this.inicializarFormularioDet();
+    setTimeout(()=>{ // 
+      $('#modal_edicion').modal('show');
+    },0);
+
+    console.log(objData);
+    this.formParamsDet.patchValue({"largo": objData.largo , "ancho": objData.ancho , "altura": objData.espesor   , "total": objData.total    });
+  }
+
+  onBlurMethod(obj){
+      this.calcularTotales();
+  }
+
+  calcularTotales(){
+    let largo = this.formParamsDet.value.largo == null ? 0 :  this.formParamsDet.value.largo ;
+    let ancho = this.formParamsDet.value.ancho == null ? 0 :  this.formParamsDet.value.ancho ;
+    let altura = this.formParamsDet.value.altura == null ? 0 :  this.formParamsDet.value.altura ;
+
+    const total = (largo * ancho * altura );    
+
+    this.formParamsDet.patchValue({"total": Number(total.toFixed(2))});
+   }
+
+   set_actualizandoDetalleOt(){
+
+    if (this.formParamsDet.value.largo == '' || this.formParamsDet.value.largo == null) {
+      this.alertasService.Swal_alert('error','Por favor ingrese el largo');
+      return 
+    }
+    if (this.formParamsDet.value.ancho == '' || this.formParamsDet.value.ancho == null) {
+      this.alertasService.Swal_alert('error','Por favor ingrese el ancho');
+      return 
+    }
+    if (this.formParamsDet.value.altura == '' || this.formParamsDet.value.altura == null) {
+      this.alertasService.Swal_alert('error','Por favor ingrese la altura');
+      return 
+    }
+ 
+
+    let largo = this.formParamsDet.value.largo == null ? 0 :  this.formParamsDet.value.largo ;
+    let ancho = this.formParamsDet.value.ancho == null ? 0 :  this.formParamsDet.value.ancho ;
+    let altura = this.formParamsDet.value.altura == null ? 0 :  this.formParamsDet.value.altura ;
+    let total = this.formParamsDet.value.total == null ? 0 :  this.formParamsDet.value.total ;
+ 
+
+    Swal.fire({
+      icon: 'info', allowOutsideClick: false, allowEscapeKey: false, text: 'Actualizando, Espere por favor'
+    })
+    Swal.showLoading();
+    this.aprobacionOTService.set_actualizandoDetalleOT(this.id_OTDet_Global, largo ,ancho, altura, String(total), this.idUserGlobal).subscribe((res:RespuestaServer)=>{
+      Swal.close();
+     if (res.ok) {            
+ 
+      this.alertasService.Swal_Success('Actualizacion realizada correctamente');
+       if ( this.opcionEditar_Global  ==  'M' ) { ///--- medidaas      
+
+        for (const iterator of  this.medidasDetalle) {        
+            if (iterator.id_OTDet == this.id_OTDet_Global ) {
+              iterator.largo = largo;
+              iterator.ancho = ancho;
+              iterator.espesor = altura;
+              iterator.total = total;
+            }
+         }
+         this.calculoTotalMedidas();
+
+       }       
+       else{
+        for (const iterator of  this.desmonteDetalle) {   //// --desmonte      
+            if (iterator.id_OTDet == this.id_OTDet_Global ) {
+              iterator.largo = largo;
+              iterator.ancho = ancho;
+              iterator.espesor = altura;
+              iterator.total = total;
+            }
+         }
+         this.calculoTotalDesmonte();
+       }
+
+       this.mostrarInformacion();       
+       this.cerrarModal_editar();      
   
+     }else{
+       this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+       alert(JSON.stringify(res.data));
+     }      
+    })        
+  }
+
  
 
 }

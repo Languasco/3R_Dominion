@@ -49,19 +49,19 @@
                 <div class="col-md-8 text-center ">
                     <br>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="inlineRadio1" formControlName="tipoReporte" name="tipoReporte" value="1">
+                        <input class="form-check-input" type="radio" id="inlineRadio1" formControlName="tipoReporte" name="tipoReporte" value="1" (change)="changeDetallado($event.target.value)">
                         <label class="form-check-label" style="font-size: 11px;" for="inlineRadio1"> ROTURA DE VEREDA </label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="inlineRadio2" formControlName="tipoReporte" name="tipoReporte" value="2">
+                        <input class="form-check-input" type="radio" id="inlineRadio2" formControlName="tipoReporte" name="tipoReporte" value="2" (change)="changeDetallado($event.target.value)">
                         <label class="form-check-label" style="font-size: 11px;" for="inlineRadio2">  CONTRATA REPARACION DE VEREDA </label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="inlineRadio3" formControlName="tipoReporte" name="tipoReporte" value="3">
+                        <input class="form-check-input" type="radio" id="inlineRadio3" formControlName="tipoReporte" name="tipoReporte" value="3" (change)="changeDetallado($event.target.value)">
                         <label class="form-check-label" style="font-size: 11px;" for="inlineRadio3">  CONTRATA REPARACION DE DESMONTE  </label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="inlineRadio4" formControlName="tipoReporte" name="tipoReporte" value="4">
+                        <input class="form-check-input" type="radio" id="inlineRadio4" formControlName="tipoReporte" name="tipoReporte" value="4" (change)="changeDetallado($event.target.value)">
                         <label class="form-check-label" style="font-size: 11px;" for="inlineRadio4">  DETALLADO  </label>
                     </div>
                 </div>
@@ -70,10 +70,22 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <div class="text-center mt-3">
-                        <button class="btn  btn-sm  btn-primary" (click)="mostrarInformacion_reporte()" title="Mostar la informacion">
+                    <div class="d-flex justify-content-center">
+                        <div class="p-2 mt-4">
+                            <button class="btn  btn-sm  btn-primary" (click)="mostrarInformacion_reporte()" title="Mostar la informacion">
                                 <i class="fas fa-file-download"> Descargar</i> 
                         </button>
+                        </div>
+                        <div class="p-2 listaRadios mt-3" *ngIf="showReporteDetallado">
+                            <div class="form-check">
+                                <input class="form-check-input" id="inlineRadio6" type="radio" formControlName="tipoReporte" value="6">
+                                <label class="form-check-label" for="inlineRadio6">  Descargar con Filtros   </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" id="inlineRadio7" type="radio" formControlName="tipoReporte" value="7">
+                                <label class="form-check-label" for="inlineRadio7">  Descargar Data General    </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

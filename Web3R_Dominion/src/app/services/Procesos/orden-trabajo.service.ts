@@ -253,6 +253,13 @@ export class OrdenTrabajoService {
     return this.http.get( this.URL + 'OrdenTrabajo' , {params: parametros});
   }
 
+  set_modificar_nroObra (idOT:number,nroObra:string, idUsuario:number){ 
+    let parametros = new HttpParams();
+    parametros = parametros.append('opcion', '20');
+    parametros = parametros.append('filtro', idOT + '|' + nroObra + '|' + idUsuario  );
+    return this.http.get( this.URL + 'OrdenTrabajo' , {params: parametros});
+  }
+
 
 
 

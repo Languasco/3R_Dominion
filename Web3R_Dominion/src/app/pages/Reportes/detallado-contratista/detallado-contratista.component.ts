@@ -73,10 +73,10 @@ export class DetalladoContratistaComponent implements OnInit {
 }
 
   mostrarInformacion_reporte(){  
-      if (this.formParamsFiltro.value.idTipoOT == '' || this.formParamsFiltro.value.idTipoOT == 0) {
-        this.alertasService.Swal_alert('error','Por favor seleccione el Tipo de Orden Trabajo');
-        return 
-      }  
+      // if (this.formParamsFiltro.value.idTipoOT == '' || this.formParamsFiltro.value.idTipoOT == 0) {
+      //   this.alertasService.Swal_alert('error','Por favor seleccione el Tipo de Orden Trabajo');
+      //   return 
+      // }  
       if (this.formParamsFiltro.value.fecha_ini == '' || this.formParamsFiltro.value.fecha_ini == null) {
         this.alertasService.Swal_alert('error','Por favor seleccione la fecha inicial');
         return 
@@ -88,7 +88,6 @@ export class DetalladoContratistaComponent implements OnInit {
 
       const fechaIni = this.funcionGlobalServices.formatoFecha(this.formParamsFiltro.value.fecha_ini);
       const fechaFin = this.funcionGlobalServices.formatoFecha(this.formParamsFiltro.value.fecha_fin);
-
  
      this.spinner.show();
      this.detalleOTService.get_descargarReporteAnalisis(this.formParamsFiltro.value, fechaIni, fechaFin, this.idUserGlobal ).subscribe((res:RespuestaServer)=>{            
@@ -99,7 +98,6 @@ export class DetalladoContratistaComponent implements OnInit {
          this.alertasService.Swal_alert('error', JSON.stringify(res.data));
        }
      })
-
  }
 
 

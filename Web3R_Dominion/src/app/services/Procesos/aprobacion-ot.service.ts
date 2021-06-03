@@ -51,10 +51,11 @@ export class AprobacionOTService {
     return this.http.get( this.URL + 'AprobarOT' , {params: parametros});
   }
 
-  set_aprobarOT( idOT:number , idEstado: number,  idUsuario :number){ 
+  set_aprobarOT( idOT:number , idEstado: number,  idUsuario :number, observacion = ''){ 
     let parametros = new HttpParams();
     parametros = parametros.append('opcion', '2');
-    parametros = parametros.append('filtro', idOT + '|' + idEstado + '|' + idUsuario);
+    parametros = parametros.append('filtro', idOT + '|' + idEstado + '|' + idUsuario + '|' + observacion);
+ 
     return this.http.get( this.URL + 'AprobarOT' , {params: parametros})
   }
 
@@ -115,7 +116,29 @@ export class AprobacionOTService {
     return this.http.get( this.URL + 'AprobarOT' , {params: parametros})
   }
 
+  set_actualizandoDetalleOT( id_OTDet : number, largo: string ,ancho : string , altura : string, total :string, idUser:number ){ 
+    let parametros = new HttpParams();
+    parametros = parametros.append('opcion', '12');
+    parametros = parametros.append('filtro', id_OTDet + '|' + largo + '|' + ancho   + '|' + altura  + '|' + total  + '|' + idUser   );
+    console.log(parametros)
+    return this.http.get( this.URL + 'AprobarOT' , {params: parametros})
+  }  
+
   
+  get_eliminarMedidas( id_OTDet:number,  idUsuario :number){ 
+    let parametros = new HttpParams();
+    parametros = parametros.append('opcion', '13');
+    parametros = parametros.append('filtro', id_OTDet +  '|' + idUsuario);
+    return this.http.get( this.URL + 'AprobarOT' , {params: parametros})
+  }
+
+    
+  get_eliminarDesmonte( id_OTDet:number,  idUsuario :number){ 
+    let parametros = new HttpParams();
+    parametros = parametros.append('opcion', '14');
+    parametros = parametros.append('filtro', id_OTDet +  '|' + idUsuario);
+    return this.http.get( this.URL + 'AprobarOT' , {params: parametros})
+  }
 
 
 

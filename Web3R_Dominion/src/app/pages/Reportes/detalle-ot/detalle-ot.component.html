@@ -8,21 +8,21 @@
             <div class="row" style=" margin-top: -15px;">
                 <div class="col-md-2">
                     <label for=""> Servicio</label>
-                    <select class="form-control comboBox" formControlName="idServicio">
-                        <option value="0"> [ --TODOS-- ]</option>
+                    <select id="cboServicio" class="form-control comboBox select2Filtro" formControlName="idServicio">
+                        <option value="0"  > [ --TODOS-- ]</option>
                         <option [value]="tipo.id_servicio" *ngFor="let tipo of servicios">{{tipo.nombreServicio}}</option>
                     </select>
                 </div>
                 <div class="col-md-2">
                     <label for=""> Tipo OT</label>
-                    <select class="form-control comboBox" formControlName="idTipoOT">
+                    <select class="form-control comboBox " formControlName="idTipoOT">
                         <option value="0"> [ --SELECCIONE-- ]</option>
                         <option [value]="tipo.id_detalleTabla" *ngFor="let tipo of tipoOrdenTrabajo">{{tipo.descripcion_grupoTabla}}</option>
                     </select>
                 </div>
                 <div class="col-md-2">
                     <label for=""> Sub Contrata</label>
-                    <select class="form-control comboBox" formControlName="idProveedor">
+                    <select id="cboSubContrara" class="form-control comboBox select2Filtro " formControlName="idProveedor">
                         <option value="0"> [ --TODOS-- ]</option>
                         <option [value]="item.id_Empresa" *ngFor="let item of proveedor">{{item.razonSocial_Empresa}}</option>
                     </select>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="col-md-2 ">
                     <label for=""> Estado</label>
-                    <select class="form-control comboBox" formControlName="idEstado">
+                    <select id="cboEstado" class="form-control comboBox select2Filtro" formControlName="idEstado">
                         <option value="0"> [ --TODOS-- ]</option>
                         <option [value]="estado.id_Estado" *ngFor="let estado of estados">{{estado.descripcion_estado}}</option>
                     </select>
@@ -73,123 +73,144 @@
                 </div>
 
                 <div class="search-results tableFixHead">
-                    <table class="table  table-hover table-sm">
+                    <table class="table  table-hover table-bordered table-sm">
                         <thead class="theadTable">
 
                             <tr style="height: 40px !important;">
+                                <th class="text-center">SERVICIO
+                                </th>
+                                <th class="text-center">ESTADO
+                                </th>
+                                <th class="text-center">TIPO DE ORDEN
+                                </th>
+                                <th class="text-center">NRO OBRA/ TD
+                                </th>
+                                <th class="text-center">SED
+                                </th>
+                                <th class="text-center">NRO SUMINISTRO
+                                </th>
+                                <th class="text-center">JEFE CUADRILLA ORIGEN
+                                </th>
+                                <th class="text-center">EMPRESA ORIGEN
+                                </th>
+                                <th class="text-center">DIRECCION
+                                </th>
 
-                                <!-- <th scope="col">check</th> -->
-                                <th scope="col">#</th>
-                                <th class="text-center">Servicio</th>
-                                <th class="text-center">Estado</th>
-                                <th class="text-center">Tipo OT</th>
+                                <th class="text-center">DISTRITO
+                                </th>
+                                <th class="text-center">VIAJE INDEBIDO
+                                </th>
+                                <th class="text-center">FECHA ORIGEN
+                                </th>
+                                <th class="text-center">USUARIO APROBACION RECEPCION
+                                </th>
+                                <th class="text-center">FECHA APROBACION
+                                </th>
+                                <th class="text-center"> MES
+                                </th>
+                                <th class="text-center">FECHA ASIGNACION
+                                </th>
+                                <th class="text-center">FECHA ENVIO MOVIL
+                                </th>
+                                <th class="text-center">EMPRESA CONTRATISTA
+                                </th>
+                                <th class="text-center"> JEFE CUADRILLA
+                                </th>
+                                <th class="text-center">FECHA DE REGISTRO
+                                </th>
+                                <th class="text-center">VEREDA M2
+                                </th>
 
-                                <th class="text-center">Sed</th>
-                                <th class="text-center">Nro Suministro</th>
+                                <th class="text-center">DESMONTE RECOGIDO M3
+                                </th>
+                                <th class="text-center">DESMONTE GENERADO M3
+                                </th>
+                                <th class="text-center">USUARIO APROBACION CANCELACION
+                                </th>
 
+                                <th class="text-center">FECHA CANCELACION
+                                </th>
+                                <th class="text-center">TOTAL S/. VEREDAS M2
+                                </th>
 
-                                <th class="text-center">Nro Obra/TD</th>
-                                <th class="text-center">Direccion</th>
-                                <th class="text-center">Distrito</th>
-                                <th class="text-center">Ubicacion</th>
-                                <th class="text-center">Viaje Indebido</th>
-                                <th class="text-center">Fecha Origen</th>
-                                <th class="text-center">Fecha Asignacion</th>
-                                <th class="text-center">Fecha Envio Movil</th>
-                                <th class="text-center">Emp. Contratista</th>
-                                <th class="text-center">Jefe Cuadrilla</th>
-
-                                <th class="text-center">Fecha Registro</th>
-                                <th class="text-center">Genero Volumen</th>
-                                <th class="text-center">Volumen en Desmonte</th>
-                                <th class="text-center">Volumen Desmonte Recoger</th>
-
-                                <th class="text-center">Fecha Aprobacion</th>
-                                <th class="text-center">Fecha Cancelacion</th>
-
-                                <th class="text-center">Informe</th>
-                                <th class="text-center">Total Volumen</th>
-                                <th class="text-center">Total Desmonte</th>
-                                <th class="text-center">Total Desmonte Recoger</th>
-                                <th class="text-center">Horas Vencimiento</th>
+                                <th class="text-center">TOTAL S/. EN DESMONTE RECOGIDO M3
+                                </th>
+                                <th class="text-center">TOTAL S/. EN DESMONTE GENERADO M3
+                                </th>
+                                <th class="text-center">FUERA DE PLAZO
+                                </th>
+                                <th class="text-center"> INFORME
+                                </th>
 
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <tr *ngFor="let item of ordenTrabajoCab |  filter: filtrarMantenimiento  ; index as j" style="color: black;" [ngStyle]="{'background-color':getColorEstado(item.id_estado)}"> -->
+
                             <tr *ngFor="let item of ordenTrabajoCab |  filter: filtrarMantenimiento  ; index as j" style="color: black;" [ngStyle]="{'background-color':item.color}">
-                                <!-- <td>
-                                     <div class="custom-control custom-checkbox custom-control-inline ">
-                                        <input type="checkbox" [id]="item.id_OT" [(ngModel)]="item.checkeado" class="custom-control-input">
-                                        <label class="custom-control-label" [for]="item.id_OT"> </label>
-                                    </div>  
-                                </td> -->
-                                <td scope="row"> {{j + 1}} </td>
                                 <td>
-                                    <div style="width: 150px;"> {{item.descripcionServicio}} </div>
+                                    <div style="width: 200px;">
+                                        {{item.servicio}}
+                                    </div>
                                 </td>
                                 <td>
-                                    <div style="width: 300px;"> {{item.descripcionEstado}} </div>
+                                    <div style="width: 250px;">
+                                        {{item.estado}}
+                                    </div>
                                 </td>
-                                <td>{{item.tipoOT}}</td>
-                                <td>{{item.nroSed}}</td>
-                                <td>{{item.nroSuministro}}</td>
-
+                                <td>{{item.tipoorden}}</td>
                                 <td>
-                                    <div style="width: 120px;"> {{item.nroObra}} </div>
+                                    <div style="width: 120px;">
+                                        {{item.nroobratd}}
+                                    </div>
                                 </td>
+                                <td>{{item.sed}}</td>
+                                <td>{{item.nrosuministro}}</td>
                                 <td>
-                                    <div style="width: 300px;"> {{item.direccion}} </div>
+                                    <div style="width: 250px;">
+                                        {{item.jefecuadrillaorigen}}
+                                    </div>
                                 </td>
+                                <td>{{item.empresaorigen}}</td>
                                 <td>
-                                    <div style="width: 200px;"> {{item.distrito}} </div>
-                                </td>
-
-                                <td *ngIf="item.latitud.length ==0 " class="text-center puntero"> </td>
-                                <td *ngIf="item.latitud.length > 0 " class="text-center puntero" (click)="abrirModalMapa(item.latitud, item.longitud )"> <i title="ver mapa" style="color: red;" class="fas fa-map-marker-alt fa-2x">  </i> </td>
-
-                                <td class="text-center">
-                                    <div style="width: 160px;"> {{item.viajeIndebido}}</div>
-                                </td>
-                                <td class="text-center">
-                                    <div style="width: 160px;"> {{item.FechaOrigen}}</div>
+                                    <div style="width: 300px;">
+                                        {{item.direccion}}
+                                    </div>
                                 </td>
                                 <td>
-                                    <div style="width: 160px;"> {{item.FechaAsignacion}}</div>
-                                </td>
-                                <td>
-                                    <div style="width: 160px;"> {{item.FechaMovil}}</div>
-                                </td>
-                                <td>
-                                    <div style="width: 300px;"> {{item.empresaContratista}} </div>
-                                </td>
-                                <td>
-                                    <div style="width: 200px;"> {{item.jefeCuadrilla}} </div>
+                                    <div style="width: 300px;">
+                                        {{item.distrito}}
+                                    </div>
                                 </td>
 
+                                <td>{{item.viajeindebido}}</td>
+                                <td>{{item.fechaorigen}}</td>
+                                <td>{{item.usuarioaprobacionrecepcion}}</td>
+                                <td>{{item.fechaaprobacion}}</td>
+                                <td>{{item.mes}}</td>
+                                <td>{{item.FechaAsignacion}}</td>
+                                <td>{{item.fechaenviomovil}}</td>
+                                <td>{{item.empresacontratista}}</td>
                                 <td>
-                                    <div style="width: 160px;">{{item.fechaRegistro}} </div>
+                                    <div style="width: 250px;">
+                                        {{item.jefecuadrilla}}
+                                    </div>
                                 </td>
-                                <td class="text-right">{{item.generaVolumen | number}}</td>
-                                <td class="text-right">{{item.volumenDesmonte | number}}</td>
-                                <td class="text-right">{{item.volumenDesmonteRecoger | number}}</td>
-                                <td>
-                                    <div style="width: 160px;">{{item.fechaAprobacion}} </div>
-                                </td>
-                                <td>
-                                    <div style="width: 160px;">{{item.fechaCancelacion}} </div>
-                                </td>
+                                <td>{{item.fecharegistro}}</td>
+                                <td class="text-right">{{item.veredam2 | number }}</td>
+                                <td class="text-right">{{item.desmonterecogidom3 | number }}</td>
 
+                                <td class="text-right">{{item.desmontegeneradom3 | number }}</td>
+                                <td>{{item.usuarioaprobacioncancelacion}}</td>
 
+                                <td>{{item.fechacancelacion}}</td>
+                                <td class="text-right">{{item.totalveredasm2 | number}}</td>
+                                <td class="text-right">{{item.totaldesmonterecogidom3 | number }}</td>
+                                <td class="text-right">{{item.totaldesmontegeneradom3 | number }}</td>
+                                <td>{{item.fueraplazo}}</td>
                                 <td>
                                     <span class="badge badge-primary puntero" style="padding: 5px;" (click)="abrirModal_OT(item)">  Ver Informe </span>
                                 </td>
 
-                                <td class="text-right">{{item.totalVolumen | number}}</td>
-                                <td class="text-right">{{item.totalDesmonte | number}}</td>
-                                <td class="text-right">{{item.totalDesmonteRecoger | number}}</td>
-
-                                <td class="text-right">{{item.diasVencimiento }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -328,6 +349,14 @@
                                                     </div>
                                                 </div>
 
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <label> Observacion</label>
+                                                        <input type="text" class="form-control " maxlength="200" formControlName="observacion">
+                                                    </div>
+                                                </div>
+
                                             </form>
 
                                             <br>
@@ -366,7 +395,7 @@
                                                             <th scope="col" class="text-center">Tipo Material</th>
                                                             <th scope="col" class="text-center">Largo</th>
                                                             <th scope="col" class="text-center">Ancho</th>
-                                                            <th scope="col" class="text-center">Espesor</th>
+                                                            <th scope="col" class="text-center">Altura</th>
                                                             <th scope="col" class="text-center">Total</th>
                                                             <th colspan="2" class="text-center">Acciones</th>
                                                         </tr>
@@ -406,14 +435,14 @@
                                         <div class="card-body ">
 
                                             <div class=" table-responsive" *ngIf="id_OTGlobal > 0">
-                                                <table class="table table-hover table-sm">
+                                                <table class="table table-hover   table-sm">
                                                     <thead class="theadTable thead-dark">
                                                         <tr>
                                                             <th scope="col">#</th>
                                                             <th scope="col" class="text-center">Tipo </th>
                                                             <th scope="col" class="text-center">Largo</th>
                                                             <th scope="col" class="text-center">Ancho</th>
-                                                            <th scope="col" class="text-center">Espesor</th>
+                                                            <th scope="col" class="text-center">Altura</th>
                                                             <th scope="col" class="text-center">Total</th>
                                                             <th colspan="2" class="text-center">Acciones</th>
                                                         </tr>
@@ -550,7 +579,7 @@
                         <label for=""> Ancho :  {{this.detalleOT.ancho}} </label>
                     </div>
                     <div class="col-xs-6 col-md-3">
-                        <label for=""> Espesor :  {{this.detalleOT.espesor}}  </label>
+                        <label for=""> Altura :  {{this.detalleOT.espesor}}  </label>
                     </div>
                     <div class="col-xs-6 col-md-3">
                         <label for=""> Total :  {{this.detalleOT.total}}  </label>

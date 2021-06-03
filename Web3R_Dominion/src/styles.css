@@ -231,3 +231,44 @@
      margin-bottom: -16px !important;
      flex-wrap: nowrap;
  }
+ /* COMBO BUSCADOR SELECT 2 */
+ 
+ .select2-container--default .select2-selection--single {
+     font-size: 11px !important;
+     font-family: 'Montserrat', sans-serif;
+ }
+ 
+ .select2-container--default .select2-search--dropdown .select2-search__field {
+     height: 30px;
+ }
+ 
+ .select2-container--default .select2-results__option--highlighted[aria-selected] {
+     height: 30px;
+     /* color: #746660; */
+     margin-bottom: 2px;
+     font-size: 11px !important;
+     font-family: 'Montserrat', sans-serif;
+     font-weight: 500;
+ }
+ 
+ .select2-container--default .select2-results__option--highlighted[aria-selected] {
+     background-color: #002f77 !important;
+     color: white;
+ }
+ 
+ .select2-results__option {
+     /* color: #746660; */
+     margin-bottom: 2px;
+     font-size: 11px !important;
+     font-family: 'Montserrat', sans-serif;
+ }
+ 
+ .select2-container {
+     width: 98% !important;
+ }
+ /*  FIN DE COMBO BUSCADOR SELECT 2 */
+ 
+ .select2-container--default .select2-selection--multiple .select2-selection__choice__display {
+     font-size: 10px;
+     font-family: 'Montserrat', sans-serif;
+ }

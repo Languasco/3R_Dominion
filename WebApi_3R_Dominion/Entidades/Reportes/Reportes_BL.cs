@@ -58,7 +58,11 @@ namespace Entidades.Reportes
         public string color { get; set; }
         public string viajeIndebido { get; set; }
         public string tipoTrabajo_OTOrigen { get; set; }
+        public string jefeCuadrillaOrigen { get; set; }
+        public string observacion { get; set; }
 
+        public string usuarioAprobacion { get; set; }
+        public string empresaOrigen { get; set; }
     }
 
 

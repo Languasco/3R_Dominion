@@ -113,9 +113,11 @@ export class OrdenTrabajoComponent implements OnInit  {
   prioridades :any[]=[]; 
   idPrioridad =0;
   observacionPrioridad ="";
+  idPerfil_global  =0 ;
    
   constructor(private alertasService : AlertasService, private spinner: NgxSpinnerService, private loginService: LoginService, private listaPreciosService : ListaPreciosService, private ordenTrabajoService : OrdenTrabajoService, private funcionGlobalServices : FuncionesglobalesService, private websocketService : WebsocketService, private aprobacionOTService : AprobacionOTService   ) {         
     this.idUserGlobal = this.loginService.get_idUsuario();
+    this.idPerfil_global = this.loginService.get_idPerfil();  
   }
  
  ngOnInit(): void {
@@ -606,9 +608,7 @@ export class OrdenTrabajoComponent implements OnInit  {
     google.maps.event.addListener(infowindow, 'domready',   ()=> { 
       if (document.getElementById('btn' + item.id_OT)) { 
           google.maps.event.addDomListener(document.getElementById('btn' + item.id_OT), 'click', ()=> {  
-
-          this.abrirModal_OT({id_OT : item.id_OT,nroObra: item.nroOT ,fechaHora : item.fechaHora ,direccion: item.direccion , id_Distrito: item.id_Distrito , referencia : item.referencia, descripcion_OT : item.descripcion_OT, id_tipoTrabajo : item.id_tipoTrabajo ,id_estado: item.estado , tipoTrabajo_OTOrigen : item.tipoTrabajo_OTOrigen  })
-       
+            this.abrirModal_OT({id_OT : item.id_OT,nroObra: item.nroOT ,fechaHora : item.fechaHora ,direccion: item.direccion , id_Distrito: item.id_Distrito , referencia : item.referencia, descripcion_OT : item.descripcion_OT, id_tipoTrabajo : item.id_tipoTrabajo ,id_estado: item.estado , tipoTrabajo_OTOrigen : item.tipoTrabajo_OTOrigen  })       
           });
           return
       } else {
@@ -1524,6 +1524,48 @@ export class OrdenTrabajoComponent implements OnInit  {
           }
   })
   
+ }
+
+ modificarNroOrden(){
+
+  // validando solo por perfil Coordinador de Servicios
+  if (this.idPerfil_global != 2) { 
+    return 
+  }
+
+  if (this.nroObraParteDiario_Global == '' || this.nroObraParteDiario_Global == null ) {
+    this.alertasService.Swal_alert('error','Por favor ingrese el Nro Orden');
+    return 
+  }
+
+   this.alertasService.Swal_Question('Sistemas', 'Esta seguro de modificar ?')
+   .then((result)=>{
+     if(result.value){
+
+       Swal.fire({  icon: 'info', allowOutsideClick: false, allowEscapeKey: false, text: 'Espere por favor'  })
+       Swal.showLoading();
+       this.ordenTrabajoService.set_modificar_nroObra( this.id_OTGlobal, this.nroObraParteDiario_Global, this.idUserGlobal  ).subscribe((res:RespuestaServer)=>{
+         Swal.close();        
+         if (res.ok ==true) { 
+           
+           for (const user of this.ordenTrabajoCab) {
+             if (user.id_OT == this.id_OTGlobal ) {           
+                 user.nroObra = this.nroObraParteDiario_Global;
+                 break;
+             }
+           }
+           this.alertasService.Swal_Success('Modificacion realizada correctamente..')  
+
+         }else{
+           this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+           alert(JSON.stringify(res.data));
+         }
+       })
+        
+     }
+   }) 
+
+
  }
 
 

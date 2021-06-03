@@ -652,7 +652,7 @@
                 <div class="row p-3 " style=" margin-top: -15px;">
                     <div class="col-md-3">
                         <label> Nro Orden</label>
-                        <input type="text" class="form-control disabledForm" [(ngModel)]="nroObraParteDiario_Global">
+                        <input type="text" class="form-control " style="background-color: beige; color:red; font-weight: 600;" maxlength="30" [(ngModel)]="nroObraParteDiario_Global" (keyup.enter)="modificarNroOrden()">
                     </div>
                     <div class="col-md-3">
                         <label> Fecha y Hora de Registro</label>
@@ -770,7 +770,7 @@
                                                             <th scope="col" class="text-center">Tipo Material</th>
                                                             <th scope="col" class="text-center">Largo</th>
                                                             <th scope="col" class="text-center">Ancho</th>
-                                                            <th scope="col" class="text-center">Espesor</th>
+                                                            <th scope="col" class="text-center">Altura</th>
                                                             <th scope="col" class="text-center">Total</th>
                                                             <th colspan="2" class="text-center">Acciones</th>
                                                         </tr>
@@ -817,7 +817,7 @@
                                                             <th scope="col" class="text-center">Tipo </th>
                                                             <th scope="col" class="text-center">Largo</th>
                                                             <th scope="col" class="text-center">Ancho</th>
-                                                            <th scope="col" class="text-center">Espesor</th>
+                                                            <th scope="col" class="text-center">Altura</th>
                                                             <th scope="col" class="text-center">Total</th>
                                                             <th colspan="2" class="text-center">Acciones</th>
                                                         </tr>
@@ -930,7 +930,7 @@
                         <label for=""> Ancho :  {{this.detalleOT.ancho}} </label>
                     </div>
                     <div class="col-xs-6 col-md-3">
-                        <label for=""> Espesor :  {{this.detalleOT.espesor}}  </label>
+                        <label for=""> Altura :  {{this.detalleOT.espesor}}  </label>
                     </div>
                     <div class="col-xs-6 col-md-3">
                         <label for=""> Total :  {{this.detalleOT.total}}  </label>
