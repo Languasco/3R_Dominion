@@ -9,7 +9,7 @@ import { LoginService } from '../../../services/login/login.service';
 import { from } from 'rxjs';
 import Swal from 'sweetalert2';
 import { ProveedorService } from '../../../services/Mantenimientos/proveedor.service';
-
+ 
 declare var $:any;
 
 @Component({
@@ -34,8 +34,13 @@ export class ProveedorComponent implements OnInit {
   proveedores :any[]=[];
   filtrarMantenimiento = "";
   detalleIconos:any[]=[];
-  tabControlDetalle: string[] = ['DATOS GENERALES','REGISTRO DE PLACAS' ]; 
+  // tabControlDetalle: string[] = ['DATOS GENERALES','REGISTRO DE PLACAS', 'TIPOS DE TRABAJOS' ]; 
+  tabControlDetalle: string[] = ['DATOS GENERALES', 'TIPOS DE TRABAJOS' ]; 
   selectedTabControlDetalle :any;
+  acumudadorArea= 1;
+  acumudadorTipoTrabajo= 999;
+  areas :any [] =[];
+  tipoTrabajos = [];
 
   detalleVehiculos:any[]=[];
   @ViewChild('_cant') _cantElement: ElementRef;
@@ -126,6 +131,9 @@ export class ProveedorComponent implements OnInit {
     this.get_retornarIconos(0);
 
     this.blank_Detalle()
+    this.areas= [];
+    this.tipoTrabajos = [];
+
     this.selectedTabControlDetalle = this.tabControlDetalle[0];
  }
 
@@ -255,8 +263,9 @@ export class ProveedorComponent implements OnInit {
 
    this.get_retornarIconos(id_Icono);
 
-   this.get_detallePlacasVehiculos();
+  //  this.get_detallePlacasVehiculos();
    this.selectedTabControlDetalle = this.tabControlDetalle[0];
+   this.get_areasEmpresa();
 
  } 
 
@@ -463,7 +472,71 @@ get_verificarPlaca(nroPlaca:string){
     }
   })
  }
+
+
+ get_areasEmpresa(){
+
+  this.acumudadorArea= 1; 
+  Swal.fire({  icon: 'info', allowOutsideClick: false, allowEscapeKey: false, text: 'Cargando Areas, Espere por favor'  })
+  Swal.showLoading();
+  this.proveedorService.get_areaEmpresa(this.idEmpresaGlobal, this.idUserGlobal).subscribe((res:RespuestaServer)=>{
+    Swal.close();      
+    if (res.ok==true) {         
+        this.areas = res.data;
+        this.tipoTrabajos = [];
+        if ( this.areas.length > 0) {
+          const areasMarcadas =  this.funcionesglobalesService.obtenerCheck_IdPrincipal(this.areas, 'id_Servicios');
+          this.tipoTrabajoEmpresaArea(areasMarcadas);
+        }
+    }else{
+      this.spinner.hide();
+      this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+      alert(JSON.stringify(res.data));
+    }   
+  })
+
+ }
  
+ change_area(opcion:any){ 
+  const areasMarcadas =  this.funcionesglobalesService.obtenerCheck_IdPrincipal(this.areas, 'id_Servicios');
+  this.tipoTrabajoEmpresaArea(areasMarcadas);
+ }
+
+ tipoTrabajoEmpresaArea(areasMarcadas :any[]=[]){
+  this.acumudadorTipoTrabajo = 999;
+  Swal.fire({  icon: 'info', allowOutsideClick: false, allowEscapeKey: false, text: 'Cargando Tipo de Trabajo, Espere por favor'  })
+  Swal.showLoading();
+ 
+  this.proveedorService.get_tipoTrabajoEmpresaArea(this.idEmpresaGlobal, areasMarcadas.join(), this.idUserGlobal).subscribe((res:RespuestaServer)=>{
+    Swal.close();       
+    if (res.ok==true) {    
+        this.tipoTrabajos = res.data;
+    }else{
+      this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+      alert(JSON.stringify(res.data));
+    }   
+  })
+ }
+
+ guardarConfiguracionTipoTrabajo(){
+  
+  const areasMarcadas =  this.funcionesglobalesService.obtenerCheck_IdPrincipal(this.areas, 'id_Servicios');
+  const tipoTrabajoMarcadas =  this.funcionesglobalesService.obtenerCheck_IdPrincipal(this.tipoTrabajos, 'id_tipoTrabajo');
+
+  this.proveedorService.save_configuracionTipoTrabajo(this.idEmpresaGlobal, areasMarcadas.join(), tipoTrabajoMarcadas.join(), this.idUserGlobal).subscribe((res:RespuestaServer)=>{
+    Swal.close();      
+    if (res.ok==true) {         
+      this.alertasService.Swal_Success('Se agregó la configuracion correctamente..');
+    }else{
+      this.spinner.hide();
+      this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+      alert(JSON.stringify(res.data));
+    }   
+  })
+  
+}
+
+
   
 
 }

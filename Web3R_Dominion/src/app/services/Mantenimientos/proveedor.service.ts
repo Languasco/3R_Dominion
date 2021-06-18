@@ -139,5 +139,29 @@ export class ProveedorService {
     return this.http.get( this.URL + 'tblEmpresas_Vehiculos' , { params: parametros });
   }
 
+  get_areaEmpresa(idEmpresa:number, idUser:number){
+    let parametros = new HttpParams();
+    parametros = parametros.append('opcion', '9');
+    parametros = parametros.append('filtro', idEmpresa  +'|'+ idUser);
+
+    return this.http.get( this.URL + 'tblEmpresas' , {params: parametros});
+  }
+
+  get_tipoTrabajoEmpresaArea(idEmpresa:number, areasMarcadas :string, idUser:number){
+    let parametros = new HttpParams();
+    parametros = parametros.append('opcion', '10');
+    parametros = parametros.append('filtro', idEmpresa  +'|'+ areasMarcadas +'|'+ idUser);
+
+    return this.http.get( this.URL + 'tblEmpresas' , {params: parametros});
+  }
+
+  save_configuracionTipoTrabajo(idEmpresa:number, areasMarcadas :string, tipoTrabajoMarcadas:string, idUser:number){
+    let parametros = new HttpParams();
+    parametros = parametros.append('opcion', '11');
+    parametros = parametros.append('filtro', idEmpresa  +'|'+ areasMarcadas +'|'+ tipoTrabajoMarcadas +'|'+ idUser );
+    return this.http.get( this.URL + 'tblEmpresas' , {params: parametros});
+  }
+
+
 
 }

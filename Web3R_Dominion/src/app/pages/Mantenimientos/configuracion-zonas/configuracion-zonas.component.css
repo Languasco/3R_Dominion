@@ -113,3 +113,12 @@ legend {
 .custom-checkbox .custom-control-label {
     color: #6c757d !important
 }
+
+.list-group-item {
+    padding: 0.20rem 1rem;
+}
+
+.botonFile,
+input {
+    height: 20px;
+}

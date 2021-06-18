@@ -175,7 +175,7 @@
 
                                 </div>
 
-                                <div *ngIf="selectedTabControlDetalle === tabControlDetalle[1]" role="tabpanel" class="tab-pane active">
+                                <!-- <div *ngIf="selectedTabControlDetalle === tabControlDetalle[1]" role="tabpanel" class="tab-pane active">
 
                                     <div class="card border-primary">
                                         <div class="card-body" *ngIf="this.idEmpresaGlobal > 0">
@@ -227,7 +227,51 @@
                                         </div>
                                     </div>
 
+                                </div> -->
+
+                                <div *ngIf="selectedTabControlDetalle === tabControlDetalle[1]" role="tabpanel" class="tab-pane active">
+
+                                    <div class="card border-primary">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <ul class="list-group list-group-flush">
+                                                        <li class="list-group-item active"> Areas </li>
+                                                        <li class="list-group-item" *ngFor="let item of areas; index as i">
+                                                            <div class="custom-control custom-checkbox " style="margin-bottom:-5px;">
+                                                                <input type="checkbox" [id]="acumudadorArea+i" [(ngModel)]="item.checkeado" (change)="change_area($event)" [name]="item.nombreServicio" class="custom-control-input">
+                                                                <label class="custom-control-label" [for]="acumudadorArea+i">  {{item.nombreServicio}} </label>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <ul class="list-group list-group-flush">
+                                                        <li class="list-group-item active"> Tipos de Trabajos </li>
+                                                        <li class="list-group-item" *ngFor="let item of tipoTrabajos; index as i">
+                                                            <div class="custom-control custom-checkbox " style="margin-bottom:-5px;">
+                                                                <input type="checkbox" [id]="acumudadorTipoTrabajo+i" [(ngModel)]="item.checkeado" [name]="item.nombreTipoTrabajo" class="custom-control-input">
+                                                                <label class="custom-control-label" [for]="acumudadorTipoTrabajo+i">  {{item.nombreTipoTrabajo}} </label>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                    <hr>
+
+                                                    <div class="text-center">
+                                                        <button class="btn btn-sm btn-success" (click)="guardarConfiguracionTipoTrabajo()" title="Guadar configuracion Tipo de Trabajo"> <i class="fas fa-save"> Grabar</i></button>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
                                 </div>
+
+
                             </div>
                         </div>
 

@@ -208,6 +208,94 @@ namespace Negocio.Mantenimientos
             }
             return dt_detalle;
         }
+        public DataTable get_areasEmpresa(int idEmpresa, int idUsuario)
+        {
+            DataTable dt_detalle = new DataTable();
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(bdConexion.cadenaBDcx()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_MANT_PROVEEDOR_AREAS_EMPRESA", cn))
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@idEmpresa", SqlDbType.Int).Value = idEmpresa;
+                        cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+
+
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt_detalle);
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return dt_detalle;
+        }
+
+        public DataTable get_tipoTrabajoEmpresaArea(int idEmpresa, string areasMasivo, int idUsuario)
+        {
+            DataTable dt_detalle = new DataTable();
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(bdConexion.cadenaBDcx()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_MANT_PROVEEDOR_TIPO_TRABAJO_AREAS_EMPRESA", cn))
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@idEmpresa", SqlDbType.Int).Value = idEmpresa;
+                        cmd.Parameters.Add("@areasMasivo", SqlDbType.VarChar).Value = areasMasivo;
+                        cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt_detalle);
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return dt_detalle;
+        }
+
+        public string save_configuracionTipoTrabajo(int idEmpresa, string areasMasivo, string tipoTrabajoMasivo, int idUsuario)
+        {
+            string resultado = "";
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(bdConexion.cadenaBDcx()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_MANT_PROVEEDOR_CONFI_TIPO_TRABAJO", cn))
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@idEmpresa", SqlDbType.Int).Value = idEmpresa;
+                        cmd.Parameters.Add("@areasMasivo", SqlDbType.VarChar).Value = areasMasivo;
+                        cmd.Parameters.Add("@tipoTrabajoMasivo", SqlDbType.VarChar).Value = tipoTrabajoMasivo;
+                        cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = idUsuario;
+
+                        cmd.ExecuteNonQuery();
+                        resultado = "OK";
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                resultado = e.Message;
+            }
+            return resultado;
+        }
 
 
     }

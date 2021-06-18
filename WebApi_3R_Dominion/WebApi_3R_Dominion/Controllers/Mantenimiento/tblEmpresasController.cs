@@ -159,7 +159,42 @@ namespace WebApi_3R_Dominion.Controllers.Mantenimiento
                     res.totalpage = 0;
                     resul = res;
                 }
+                else if (opcion == 9)
+                {
+                    string[] parametros = filtro.Split('|');
+                    int idEmpresa = Convert.ToInt32(parametros[0].ToString());
+                    int idUsuario = Convert.ToInt32(parametros[1].ToString());
 
+                    res.ok = true;
+                    res.data = obj_negocio.get_areasEmpresa(idEmpresa, idUsuario);
+                    res.totalpage = 0;
+                    resul = res;
+                }
+                else if (opcion == 10)
+                {
+                    string[] parametros = filtro.Split('|');
+                    int idEmpresa = Convert.ToInt32(parametros[0].ToString());
+                    string areasMasivo = parametros[1].ToString();
+                    int idUsuario = Convert.ToInt32(parametros[2].ToString());
+
+                    res.ok = true;
+                    res.data = obj_negocio.get_tipoTrabajoEmpresaArea(idEmpresa, areasMasivo, idUsuario);
+                    res.totalpage = 0;
+                    resul = res;
+                }
+                else if (opcion == 11)
+                {
+                    string[] parametros = filtro.Split('|');
+                    int idEmpresa = Convert.ToInt32(parametros[0].ToString());
+                    string areasMasivo = parametros[1].ToString();
+                    string tipoTrabajoMasivo = parametros[2].ToString();
+                    int idUsuario = Convert.ToInt32(parametros[3].ToString());
+
+                    res.ok = true;
+                    res.data = obj_negocio.save_configuracionTipoTrabajo(idEmpresa, areasMasivo, tipoTrabajoMasivo, idUsuario);
+                    res.totalpage = 0;
+                    resul = res;
+                }
                 else
                 {
                     res.ok = false;
